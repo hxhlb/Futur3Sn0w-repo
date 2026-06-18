@@ -49,6 +49,44 @@ deb_control() {
     ar p "$deb" "$member" | tar $(control_tar_flags "$member") control
 }
 
+control_field() {
+  local control="$1"
+  local field="$2"
+  printf '%s\n' "$control" | awk -F': ' -v field="$field" '$1 == field { print; exit }'
+}
+
+control_rest() {
+  local control="$1"
+  printf '%s\n' "$control" | awk -F': ' '
+    $1 != "Package" &&
+    $1 != "Name" &&
+    $1 != "Version" &&
+    $1 != "Architecture" &&
+    $1 != "Description" &&
+    $1 != "Maintainer" &&
+    $1 != "Author" &&
+    $1 != "Depends" &&
+    $1 != "Section" &&
+    $1 != "Installed-Size" &&
+    $1 != "Filename" &&
+    $1 != "Size" &&
+    $1 != "MD5sum" &&
+    $1 != "SHA1" &&
+    $1 != "SHA256" {
+      print
+    }
+  '
+}
+
+write_canonical_control() {
+  local control="$1"
+  local field
+  for field in Package Name Version Architecture Description Maintainer Author Depends Section Installed-Size; do
+    control_field "$control" "$field"
+  done
+  control_rest "$control"
+}
+
 generate_packages() {
   local packages_file="$1"
   shift
@@ -56,7 +94,9 @@ generate_packages() {
   : > "$packages_file"
   for deb in "$@"; do
     local copied_deb="debs/$(basename "$deb")"
-    deb_control "$deb" >> "$packages_file"
+    local control
+    control="$(deb_control "$deb")"
+    write_canonical_control "$control" >> "$packages_file"
     {
       echo "Filename: $copied_deb"
       echo "Size: $(file_size "$deb")"
@@ -74,17 +114,17 @@ append_release_checksums() {
 
   echo "MD5Sum:" >> "$release_file"
   for file in "$@"; do
-    printf ' %s %16s %s\n' "$(md5_file "$file")" "$(file_size "$file")" "$(basename "$file")" >> "$release_file"
+    printf ' %s %16s %s\n' "$(md5_file "$file")" "$(file_size "$file")" "$file" >> "$release_file"
   done
 
   echo "SHA1:" >> "$release_file"
   for file in "$@"; do
-    printf ' %s %16s %s\n' "$(sha1_file "$file")" "$(file_size "$file")" "$(basename "$file")" >> "$release_file"
+    printf ' %s %16s %s\n' "$(sha1_file "$file")" "$(file_size "$file")" "$file" >> "$release_file"
   done
 
   echo "SHA256:" >> "$release_file"
   for file in "$@"; do
-    printf ' %s %16s %s\n' "$(sha256_file "$file")" "$(file_size "$file")" "$(basename "$file")" >> "$release_file"
+    printf ' %s %16s %s\n' "$(sha256_file "$file")" "$(file_size "$file")" "$file" >> "$release_file"
   done
 }
 
@@ -103,21 +143,36 @@ if [ ! -e "$WORKTREE" ]; then
   fi
 fi
 
-mkdir -p "$WORKTREE/debs"
-find "$WORKTREE/debs" -type f -name '*.deb' -delete
-
-deb_files=()
+source_debs=()
 while IFS= read -r deb; do
-  copied_deb="$WORKTREE/debs/$(basename "$deb")"
-  cp "$deb" "$copied_deb"
-  deb_files+=("$copied_deb")
+  source_debs+=("$deb")
 done < <(find "$ROOT" \
   -path "$WORKTREE" -prune -o \
   -path '*/packages/*.deb' -type f -print)
 
-if [ "${#deb_files[@]}" -eq 0 ]; then
-  echo "warning: no .deb files found under tweak packages/ folders." >&2
+if [ "${#source_debs[@]}" -eq 0 ]; then
+  echo "error: no .deb files found under tweak packages/ folders." >&2
+  echo "Build packages first, for example: (cd SevenEleven && make package)." >&2
+  exit 1
 fi
+
+mkdir -p "$WORKTREE/debs"
+find "$WORKTREE/debs" -type f -name '*.deb' -delete
+rm -rf "$WORKTREE/dists"
+
+deb_files=()
+for deb in "${source_debs[@]}"; do
+  copied_deb="$WORKTREE/debs/$(basename "$deb")"
+  cp "$deb" "$copied_deb"
+  deb_files+=("$copied_deb")
+done
+
+cat > "$WORKTREE/.gitignore" <<'GITIGNORE'
+.DS_Store
+AppSwitcherController/
+*/.theos/
+*/packages/
+GITIGNORE
 
 cat > "$WORKTREE/index.html" <<'HTML'
 <!doctype html>
@@ -154,6 +209,27 @@ RELEASE
   generate_packages Packages "${deb_files[@]}"
   gzip -cn9 Packages > Packages.gz
   append_release_checksums Release Packages Packages.gz
+
+  for dist in stable ios; do
+    mkdir -p "dists/$dist/main/binary-iphoneos-arm"
+    cp Packages "dists/$dist/main/binary-iphoneos-arm/Packages"
+    gzip -cn9 "dists/$dist/main/binary-iphoneos-arm/Packages" > "dists/$dist/main/binary-iphoneos-arm/Packages.gz"
+    cat > "dists/$dist/Release" <<RELEASE
+Origin: Futur3Sn0w
+Label: Futur3Sn0w's Public Repo
+Suite: stable
+Version: 1.0
+Codename: $dist
+Architectures: iphoneos-arm
+Components: main
+Description: Futur3Sn0w jailbreak tweaks.
+RELEASE
+    (
+      cd "dists/$dist"
+      append_release_checksums Release main/binary-iphoneos-arm/Packages main/binary-iphoneos-arm/Packages.gz
+    )
+  done
+
   git add .
   git commit -m "Update package repo" || true
 )
