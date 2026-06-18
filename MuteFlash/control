@@ -1,0 +1,9 @@
+Package: com.futur3sn0w.muteflash
+Name: MuteFlash
+Version: 0.0.1
+Architecture: iphoneos-arm64
+Description: Use the ringer switch as a flashlight toggle without changing silent mode.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader, com.futur3sn0w.mutemodule

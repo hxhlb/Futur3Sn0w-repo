@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -f /var/mobile/Documents/MuteFlash.txt
+exit 0

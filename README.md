@@ -7,6 +7,8 @@ Source for Futur3Sn0w jailbreak tweaks and related package-repo files.
 | Tweak | Package | Status | Summary |
 | --- | --- | --- | --- |
 | CenterLastRow | `com.futur3sn0w.centerlastrow` | Early public source | Centers the final SpringBoard icon row when it is not full. |
+| MuteFlash | `com.futur3sn0w.muteflash` | Rootless public source | Toggles the flashlight when flipping the ringer switch on devices without the Action button. |
+| MuteModule | `com.futur3sn0w.mutemodule` | Rootless public source | Exposes Apple's hidden Silent Mode Control Center module on iPhone. |
 | NoSeparators | `com.futur3sn0w.noseparators` | Early public source | Hides common UIKit separator lines systemwide on iOS 11. |
 | Solert | `com.futur3sn0w.solert` | Rootless public source | Restyles `UIAlertController` with an iOS 26-inspired look on iOS 15+. |
 | SwipeForMore7 | `com.futur3sn0w.swipeformore7` | iOS 7 compatibility fork | Brings SwipeForMore-style Cydia package actions to older iOS targets. |

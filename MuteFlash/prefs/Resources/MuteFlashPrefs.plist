@@ -1,0 +1,9 @@
+{
+	entry = {
+		bundle = MuteFlashPrefs;
+		cell = PSLinkCell;
+		detail = MFPRootListController;
+		isController = 1;
+		label = MuteFlash;
+	};
+}

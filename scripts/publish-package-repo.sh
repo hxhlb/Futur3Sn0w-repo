@@ -22,6 +22,10 @@ sha256_file() {
   shasum -a 256 "$1" | awk '{print $1}'
 }
 
+file_mtime() {
+  stat -f%m "$1" 2>/dev/null || stat -c%Y "$1"
+}
+
 control_member() {
   ar t "$1" | awk '/^control\.tar\./ { print; exit }'
 }
@@ -144,18 +148,52 @@ if [ ! -e "$WORKTREE" ]; then
   fi
 fi
 
-source_debs=()
+current_packages_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-current-packages.XXXXXX")"
+candidate_debs_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-candidate-debs.XXXXXX")"
+selected_debs_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-selected-debs.XXXXXX")"
+trap 'rm -f "$current_packages_file" "$candidate_debs_file" "$selected_debs_file"' EXIT
+
+while IFS= read -r control_file; do
+  awk -F': ' '$1 == "Package" { print $2; exit }' "$control_file"
+done < <(find "$ROOT" \
+  -path "$WORKTREE" -prune -o \
+  -name control -type f -print) | sort -u > "$current_packages_file"
+
+if [ ! -s "$current_packages_file" ]; then
+  echo "error: no source control files found." >&2
+  exit 1
+fi
+
+: > "$candidate_debs_file"
 while IFS= read -r deb; do
-  source_debs+=("$deb")
+  control="$(deb_control "$deb")"
+  package="$(control_field "$control" Package)"
+  architecture="$(control_field "$control" Architecture)"
+  package="${package#Package: }"
+  architecture="${architecture#Architecture: }"
+
+  if grep -Fxq "$package" "$current_packages_file"; then
+    printf '%s\t%s\t%s\t%s\n' "$(file_mtime "$deb")" "$package" "$architecture" "$deb" >> "$candidate_debs_file"
+  fi
 done < <(find "$ROOT" \
   -path "$WORKTREE" -prune -o \
   -path '*/packages/*.deb' -type f -print)
 
-if [ "${#source_debs[@]}" -eq 0 ]; then
+if [ ! -s "$candidate_debs_file" ]; then
   echo "error: no .deb files found under tweak packages/ folders." >&2
-  echo "Build packages first, for example: (cd SevenEleven && make package)." >&2
+  echo "Build packages first, for example: (cd Solert && make package)." >&2
   exit 1
 fi
+
+sort -t $'\t' -k2,2 -k3,3 -k1,1n "$candidate_debs_file" |
+  awk -F '\t' '{ key = $2 FS $3; line[key] = $0 } END { for (key in line) print line[key] }' |
+  sort -t $'\t' -k2,2 -k3,3 |
+  cut -f4- > "$selected_debs_file"
+
+source_debs=()
+while IFS= read -r deb; do
+  source_debs+=("$deb")
+done < "$selected_debs_file"
 
 mkdir -p "$WORKTREE/debs"
 find "$WORKTREE/debs" -type f -name '*.deb' -delete
