@@ -1,0 +1,11 @@
+{
+	Filter = {
+		Bundles = (
+			"com.apple.Preferences",
+			"com.apple.mobilesafari",
+			"com.apple.mobileslideshow",
+			"is.workflow.my.app",
+			"com.apple.springboard"
+		);
+	};
+}

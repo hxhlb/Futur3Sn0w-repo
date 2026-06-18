@@ -2,7 +2,7 @@ Name: SwipeForMore7
 Package: com.futur3sn0w.swipeformore7
 Maintainer: Futur3Sn0w
 Author: Futur3Sn0w
-Depends: firmware (>= 7.0), mobilesubstrate, preferenceloader
+Depends: firmware (>= 7.0), firmware (<= 7.1.7), mobilesubstrate, preferenceloader
 Section: Tweaks
 Version: 1.2.5+ios7.12
 Architecture: iphoneos-arm

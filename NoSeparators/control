@@ -6,4 +6,4 @@ Description: Hide common UIKit separator lines systemwide on iOS 11.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks
-Depends: mobilesubstrate, preferenceloader
+Depends: firmware (>= 11.0), mobilesubstrate, preferenceloader

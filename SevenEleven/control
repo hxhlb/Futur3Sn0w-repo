@@ -1,9 +1,0 @@
-Package: com.futur3sn0w.seveneleven
-Name: SevenEleven
-Version: 0.0.1
-Architecture: iphoneos-arm
-Description: Incrementally restores iOS 7-style app switcher behavior on iOS 11.
-Maintainer: futur3sn0w
-Author: futur3sn0w
-Section: Tweaks
-Depends: mobilesubstrate
