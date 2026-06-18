@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 BRANCH="${PAGES_BRANCH:-gh-pages}"
 WORKTREE="${PAGES_WORKTREE:-$ROOT/.gh-pages-worktree}"
+ARCHITECTURES=(iphoneos-arm iphoneos-arm64 iphoneos-arm64e)
 
 file_size() {
   stat -f%z "$1" 2>/dev/null || stat -c%s "$1"
@@ -199,10 +200,10 @@ Label: Futur3Sn0w's Public Repo
 Suite: stable
 Version: 1.0
 Codename: ios
-Architectures: iphoneos-arm
 Components: main
 Description: Futur3Sn0w jailbreak tweaks.
 RELEASE
+printf 'Architectures: %s\n' "${ARCHITECTURES[*]}" >> "$WORKTREE/Release"
 
 (
   cd "$WORKTREE"
@@ -211,22 +212,26 @@ RELEASE
   append_release_checksums Release Packages Packages.gz
 
   for dist in stable ios; do
-    mkdir -p "dists/$dist/main/binary-iphoneos-arm"
-    cp Packages "dists/$dist/main/binary-iphoneos-arm/Packages"
-    gzip -cn9 "dists/$dist/main/binary-iphoneos-arm/Packages" > "dists/$dist/main/binary-iphoneos-arm/Packages.gz"
+    release_files=()
+    for arch in "${ARCHITECTURES[@]}"; do
+      mkdir -p "dists/$dist/main/binary-$arch"
+      cp Packages "dists/$dist/main/binary-$arch/Packages"
+      gzip -cn9 "dists/$dist/main/binary-$arch/Packages" > "dists/$dist/main/binary-$arch/Packages.gz"
+      release_files+=("main/binary-$arch/Packages" "main/binary-$arch/Packages.gz")
+    done
     cat > "dists/$dist/Release" <<RELEASE
 Origin: Futur3Sn0w
 Label: Futur3Sn0w's Public Repo
 Suite: stable
 Version: 1.0
 Codename: $dist
-Architectures: iphoneos-arm
 Components: main
 Description: Futur3Sn0w jailbreak tweaks.
 RELEASE
+    printf 'Architectures: %s\n' "${ARCHITECTURES[*]}" >> "dists/$dist/Release"
     (
       cd "dists/$dist"
-      append_release_checksums Release main/binary-iphoneos-arm/Packages main/binary-iphoneos-arm/Packages.gz
+      append_release_checksums Release "${release_files[@]}"
     )
   done
 
