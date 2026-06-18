@@ -9,7 +9,7 @@ Source for Futur3Sn0w jailbreak tweaks and related package-repo files.
 | CenterLastRow | `com.futur3sn0w.centerlastrow` | Early public source | Centers the final SpringBoard icon row when it is not full. |
 | NoSeparators | `com.futur3sn0w.noseparators` | Early public source | Hides common UIKit separator lines systemwide on iOS 11. |
 | SevenEleven | `com.futur3sn0w.seveneleven` | Experimental | Incrementally restores iOS 7-style app switcher behavior on iOS 11. |
-| SwipeForMore7 | `com.futur3sn0w.swipeformore7` | Port/work in progress | Brings SwipeForMore-style Cydia package actions to older iOS targets. |
+| SwipeForMore7 | `com.futur3sn0w.swipeformore7` | iOS 7 compatibility fork | Brings SwipeForMore-style Cydia package actions to older iOS targets. |
 
 ## Building
 
@@ -39,5 +39,7 @@ GitHub Pages URLs depend on how the site is published:
 For a cleaner package-manager URL, a subdomain such as `https://repo.your-domain.example/` is also a good option.
 
 ## Notes
+
+`SwipeForMore7` is an iOS 7 compatibility fork of PoomSmart's MIT-licensed SwipeForMore project. The original license is preserved in `SwipeForMore/LICENSE`.
 
 `AppSwitcherController/` is kept locally as switcher reference/work-in-progress material and is ignored from this first public source pass. It can be added later intentionally, either as vendored source or as a submodule.
