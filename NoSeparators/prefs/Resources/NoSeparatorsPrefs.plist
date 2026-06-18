@@ -1,0 +1,9 @@
+{
+	entry = {
+		bundle = NoSeparatorsPrefs;
+		cell = PSLinkCell;
+		detail = NSPRootListController;
+		isController = 1;
+		label = NoSeparators;
+	};
+}

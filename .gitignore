@@ -1,0 +1,19 @@
+.DS_Store
+._*
+
+# Theos build outputs
+.theos/
+obj/
+packages/
+
+# Local package-repo outputs generated from built debs
+repo/Packages
+repo/Packages.*
+repo/Release
+repo/*.deb
+
+# Reference/upstream checkout kept locally for switcher research.
+# Move this into the public tree later only if we intentionally vendor it
+# or convert it into a real submodule.
+AppSwitcherController/
+

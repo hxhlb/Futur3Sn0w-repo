@@ -1,0 +1,9 @@
+Package: com.futur3sn0w.centerlastrow
+Name: CenterLastRow
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Centers the final SpringBoard icon row when it is not full.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: mobilesubstrate
