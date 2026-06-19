@@ -1,0 +1,9 @@
+Package: com.futur3sn0w.ccsupportbatteryfix
+Name: CCSupport Battery Fix
+Version: 0.0.2
+Architecture: iphoneos-arm64
+Description: Fixes status bar battery percentage display when CCSupport is installed on iOS 15+.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: firmware (>= 15.0), mobilesubstrate, com.opa334.ccsupport
