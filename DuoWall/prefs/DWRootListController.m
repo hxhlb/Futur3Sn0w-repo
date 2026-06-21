@@ -47,14 +47,15 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 		NSString *darkStatus = [self hasImageNamed:@"Dark.jpg"] ? @"Selected" : @"Not selected";
 		BOOL ready = [self hasImageNamed:@"Light.jpg"] && [self hasImageNamed:@"Dark.jpg"];
 		NSString *footer = ready
-			? @"Both images are ready. Open Wallpaper Settings, choose a new still wallpaper named DuoWall, and set it once. iOS will then follow every light and dark appearance change automatically."
+			? @"Both images are ready. Apply DuoWall directly below; iOS should then switch between them with system appearance."
 			: @"Choose one image for each appearance. Your originals stay in Photos; DuoWall stores its own high-quality copies on the device.";
 
 		_specifiers = [@[
 			[self groupWithFooter:footer],
 			[self buttonNamed:[NSString stringWithFormat:@"Choose Light Image  —  %@", lightStatus] action:@selector(chooseLightImage)],
 			[self buttonNamed:[NSString stringWithFormat:@"Choose Dark Image  —  %@", darkStatus] action:@selector(chooseDarkImage)],
-			[self groupWithFooter:@"On iOS 16, Wallpaper is owned by PosterBoard rather than the legacy Settings collection. Open the picker below, then write a compatibility dump if DuoWall is not shown."],
+			[self buttonNamed:@"Apply DuoWall" action:@selector(applyDuoWall)],
+			[self groupWithFooter:@"DuoWall now uses iOS 16’s native temporary wallpaper bundle and system-shell manager. The picker remains available to verify whether DuoWall is also offered as a collection."],
 			[self buttonNamed:@"Open Wallpaper Picker" action:@selector(openWallpaperSettings)],
 			[self buttonNamed:@"Write Compatibility Dump" action:@selector(writeCompatibilityDump)],
 			[self buttonNamed:@"Reset Images" action:@selector(confirmReset)]
@@ -109,9 +110,40 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 				[self showError:directoryError];
 				return;
 			}
+			[self invalidateModernWallpaper];
 			[self reloadSpecifiers];
 		});
 	}];
+}
+
+- (void)invalidateModernWallpaper {
+	typedef void (*DuoWallInvalidateFunction)(void);
+	DuoWallInvalidateFunction function = (DuoWallInvalidateFunction)dlsym(RTLD_DEFAULT, "DuoWallInvalidateModernWallpaper");
+	if (function) function();
+}
+
+- (void)applyDuoWall {
+	if (![self hasImageNamed:@"Light.jpg"] || ![self hasImageNamed:@"Dark.jpg"]) {
+		[self showError:[NSError errorWithDomain:@"DuoWall" code:1 userInfo:@{NSLocalizedDescriptionKey: @"Choose both images before applying DuoWall."}]];
+		return;
+	}
+
+	typedef void (*DuoWallApplyFunction)(void (^completion)(BOOL success, NSString *message));
+	DuoWallApplyFunction function = (DuoWallApplyFunction)dlsym(RTLD_DEFAULT, "DuoWallApplyModernWallpaper");
+	if (!function) {
+		[self showError:[NSError errorWithDomain:@"DuoWall" code:2 userInfo:@{NSLocalizedDescriptionKey: @"Close Settings completely, reopen DuoWall, and try again."}]];
+		return;
+	}
+
+	function(^(BOOL success, NSString *message) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			UIAlertController *alert = [UIAlertController alertControllerWithTitle:success ? @"DuoWall Applied" : @"Couldn’t Apply DuoWall"
+				message:message
+				preferredStyle:UIAlertControllerStyleAlert];
+			[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+			[self presentViewController:alert animated:YES completion:nil];
+		});
+	});
 }
 
 - (void)showError:(NSError *)error {
@@ -168,6 +200,7 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 		NSFileManager *manager = [NSFileManager defaultManager];
 		[manager removeItemAtPath:[self pathForImageName:@"Light.jpg"] error:nil];
 		[manager removeItemAtPath:[self pathForImageName:@"Dark.jpg"] error:nil];
+		[self invalidateModernWallpaper];
 		[self reloadSpecifiers];
 	}]];
 	[self presentViewController:alert animated:YES completion:nil];
