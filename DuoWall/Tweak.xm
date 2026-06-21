@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import <mach-o/dyld.h>
 
 static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application Support/DuoWall";
 static NSString * const DWLightImageName = @"Light.jpg";
@@ -34,6 +35,90 @@ static NSString *DWImagePath(BOOL dark) {
 static BOOL DWWallpapersReady(void) {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	return [manager fileExistsAtPath:DWImagePath(NO)] && [manager fileExistsAtPath:DWImagePath(YES)];
+}
+
+static BOOL DWClassNameIsRelevant(const char *rawName) {
+	if (!rawName) return NO;
+	NSString *name = [NSString stringWithUTF8String:rawName];
+	NSString *lowercaseName = name.lowercaseString;
+	return [lowercaseName containsString:@"wallpaper"] ||
+		[lowercaseName containsString:@"poster"] ||
+		[name hasPrefix:@"PRS"] ||
+		[name hasPrefix:@"PRB"] ||
+		[name hasPrefix:@"WK"] ||
+		[name hasPrefix:@"WPU"];
+}
+
+static void DWAppendMethods(NSMutableString *dump, Class cls, BOOL classMethods) {
+	Class target = classMethods ? object_getClass(cls) : cls;
+	unsigned int methodCount = 0;
+	Method *methods = class_copyMethodList(target, &methodCount);
+	for (unsigned int index = 0; index < methodCount; index++) {
+		SEL selector = method_getName(methods[index]);
+		const char *types = method_getTypeEncoding(methods[index]);
+		[dump appendFormat:@"  %@ %@  [%s]\n", classMethods ? @"+" : @"-", NSStringFromSelector(selector), types ?: "?"];
+	}
+	free(methods);
+}
+
+__attribute__((visibility("default"))) extern "C" void DuoWallWriteCompatibilityDump(void) {
+	@autoreleasepool {
+		NSString *processName = NSProcessInfo.processInfo.processName ?: @"Unknown";
+		NSString *safeProcessName = [processName stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+		NSString *path = [NSString stringWithFormat:@"/var/mobile/Documents/DuoWall-%@-method-dump.txt", safeProcessName];
+		NSMutableString *dump = [NSMutableString string];
+		[dump appendFormat:@"DuoWall compatibility dump\nProcess: %@\nBundle: %@\niOS: %@\n\nLoaded wallpaper frameworks:\n",
+			processName,
+			NSBundle.mainBundle.bundleIdentifier ?: @"(none)",
+			UIDevice.currentDevice.systemVersion ?: @"(unknown)"];
+
+		uint32_t imageCount = _dyld_image_count();
+		for (uint32_t index = 0; index < imageCount; index++) {
+			const char *rawImageName = _dyld_get_image_name(index);
+			if (!rawImageName) continue;
+			NSString *imageName = [NSString stringWithUTF8String:rawImageName];
+			NSString *lowercaseName = imageName.lowercaseString;
+			if ([lowercaseName containsString:@"wallpaper"] ||
+				[lowercaseName containsString:@"poster"] ||
+				[lowercaseName containsString:@"springboardui"] ||
+				[lowercaseName containsString:@"posterkit"]) {
+				[dump appendFormat:@"%@\n", imageName];
+			}
+		}
+
+		[dump appendString:@"\nRelevant runtime classes and methods:\n"];
+		int classCount = objc_getClassList(NULL, 0);
+		if (classCount > 0) {
+			Class *classes = (__unsafe_unretained Class *)calloc((size_t)classCount, sizeof(Class));
+			classCount = objc_getClassList(classes, classCount);
+			NSMutableArray<NSString *> *classNames = [NSMutableArray array];
+			for (int index = 0; index < classCount; index++) {
+				const char *name = class_getName(classes[index]);
+				if (DWClassNameIsRelevant(name)) [classNames addObject:[NSString stringWithUTF8String:name]];
+			}
+			[classNames sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+			for (NSString *className in classNames) {
+				Class cls = NSClassFromString(className);
+				[dump appendFormat:@"\n%@\n", className];
+				DWAppendMethods(dump, cls, YES);
+				DWAppendMethods(dump, cls, NO);
+			}
+			free(classes);
+		}
+
+		NSError *error = nil;
+		[dump writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+		if (error) NSLog(@"[DuoWall] Could not write compatibility dump: %@", error);
+	}
+}
+
+static void DWScheduleCompatibilityDumps(void) {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		DuoWallWriteCompatibilityDump();
+	});
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		DuoWallWriteCompatibilityDump();
+	});
 }
 
 static id DWWallpaper(BOOL dark) {
@@ -77,6 +162,12 @@ static id DWWallpaper(BOOL dark) {
 }
 
 %end
+
+%ctor {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		DWScheduleCompatibilityDumps();
+	});
+}
 
 %hook WKWallpaperBundle
 

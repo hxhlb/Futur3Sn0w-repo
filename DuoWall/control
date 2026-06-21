@@ -1,8 +1,8 @@
 Package: com.futur3sn0w.duowall
 Name: DuoWall
-Version: 0.0.2
+Version: 0.0.3
 Architecture: iphoneos-arm64
-Description: Create a native wallpaper pair that follows the system light and dark appearance.
+Description: Create a wallpaper pair that follows the system light and dark appearance. Includes an iOS 16 PosterBoard compatibility probe.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

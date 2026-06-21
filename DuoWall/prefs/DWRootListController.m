@@ -1,5 +1,11 @@
 #import "DWRootListController.h"
 #import <Preferences/PSSpecifier.h>
+#import <dlfcn.h>
+
+@interface LSApplicationWorkspace : NSObject
++ (instancetype)defaultWorkspace;
+- (BOOL)openApplicationWithBundleID:(NSString *)bundleIdentifier;
+@end
 
 static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application Support/DuoWall";
 
@@ -48,8 +54,9 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 			[self groupWithFooter:footer],
 			[self buttonNamed:[NSString stringWithFormat:@"Choose Light Image  —  %@", lightStatus] action:@selector(chooseLightImage)],
 			[self buttonNamed:[NSString stringWithFormat:@"Choose Dark Image  —  %@", darkStatus] action:@selector(chooseDarkImage)],
-			[self groupWithFooter:@"After replacing either image, select DuoWall again so iOS refreshes its cached wallpaper copy."],
-			[self buttonNamed:@"Open Wallpaper Settings" action:@selector(openWallpaperSettings)],
+			[self groupWithFooter:@"On iOS 16, Wallpaper is owned by PosterBoard rather than the legacy Settings collection. Open the picker below, then write a compatibility dump if DuoWall is not shown."],
+			[self buttonNamed:@"Open Wallpaper Picker" action:@selector(openWallpaperSettings)],
+			[self buttonNamed:@"Write Compatibility Dump" action:@selector(writeCompatibilityDump)],
 			[self buttonNamed:@"Reset Images" action:@selector(confirmReset)]
 		] mutableCopy];
 	}
@@ -116,8 +123,40 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 }
 
 - (void)openWallpaperSettings {
-	NSURL *url = [NSURL URLWithString:@"prefs:root=Wallpaper"];
-	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+	Class workspaceClass = NSClassFromString(@"LSApplicationWorkspace");
+	LSApplicationWorkspace *workspace = [workspaceClass respondsToSelector:@selector(defaultWorkspace)] ? [workspaceClass defaultWorkspace] : nil;
+	if ([workspace respondsToSelector:@selector(openApplicationWithBundleID:)] && [workspace openApplicationWithBundleID:@"com.apple.PosterBoard"]) {
+		return;
+	}
+
+	NSArray<NSString *> *fallbackSchemes = @[@"App-prefs:root=Wallpaper", @"prefs:root=Wallpaper"];
+	for (NSString *scheme in fallbackSchemes) {
+		NSURL *url = [NSURL URLWithString:scheme];
+		if ([[UIApplication sharedApplication] canOpenURL:url]) {
+			[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+			return;
+		}
+	}
+
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Open Wallpaper Manually"
+		message:@"Open Settings → Wallpaper, or long-press the Lock Screen and tap the plus button."
+		preferredStyle:UIAlertControllerStyleAlert];
+	[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)writeCompatibilityDump {
+	typedef void (*DuoWallDumpFunction)(void);
+	DuoWallDumpFunction dumpFunction = (DuoWallDumpFunction)dlsym(RTLD_DEFAULT, "DuoWallWriteCompatibilityDump");
+	if (dumpFunction) dumpFunction();
+
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:dumpFunction ? @"Settings Dump Written" : @"Dump Unavailable"
+		message:dumpFunction
+			? @"Look in /var/mobile/Documents for DuoWall-Preferences-method-dump.txt. Opening the wallpaper picker also creates a DuoWall-PosterBoard-method-dump.txt file."
+			: @"Close Settings completely, reopen DuoWall, and try again."
+		preferredStyle:UIAlertControllerStyleAlert];
+	[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+	[self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)confirmReset {
