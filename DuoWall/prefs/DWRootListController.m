@@ -31,7 +31,7 @@ static NSString * const DWStorageDirectory = @"/var/mobile/Library/Application S
 		detail:Nil
 		cell:PSButtonCell
 		edit:Nil];
-	[specifier setProperty:NSStringFromSelector(action) forKey:@"action"];
+	specifier.buttonAction = action;
 	return specifier;
 }
 
