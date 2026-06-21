@@ -8,6 +8,7 @@ Source for Futur3Sn0w jailbreak tweaks and related package-repo files.
 | --- | --- | --- | --- |
 | CCSupport Battery Fix | `com.futur3sn0w.ccsupportbatteryfix` | Rootless public source | Companion patch for CCSupport that fixes status bar battery percentage display on iOS 15+. |
 | CenterLastRow | `com.futur3sn0w.centerlastrow` | Early public source | Centers the final SpringBoard icon row when it is not full. |
+| DuoWall | `com.futur3sn0w.duowall` | Rootless test build | Creates a native light/dark wallpaper pair that follows system appearance on iOS 15. |
 | MuteFlash | `com.futur3sn0w.muteflash` | Rootless public source | Toggles the flashlight when flipping the ringer switch on devices without the Action button. |
 | MuteModule | `com.futur3sn0w.mutemodule` | Rootless public source | Exposes Apple's hidden Silent Mode Control Center module on iPhone. |
 | NoSeparators | `com.futur3sn0w.noseparators` | Early public source | Hides common UIKit separator lines systemwide on iOS 11. |
