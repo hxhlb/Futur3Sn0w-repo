@@ -154,10 +154,8 @@ selected_debs_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-selected-debs.XXXXXX")"
 trap 'rm -f "$current_packages_file" "$candidate_debs_file" "$selected_debs_file"' EXIT
 
 while IFS= read -r control_file; do
-  awk -F': ' '$1 == "Package" { print $2; exit }' "$control_file"
-done < <(find "$ROOT" \
-  -path "$WORKTREE" -prune -o \
-  -name control -type f -print) | sort -u > "$current_packages_file"
+  awk -F': ' '$1 == "Package" { print $2; exit }' "$ROOT/$control_file"
+done < <(git -C "$ROOT" ls-files '*control' | awk -F/ '$NF == "control"') | sort -u > "$current_packages_file"
 
 if [ ! -s "$current_packages_file" ]; then
   echo "error: no source control files found." >&2
