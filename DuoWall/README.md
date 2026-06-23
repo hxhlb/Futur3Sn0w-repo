@@ -12,7 +12,7 @@ Current flow:
 - Enter the friendly name you want shown in Collections
 - Open the wallpaper picker and select the new DuoWall from Collections
 
-If you are debugging a problem, DuoWall still writes `/var/mobile/Documents/DuoWall-backend-log.txt` and can generate compatibility dumps when the underlying helper is called manually.
+If you are debugging a problem, enable backend logging in DuoWall’s settings first. When enabled, DuoWall writes `/var/mobile/Documents/DuoWall-backend-log.txt` and can still generate compatibility dumps when the underlying helper is called manually.
 
 ## Build
 

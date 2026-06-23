@@ -324,6 +324,11 @@ static NSString *DWCurrentFriendlyName(void) {
 	return DWNormalizeFriendlyName(stored);
 }
 
+static BOOL DWBackendLoggingEnabled(void) {
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.futur3sn0w.duowall"];
+	return [defaults boolForKey:@"BackendLoggingEnabled"];
+}
+
 static BOOL DWVerboseDiagnosticsEnabled(void) {
 	static BOOL cachedValue = NO;
 	static dispatch_once_t onceToken;
@@ -433,6 +438,7 @@ static void DWWarmLogicalScreenClassInSystemProcess(void) {
 }
 
 static void DWWriteBackendLog(NSString *message) {
+	if (!DWBackendLoggingEnabled()) return;
 	@synchronized([NSFileManager class]) {
 		NSString *path = @"/var/mobile/Documents/DuoWall-backend-log.txt";
 		NSString *line = [NSString stringWithFormat:@"%@\n", message ?: @"(no message)"];

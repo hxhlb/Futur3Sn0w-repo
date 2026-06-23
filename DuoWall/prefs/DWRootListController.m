@@ -17,6 +17,7 @@ static NSString * const DWFriendlyNameFileName = @"WallpaperName.txt";
 static NSString * const DWPosterCollectionsExtensionIdentifier = @"com.apple.WallpaperKit.CollectionsPoster";
 static NSString * const DWDescriptorBackupDirectoryName = @"DescriptorBackups";
 static NSString * const DWPendingCollectionsRefreshDefaultsKey = @"PendingCollectionsRefresh";
+static NSString * const DWBackendLoggingEnabledDefaultsKey = @"BackendLoggingEnabled";
 
 @interface DWPreviewButtonCell : PSTableCell
 @property (nonatomic, strong) UIImageView *previewImageView;
@@ -174,6 +175,16 @@ static BOOL DWPrefsHasPendingCollectionsRefresh(void) {
 static void DWPrefsSetPendingCollectionsRefresh(BOOL pending) {
 	NSUserDefaults *defaults = DWPrefsUserDefaults();
 	[defaults setBool:pending forKey:DWPendingCollectionsRefreshDefaultsKey];
+	[defaults synchronize];
+}
+
+static BOOL DWPrefsBackendLoggingEnabled(void) {
+	return [DWPrefsUserDefaults() boolForKey:DWBackendLoggingEnabledDefaultsKey];
+}
+
+static void DWPrefsSetBackendLoggingEnabled(BOOL enabled) {
+	NSUserDefaults *defaults = DWPrefsUserDefaults();
+	[defaults setBool:enabled forKey:DWBackendLoggingEnabledDefaultsKey];
 	[defaults synchronize];
 }
 
@@ -619,6 +630,16 @@ static NSArray<NSDictionary *> *DWPrefsInstalledDuoWallEntries(void) {
 	return specifier;
 }
 
+- (PSSpecifier *)switchSpecifierNamed:(NSString *)name get:(SEL)getter set:(SEL)setter {
+	return [PSSpecifier preferenceSpecifierNamed:name
+		target:self
+		set:setter
+		get:getter
+		detail:Nil
+		cell:PSSwitchCell
+		edit:Nil];
+}
+
 - (PSSpecifier *)previewSpecifierWithTitle:(NSString *)title
 	imageName:(NSString *)imageName
 	action:(SEL)action {
@@ -672,7 +693,9 @@ static NSArray<NSDictionary *> *DWPrefsInstalledDuoWallEntries(void) {
 				edit:Nil],
 			[self groupWithFooter:@"Open the native wallpaper picker to see your DuoWalls under Collections, or reset the currently selected source images if you want to start over."],
 			[self buttonNamed:@"Open Wallpaper Picker" action:@selector(openWallpaperSettings)],
-			[self buttonNamed:@"Reset Images" action:@selector(confirmReset)]
+			[self buttonNamed:@"Reset Images" action:@selector(confirmReset)],
+			[self groupWithFooter:@"Backend logging is off by default. Turn this on only when we need a fresh DuoWall debug log."],
+			[self switchSpecifierNamed:@"Enable Backend Logging" get:@selector(readBackendLoggingPreference:) set:@selector(setBackendLoggingPreference:specifier:)]
 		] mutableCopy];
 	}
 
@@ -791,6 +814,26 @@ static NSArray<NSDictionary *> *DWPrefsInstalledDuoWallEntries(void) {
 	}]];
 	[alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
 	[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (id)readBackendLoggingPreference:(PSSpecifier *)specifier {
+	#pragma unused(specifier)
+	return @(DWPrefsBackendLoggingEnabled());
+}
+
+- (void)setBackendLoggingPreference:(id)value specifier:(PSSpecifier *)specifier {
+	#pragma unused(specifier)
+	BOOL enabled = [value respondsToSelector:@selector(boolValue)] ? [value boolValue] : NO;
+	DWPrefsSetBackendLoggingEnabled(enabled);
+	if (!enabled) {
+		typedef void (*DuoWallResetLogFunction)(void);
+		DuoWallResetLogFunction resetFunction = (DuoWallResetLogFunction)dlsym(RTLD_DEFAULT, "DuoWallResetBackendLog");
+		if (resetFunction) {
+			resetFunction();
+		} else {
+			[[NSFileManager defaultManager] removeItemAtPath:@"/var/mobile/Documents/DuoWall-backend-log.txt" error:nil];
+		}
+	}
 }
 
 - (void)persistFriendlyName:(NSString *)name {
