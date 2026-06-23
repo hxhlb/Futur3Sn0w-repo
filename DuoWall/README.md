@@ -1,14 +1,18 @@
 # DuoWall
 
-DuoWall creates a custom appearance-aware still wallpaper on jailbroken iOS 15 and 16 devices. Choose one light image and one dark image in the DuoWall preference pane, then apply the pair directly or select **DuoWall** from the native wallpaper picker. iOS handles later appearance changes itself.
+DuoWall creates custom appearance-aware still wallpapers on jailbroken iOS 15 and 16 devices. Pick one light image and one dark image in the DuoWall preference pane, give the pair a friendly name, and DuoWall adds it to the native wallpaper picker under Collections. Once selected there, iOS handles later light/dark appearance changes on its own.
 
-The implementation uses WallpaperKit's native appearance-aware bundle behavior instead of repeatedly replacing SpringBoard wallpaper files. Version 0.0.4 adds iOS 16's `WKWallpaperRepresentingCollectionsManager` and a direct apply path through `WKSystemShellWallpaperManager`.
+The tweak now focuses on the native Collections flow instead of repeatedly replacing SpringBoard wallpaper files. Each DuoWall is saved as its own WallpaperKit-backed bundle with a friendly name, light/dark previews in prefs, and a small management UI for reviewing or deleting previously added pairs.
 
-If applying or collection loading fails, retrieve these files with Filza:
+Current flow:
 
-- `/var/mobile/Documents/DuoWall-Preferences-method-dump.txt`
-- `/var/mobile/Documents/DuoWall-PosterBoard-method-dump.txt`
-- `/var/mobile/Documents/DuoWall-backend-log.txt`
+- Choose a light appearance image
+- Choose a dark appearance image
+- Tap **Name & Apply DuoWall**
+- Enter the friendly name you want shown in Collections
+- Open the wallpaper picker and select the new DuoWall from Collections
+
+If you are debugging a problem, DuoWall still writes `/var/mobile/Documents/DuoWall-backend-log.txt` and can generate compatibility dumps when the underlying helper is called manually.
 
 ## Build
 

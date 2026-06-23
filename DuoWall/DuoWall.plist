@@ -8,6 +8,20 @@
 		<array>
 			<string>com.apple.Preferences</string>
 			<string>com.apple.PosterBoard</string>
+			<string>com.apple.springboard</string>
+			<string>com.apple.WallpaperSettings</string>
+			<string>com.apple.preferencepanessupport.WallpaperHelper</string>
+			<string>com.apple.Wallpaper-Settings.extension</string>
+		</array>
+		<key>Executables</key>
+		<array>
+			<string>Preferences</string>
+			<string>PosterBoard</string>
+			<string>SpringBoard</string>
+			<string>WallpaperSettings</string>
+			<string>WallpaperAgent</string>
+			<string>WallpaperHelper</string>
+			<string>Wallpaper</string>
 		</array>
 	</dict>
 </dict>

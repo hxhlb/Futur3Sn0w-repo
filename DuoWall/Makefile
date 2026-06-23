@@ -18,3 +18,5 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-install::
 	install.exec "killall -9 Preferences 2>/dev/null || true"
+	install.exec "killall -9 PosterBoard 2>/dev/null || true"
+	install.exec "killall -9 SpringBoard 2>/dev/null || true"
