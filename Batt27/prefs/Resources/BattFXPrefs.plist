@@ -1,0 +1,9 @@
+{
+	entry = {
+		bundle = BattFXPrefs;
+		cell = PSLinkCell;
+		detail = BFXRootListController;
+		isController = 1;
+		label = BattFX;
+	};
+}

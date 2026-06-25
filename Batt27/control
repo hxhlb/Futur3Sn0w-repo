@@ -1,0 +1,9 @@
+Package: com.futur3sn0w.battfx
+Name: BattFX
+Version: 0.0.2
+Architecture: iphoneos-arm64
+Description: Styles the system battery indicator while keeping the modern percentage body available systemwide.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
