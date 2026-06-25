@@ -94,17 +94,6 @@ static void BFXReloadConfiguration(void) {
 	BFXCurrentConfiguration.style = (BFXStyle)rawStyle;
 }
 
-static CGFloat BFXCornerRadiusFactorForStyle(BFXStyle style) {
-	switch (style) {
-		case BFXStyle27:
-			return 0.30;
-		case BFXStyleJuice:
-		case BFXStyleOneUI:
-		default:
-			return 0.5;
-	}
-}
-
 static BOOL BFXStyleShowsPin(BFXStyle style) {
 	return style != BFXStyleOneUI;
 }
@@ -282,7 +271,15 @@ static void BFXApplyPercentageTextVisibility(UIView *batteryView) {
 }
 
 static CGFloat BFXCornerRadiusForHeight(CGFloat height) {
-	return height * BFXCornerRadiusFactorForStyle(BFXCurrentConfiguration.style);
+	switch (BFXCurrentConfiguration.style) {
+		case BFXStyle27:
+			// Fixed radii avoid the visible "snap" into a full pill on tiny battery geometries.
+			return height >= 13.0 ? 4.0 : 3.0;
+		case BFXStyleJuice:
+		case BFXStyleOneUI:
+		default:
+			return height * 0.5;
+	}
 }
 
 static BOOL BFXIsModernBatteryPinLayer(CALayer *layer) {
@@ -431,7 +428,6 @@ static void BFXApplyStaticBatteryStyle(CALayer *rootLayer) {
 	}
 
 	CGFloat bodyHeight = CGRectGetHeight(wrapperLayer.bounds);
-	CGFloat radius = BFXCornerRadiusForHeight(bodyHeight);
 	CGFloat bodyWidth = CGRectGetWidth(wrapperLayer.bounds);
 	if (pinLayer) {
 		CGFloat pinMinX = CGRectGetMinX(pinLayer.frame);
@@ -439,6 +435,7 @@ static void BFXApplyStaticBatteryStyle(CALayer *rootLayer) {
 	}
 
 	CGRect bodyRect = CGRectMake(0.0, 0.0, MIN(bodyWidth, CGRectGetWidth(wrapperLayer.bounds)), bodyHeight);
+	CGFloat radius = BFXCornerRadiusForHeight(bodyHeight);
 	UIBezierPath *roundedPath = [UIBezierPath bezierPathWithRoundedRect:bodyRect cornerRadius:radius];
 	CAShapeLayer *maskLayer = [wrapperLayer.mask isKindOfClass:[CAShapeLayer class]] ? (CAShapeLayer *)wrapperLayer.mask : nil;
 	if (!maskLayer) {

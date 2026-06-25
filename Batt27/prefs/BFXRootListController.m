@@ -94,7 +94,7 @@ static NSString * const kBFXReloadNotification = @"com.futur3sn0w.battfx/ReloadP
 		_specifiers = [@[
 			[self groupSpecifierWithName:nil footer:@"Styles the battery indicator systemwide."],
 			[self switchSpecifierWithName:@"Enabled" key:@"Enabled" defaultValue:YES],
-			[self groupSpecifierWithName:@"Style" footer:@"Modern: softer rounded body.\nJuice: full pill with nub.\nSammy: full pill without nub."],
+			[self groupSpecifierWithName:@"Style" footer:@"Modern: max safe stock-like rounding.\nJuice: full pill with nub.\nSammy: full pill without nub."],
 			[self segmentSpecifierWithKey:@"Style" defaultValue:1]
 		] mutableCopy];
 		[self updateChildSpecifierAvailability];
