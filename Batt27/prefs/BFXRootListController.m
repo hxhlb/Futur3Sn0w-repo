@@ -36,16 +36,17 @@ static NSString * const kBFXReloadNotification = @"com.futur3sn0w.battfx/ReloadP
 	return specifier;
 }
 
-- (PSSpecifier *)listSpecifierWithName:(NSString *)name key:(NSString *)key defaultValue:(NSInteger)defaultValue {
-	PSSpecifier *specifier = [PSSpecifier preferenceSpecifierNamed:name
+- (PSSpecifier *)segmentSpecifierWithKey:(NSString *)key defaultValue:(NSInteger)defaultValue {
+	PSSpecifier *specifier = [PSSpecifier preferenceSpecifierNamed:nil
 		target:self
 		set:@selector(setPreferenceValue:specifier:)
 		get:@selector(readPreferenceValue:)
-		detail:NSClassFromString(@"PSListItemsController")
-		cell:PSLinkListCell
+		detail:Nil
+		cell:PSSegmentCell
 		edit:Nil];
 	[specifier setProperty:kBFXPrefsDomain forKey:@"defaults"];
 	[specifier setProperty:key forKey:@"key"];
+	[specifier setProperty:key forKey:@"id"];
 	[specifier setProperty:@(defaultValue) forKey:@"default"];
 	[specifier setValues:@[@0, @1, @2] titles:@[@"Modern", @"Juice", @"Sammy"]];
 	[specifier setProperty:kBFXReloadNotification forKey:@"PostNotification"];
@@ -94,7 +95,7 @@ static NSString * const kBFXReloadNotification = @"com.futur3sn0w.battfx/ReloadP
 			[self groupSpecifierWithName:nil footer:@"Styles the battery indicator systemwide."],
 			[self switchSpecifierWithName:@"Enabled" key:@"Enabled" defaultValue:YES],
 			[self groupSpecifierWithName:@"Style" footer:@"Modern: softer rounded body.\nJuice: full pill with nub.\nSammy: full pill without nub."],
-			[self listSpecifierWithName:@"Appearance" key:@"Style" defaultValue:1]
+			[self segmentSpecifierWithKey:@"Style" defaultValue:1]
 		] mutableCopy];
 		[self updateChildSpecifierAvailability];
 	}
