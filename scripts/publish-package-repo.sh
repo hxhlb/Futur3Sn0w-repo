@@ -227,6 +227,7 @@ printf 'Architectures: %s\n' "${ARCHITECTURES[*]}" >> "$WORKTREE/Release"
 (
   cd "$WORKTREE"
   generate_packages Packages "${deb_files[@]}"
+  python3 "$ROOT/scripts/inject-fields.py" "$ROOT" Packages
   gzip -cn9 Packages > Packages.gz
   append_release_checksums Release Packages Packages.gz
 
