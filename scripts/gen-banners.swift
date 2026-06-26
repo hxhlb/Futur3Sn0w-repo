@@ -75,7 +75,7 @@ for tweak in tweaks {
         .foregroundColor: NSColor.white.withAlphaComponent(0.55),
         .kern:            2.5 as CFNumber,
     ]
-    let byStr = NSAttributedString(string: "BY FUTUR3SNøW", attributes: byAttrs)
+    let byStr = NSAttributedString(string: "MoarTweaks by Futur3Sn0w", attributes: byAttrs)
     let byH = byStr.size().height
 
     // Tweak name — scale font down if name is long
