@@ -211,24 +211,7 @@ AppSwitcherController/
 */packages/
 GITIGNORE
 
-cat > "$WORKTREE/index.html" <<'HTML'
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Futur3Sn0w's Public Repo</title>
-</head>
-<body>
-  <h1>Futur3Sn0w's Public Repo</h1>
-  <p>Add this page's URL to your jailbreak package manager.</p>
-  <code id="repo-url">https://futur3sn0w.github.io/repo/</code>
-  <script>
-    document.getElementById("repo-url").textContent = window.location.href;
-  </script>
-</body>
-</html>
-HTML
+python3 /tmp/moartweaks-gen-index.py "$WORKTREE" "https://futur3sn0w.github.io/repo"
 
 cat > "$WORKTREE/Release" <<'RELEASE'
 Origin: Futur3Sn0w
