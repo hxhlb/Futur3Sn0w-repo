@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.ccsu
 Name: CCSupport Battery Fix
 Version: 0.0.2
 Architecture: iphoneos-arm64
-Description: Fix battery percentage display when CCSupport is installed on iOS 15+.
+Description: Fixes status bar battery percentage display when CCSupport is installed on iOS 15+.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.cent
 Name: CenterLastRow
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: Center the final SpringBoard icon row when it is not full.
+Description: Centers the final SpringBoard icon row when it is not full.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

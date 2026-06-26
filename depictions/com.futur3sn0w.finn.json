@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.finn.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Tint context menus to the app icon color",
+          "title": "Tints the homescreen context-menu backdrop to the app icon color. Rootless rewrite of Koi for iOS 15 & 16.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "Finn samples the color of the app icon you long-press and tints the homescreen context menu backdrop and action cards to match. A rootless, dependency-free rewrite of Koi for iOS 15 & 16, using built-in k-means color sampling.",
+          "markdown": "Tints the homescreen context-menu backdrop to the app icon color. Rootless rewrite of Koi for iOS 15 & 16.",
           "useSpacing": true
         },
         {

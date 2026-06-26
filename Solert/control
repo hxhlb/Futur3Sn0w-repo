@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.sole
 Name: Solert
 Version: 0.0.1
 Architecture: iphoneos-arm64
-Description: Restyle UIAlertController to match iOS 26 refined alert aesthetic.
+Description: iOS 26-inspired UIAlertController restyling for iOS 15.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

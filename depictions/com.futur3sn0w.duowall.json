@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.duowall.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Native light/dark wallpaper pairs",
+          "title": "Create native light and dark WallpaperKit pairs that appear in Collections and switch automatically with system appearance.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "DuoWall lets you create native WallpaperKit light/dark pairs that live right inside the Wallpaper Collections section of Settings. Pairs switch automatically when your device changes between Light and Dark mode \u2014 no shortcuts, no shortcuts automation required.",
+          "markdown": "Create native light and dark WallpaperKit pairs that appear in Collections and switch automatically with system appearance.",
           "useSpacing": true
         },
         {

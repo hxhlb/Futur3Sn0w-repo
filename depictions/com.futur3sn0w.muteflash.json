@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.muteflash.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Ringer switch as flashlight toggle",
+          "title": "Use the ringer switch as a flashlight toggle without changing silent mode.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "MuteFlash intercepts the ringer switch and uses it as a flashlight toggle \u2014 without affecting silent mode. Great for quickly grabbing a torch in the dark without unlocking your phone.",
+          "markdown": "Use the ringer switch as a flashlight toggle without changing silent mode.",
           "useSpacing": true
         },
         {

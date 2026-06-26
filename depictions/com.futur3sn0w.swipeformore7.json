@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.swipeformore7.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Swipe to manage packages in Cydia",
+          "title": "Manage packages in Cydia via swipe.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "SwipeForMore adds swipe-to-manage gestures to Cydia package lists on iOS 7, making it faster to install, reinstall, and remove packages without navigating deep into each package page.",
+          "markdown": "Manage packages in Cydia via swipe.",
           "useSpacing": true
         },
         {

@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.solert.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "iOS 26-style alerts on iOS 15",
+          "title": "iOS 26-inspired UIAlertController restyling for iOS 15.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "Solert reskins UIAlertController to match the rounder, more refined iOS 26 alert aesthetic on iOS 15 devices \u2014 a taste of tomorrow's design language today.",
+          "markdown": "iOS 26-inspired UIAlertController restyling for iOS 15.",
           "useSpacing": true
         },
         {

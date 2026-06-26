@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.mutemodule.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Hidden mute module for Control Center",
+          "title": "Exposes Apple's hidden Control Center mute module on iPhone.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "MuteModule surfaces Apple's hidden Control Center mute toggle on iPhone, giving you a native-looking mute button in CC without any third-party toggle frameworks.",
+          "markdown": "Exposes Apple's hidden Control Center mute module on iPhone.",
           "useSpacing": true
         },
         {

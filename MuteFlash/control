@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.mute
 Name: MuteFlash
 Version: 0.0.1
 Architecture: iphoneos-arm64
-Description: Toggle the flashlight with the ringer switch without changing silent mode.
+Description: Use the ringer switch as a flashlight toggle without changing silent mode.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

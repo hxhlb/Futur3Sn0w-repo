@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.battfx.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Style your battery indicator",
+          "title": "Styles the system battery indicator while keeping the modern percentage body available systemwide.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "BattFX styles the system battery indicator while keeping the modern percentage body available systemwide. Choose from a range of visual effects that apply on top of the stock battery, giving your status bar a polished custom look without breaking any functionality.",
+          "markdown": "Styles the system battery indicator while keeping the modern percentage body available systemwide.",
           "useSpacing": true
         },
         {

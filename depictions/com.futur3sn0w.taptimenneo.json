@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.taptimenneo.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Tap the clock to show the date",
+          "title": "Tap the status bar clock to briefly show the date on iOS 15+.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "TapTimeNeo lets you tap the status bar clock to briefly reveal the full date on iOS 15 and later. A simple, elegant quality-of-life improvement for glancing at the date without opening any app.",
+          "markdown": "Tap the status bar clock to briefly show the date on iOS 15+.",
           "useSpacing": true
         },
         {

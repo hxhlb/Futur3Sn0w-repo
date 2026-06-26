@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.nose
 Name: NoSeparators
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: Hide UIKit separator lines systemwide for a cleaner interface.
+Description: Hide common UIKit separator lines systemwide on iOS 11.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

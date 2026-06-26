@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.noseparators.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Hide UIKit separator lines systemwide",
+          "title": "Hide common UIKit separator lines systemwide on iOS 11.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "NoSeparators hides the thin separator lines that appear between rows in system UIKit table views across the entire OS, resulting in a cleaner, more spacious interface.",
+          "markdown": "Hide common UIKit separator lines systemwide on iOS 11.",
           "useSpacing": true
         },
         {

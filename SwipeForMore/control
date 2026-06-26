@@ -8,4 +8,4 @@ Depends: firmware (>= 7.0), firmware (<= 7.1.7), mobilesubstrate, preferenceload
 Section: Tweaks
 Version: 1.2.5+ios7.12
 Architecture: iphoneos-arm
-Description: Swipe to manage packages in Cydia on iOS 7.
+Description: Manage packages in Cydia via swipe.

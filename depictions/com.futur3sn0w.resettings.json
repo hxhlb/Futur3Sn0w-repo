@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.resettings.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Collapsible Settings groups",
+          "title": "Collapse and expand Settings groups on iOS 15+.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "ReSettings adds collapse and expand controls to Settings groups on iOS 15 and later, letting you tuck away sections you rarely visit to keep the app tidy and scrollable.",
+          "markdown": "Collapse and expand Settings groups on iOS 15+.",
           "useSpacing": true
         },
         {

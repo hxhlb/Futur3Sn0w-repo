@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.finn
 Name: Finn
 Version: 1.0.0
 Architecture: iphoneos-arm64
-Description: Tint homescreen context menus to match the long-pressed app icon color.
+Description: Tints the homescreen context-menu backdrop to the app icon color. Rootless rewrite of Koi for iOS 15 & 16.
 Author: Futur3Sn0w
 Maintainer: Futur3Sn0w
 Section: Tweaks

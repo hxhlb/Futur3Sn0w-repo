@@ -4,7 +4,7 @@ SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.mute
 Name: MuteModule
 Version: 0.0.1
 Architecture: iphoneos-arm64
-Description: Expose the hidden Control Center mute module on iPhone.
+Description: Exposes Apple's hidden Control Center mute module on iPhone.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

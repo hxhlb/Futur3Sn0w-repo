@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.reroadrunner.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Keep apps alive through resprings",
+          "title": "Keep apps alive through resprings.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "ReRoadRunner preserves running app state across resprings, so your apps are still alive when SpringBoard comes back up \u2014 no waiting for everything to relaunch from scratch.",
+          "markdown": "Keep apps alive through resprings.",
           "useSpacing": true
         },
         {

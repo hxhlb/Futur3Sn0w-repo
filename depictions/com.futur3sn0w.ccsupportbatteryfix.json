@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.ccsupportbatteryfix.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Fix battery % with CCSupport",
+          "title": "Fixes status bar battery percentage display when CCSupport is installed on iOS 15+.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "When CCSupport is installed on iOS 15 and later, the status bar battery percentage display can break or disappear. This micro-tweak patches the conflict so both tweaks coexist peacefully.",
+          "markdown": "Fixes status bar battery percentage display when CCSupport is installed on iOS 15+.",
           "useSpacing": true
         },
         {

@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.batterymirror.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Battery info in Control Center",
+          "title": "Mirrors the statusbar battery on the Low Power Mode toggle in Control Center.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "BatteryMirror mirrors the status bar battery percentage directly onto the Low Power Mode toggle in Control Center, so you always know your charge level at a glance without leaving the panel.",
+          "markdown": "Mirrors the statusbar battery on the Low Power Mode toggle in Control Center.",
           "useSpacing": true
         },
         {

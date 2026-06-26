@@ -1,7 +1,7 @@
 {
   "minVersion": "0.1",
   "class": "DepictionTabView",
-  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.centerlastrow.png",
   "tintColor": "#FF375F",
   "tabs": [
     {
@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Center the incomplete SpringBoard row",
+          "title": "Centers the final SpringBoard icon row when it is not full.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "CenterLastRow automatically centers the final row of app icons on the SpringBoard when it isn't completely full, giving your home screen a tidier, more balanced appearance.",
+          "markdown": "Centers the final SpringBoard icon row when it is not full.",
           "useSpacing": true
         },
         {
