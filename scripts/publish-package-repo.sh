@@ -256,7 +256,7 @@ RELEASE
   done
 
   # Sync static assets (icons, depictions, repo branding)
-  for asset in icons depictions; do
+  for asset in icons depictions banners; do
     if [ -d "$ROOT/$asset" ]; then
       rm -rf "./$asset"
       cp -r "$ROOT/$asset" "./$asset"
