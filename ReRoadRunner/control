@@ -1,0 +1,9 @@
+Package: com.futur3sn0w.reroadrunner
+Name: ReRoadRunner
+Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
+Version: 0.0.1
+Architecture: iphoneos-arm64
+Description: Keep apps alive through resprings
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
