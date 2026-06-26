@@ -1,0 +1,114 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "tintColor": "#FF375F",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Style your battery indicator",
+          "useBoldText": false,
+          "useBottomMargin": true
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "BattFX styles the system battery indicator while keeping the modern percentage body available systemwide. Choose from a range of visual effects that apply on top of the stock battery, giving your status bar a polished custom look without breaking any functionality.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "Package Info"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "Futur3Sn0w"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "0.0.4"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 15.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Section",
+          "text": "Tweaks"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "More by Futur3Sn0w",
+          "action": "https://futur3sn0w.github.io/repo",
+          "openExternal": true
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.4",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Improved compatibility with iOS 16.x",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.3",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Fixed rendering on iPad",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Preference panel polish",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.1",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Initial release",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        }
+      ]
+    }
+  ]
+}

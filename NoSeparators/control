@@ -1,8 +1,10 @@
 Package: com.futur3sn0w.noseparators
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.noseparators.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.noseparators.json
 Name: NoSeparators
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: Hide common UIKit separator lines systemwide on iOS 11.
+Description: Hide UIKit separator lines systemwide for a cleaner interface.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

@@ -1,0 +1,12 @@
+Package: com.futur3sn0w.resettings
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.resettings.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.resettings.json
+Name: ReSettings
+Version: 0.0.1
+Architecture: iphoneos-arm64
+Description: Collapse and expand Settings groups on iOS 15+.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: mobilesubstrate, preferenceloader
+Firmware: >= 15.0

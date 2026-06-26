@@ -1,0 +1,91 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "tintColor": "#FF375F",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Tint context menus to the app icon color",
+          "useBoldText": false,
+          "useBottomMargin": true
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "Finn samples the color of the app icon you long-press and tints the homescreen context menu backdrop and action cards to match. A rootless, dependency-free rewrite of Koi for iOS 15 & 16, using built-in k-means color sampling.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "Package Info"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "Futur3Sn0w"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "1.0.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 15.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Section",
+          "text": "Tweaks"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "More by Futur3Sn0w",
+          "action": "https://futur3sn0w.github.io/repo",
+          "openExternal": true
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 1.0.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Full rootless rewrite",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Removed libKitten dependency",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Self-contained color sampling",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        }
+      ]
+    }
+  ]
+}

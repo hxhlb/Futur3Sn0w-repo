@@ -1,8 +1,10 @@
 Package: com.futur3sn0w.solert
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.solert.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.solert.json
 Name: Solert
 Version: 0.0.1
 Architecture: iphoneos-arm64
-Description: iOS 26-inspired UIAlertController restyling for iOS 15.
+Description: Restyle UIAlertController to match iOS 26 refined alert aesthetic.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks

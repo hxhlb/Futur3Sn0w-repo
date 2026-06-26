@@ -1,0 +1,81 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "headerImage": "https://futur3sn0w.github.io/repo/RepoHeader.png",
+  "tintColor": "#FF375F",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Hide UIKit separator lines systemwide",
+          "useBoldText": false,
+          "useBottomMargin": true
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "NoSeparators hides the thin separator lines that appear between rows in system UIKit table views across the entire OS, resulting in a cleaner, more spacious interface.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "Package Info"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "Futur3Sn0w"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "0.0.1"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 11.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Section",
+          "text": "Tweaks"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "More by Futur3Sn0w",
+          "action": "https://futur3sn0w.github.io/repo",
+          "openExternal": true
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.1",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Initial release",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        }
+      ]
+    }
+  ]
+}

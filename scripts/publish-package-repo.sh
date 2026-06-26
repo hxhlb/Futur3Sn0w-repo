@@ -271,6 +271,18 @@ RELEASE
     )
   done
 
+  # Sync static assets (icons, depictions, repo branding)
+  for asset in icons depictions; do
+    if [ -d "$ROOT/$asset" ]; then
+      rm -rf "./$asset"
+      cp -r "$ROOT/$asset" "./$asset"
+    fi
+  done
+  for asset in CydiaIcon.png RepoHeader.png; do
+    if [ -f "$ROOT/$asset" ]; then
+      cp "$ROOT/$asset" "./$asset"
+    fi
+  done
   git add .
   git commit -m "Update package repo" || true
 )

@@ -1,8 +1,10 @@
 Package: com.futur3sn0w.taptimeneo
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.taptimenneo.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.taptimenneo.json
 Name: TapTimeNeo
 Version: 0.0.1
 Architecture: iphoneos-arm64
-Description: Tap the status bar clock to briefly show the date on iOS 15+.
+Description: Tap the status bar clock to briefly show the full date on iOS 15+.
 Maintainer: futur3sn0w
 Author: futur3sn0w
 Section: Tweaks
