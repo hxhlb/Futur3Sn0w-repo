@@ -9,6 +9,7 @@ struct Tweak {
 }
 
 let tweaks: [Tweak] = [
+    .init(id:"com.futur3sn0w.custhome",            name:"CustHome",             c1:"#AF52DE",c2:"#5E5CE6"),
     .init(id:"com.futur3sn0w.battfx",              name:"BattFX",               c1:"#FFD60A",c2:"#FF9F0A"),
     .init(id:"com.futur3sn0w.batterymirror",       name:"BatteryMirror",        c1:"#5AC8FA",c2:"#007AFF"),
     .init(id:"com.futur3sn0w.ccsupportbatteryfix", name:"CCSupport\nBattery Fix",c1:"#30D158",c2:"#00C7BE"),
