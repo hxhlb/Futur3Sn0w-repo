@@ -6,6 +6,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <substrate.h>
+#import <QuartzCore/QuartzCore.h>
 
 static BOOL S15HEMIsSpringBoard(void) {
     static BOOL result, checked;
@@ -20,6 +21,13 @@ static void *kS15HEMMenuInstalledKey = &kS15HEMMenuInstalledKey;
 static void *kS15HEMActiveSheetKey = &kS15HEMActiveSheetKey;
 static void *kS15HEMWallpaperDimOverlayKey = &kS15HEMWallpaperDimOverlayKey;
 static void *kS15HEMLastAppliedIconModeKey = &kS15HEMLastAppliedIconModeKey;
+static void *kS15HEMApplyingManagedTransformKey = &kS15HEMApplyingManagedTransformKey;
+static void *kS15HEMApplyingManagedAlphaKey = &kS15HEMApplyingManagedAlphaKey;
+static NSString *const kS15HEMTransitionProbePath = @"/var/mobile/Documents/CustHome-transition-probe.log";
+static NSUInteger sS15HEMTransitionProbeCount = 0;
+static CFTimeInterval sS15HEMTransitionProbeStart = 0;
+static BOOL sS15HEMLoggedIconLayoutSample = NO;
+static BOOL sS15HEMLoggedImageLayoutSample = NO;
 
 static NSString *const kS15HEMPrefsDomain = @"com.futur3sn0w.custhome";
 static NSString *const kS15HEMIconSizeKey = @"CustomizeIconSizeMode";
@@ -27,6 +35,9 @@ static NSString *const kS15HEMWallpaperDimmingKey = @"CustomizeWallpaperDimmingM
 static NSString *const kS15HEMAppearanceModeKey = @"CustomizeAppearanceMode";
 static NSString *const kS15HEMWeatherHueKey = @"CustomizeWeatherHueValue";
 static NSString *const kS15HEMWeatherBrightnessKey = @"CustomizeWeatherBrightnessValue";
+static NSString *const kS15HEMSystemAppearanceDomain = @"com.apple.uikitservices.userInterfaceStyleMode";
+static NSString *const kS15HEMSystemAppearanceModeValueKey = @"UserInterfaceStyleMode";
+static NSString *const kS15HEMSystemMostRecentAutomaticModeKey = @"MostRecentAutomaticMode";
 
 static UIWindow *S15HEMHomeScreenWindow(void);
 
@@ -36,7 +47,13 @@ static void S15HEMApplyIconAppearanceToAllVisibleViews(BOOL animated);
 static void S15HEMApplyAppearanceModeToSpringBoard(void);
 static void S15HEMRefreshHomeScreenIconLists(BOOL animated);
 static void S15HEMApplyIconAppearanceInContainer(UIView *container, BOOL animated);
+static void S15HEMHandleHomeScreenTraitChange(UITraitCollection *previousTraitCollection, UITraitCollection *currentTraitCollection);
+static UIUserInterfaceStyle S15HEMResolvedSystemInterfaceStyle(void);
 static UIView *S15HEMDirectIconImageView(UIView *iconView);
+static UIView *S15HEMNearestIconViewForView(UIView *view);
+static void S15HEMAppendTransitionProbe(NSString *phase, UIView *view, NSString *details);
+static void S15HEMLogVisibleIconHierarchySample(void);
+static BOOL S15HEMClassNameLooksLikeIconView(NSString *className);
 
 typedef NS_ENUM(NSInteger, S15HEMIconSizeMode) {
     S15HEMIconSizeModeSmall = 0,
@@ -55,6 +72,16 @@ typedef NS_ENUM(NSInteger, S15HEMAppearanceMode) {
     S15HEMAppearanceModeAutomatic = 2,
     S15HEMAppearanceModeTinted = 3,
 };
+
+static S15HEMAppearanceMode S15HEMAppearanceModePreference(void);
+static void S15HEMAppearanceModeSetPreference(S15HEMAppearanceMode mode);
+
+static BOOL S15HEMClassNameLooksLikeIconView(NSString *className) {
+    if (className.length == 0) return NO;
+    if (![className containsString:@"IconView"]) return NO;
+    if ([className containsString:@"ImageView"]) return NO;
+    return YES;
+}
 
 @interface S15HEMAppearanceButton : UIButton
 @end
@@ -91,6 +118,12 @@ typedef NS_ENUM(NSInteger, S15HEMAppearanceMode) {
 - (void)dismissAnimated;
 @end
 
+@interface UISUserInterfaceStyleMode : NSObject
+@property (nonatomic) NSInteger modeValue;
+@property (readonly, nonatomic) NSInteger suggestedAutomaticModeValue;
+- (id)initWithDelegate:(id _Nullable)delegate;
+@end
+
 static S15HEMIconSizeMode S15HEMIconSizePreference(void) {
     NSInteger value = [[NSUserDefaults standardUserDefaults] integerForKey:kS15HEMIconSizeKey];
     return value == S15HEMIconSizeModeLarge ? S15HEMIconSizeModeLarge : S15HEMIconSizeModeSmall;
@@ -112,8 +145,256 @@ static void S15HEMSetWallpaperDimmingPreference(S15HEMWallpaperDimmingMode mode)
     [[NSUserDefaults standardUserDefaults] setInteger:mode forKey:kS15HEMWallpaperDimmingKey];
 }
 
+static NSInteger S15HEMCurrentSystemAppearanceModeValue(void) {
+    Class styleModeClass = NSClassFromString(@"UISUserInterfaceStyleMode");
+    if (styleModeClass) {
+        @try {
+            SEL initSel = NSSelectorFromString(@"initWithDelegate:");
+            UISUserInterfaceStyleMode *styleMode = ((id (*)(id, SEL, id))objc_msgSend)([styleModeClass alloc], initSel, nil);
+            if ([styleMode respondsToSelector:@selector(modeValue)]) {
+                return styleMode.modeValue;
+            }
+        } @catch (__unused NSException *exception) {
+        }
+    }
+
+    CFPropertyListRef rawValue = CFPreferencesCopyAppValue((CFStringRef)kS15HEMSystemAppearanceModeValueKey,
+                                                           (CFStringRef)kS15HEMSystemAppearanceDomain);
+    if (rawValue) {
+        NSInteger value = [(__bridge id)rawValue integerValue];
+        CFRelease(rawValue);
+        return value;
+    }
+
+    return 100;
+}
+
+static NSInteger S15HEMSuggestedAutomaticSystemAppearanceModeValue(void) {
+    Class styleModeClass = NSClassFromString(@"UISUserInterfaceStyleMode");
+    if (styleModeClass) {
+        @try {
+            SEL initSel = NSSelectorFromString(@"initWithDelegate:");
+            UISUserInterfaceStyleMode *styleMode = ((id (*)(id, SEL, id))objc_msgSend)([styleModeClass alloc], initSel, nil);
+            if ([styleMode respondsToSelector:@selector(suggestedAutomaticModeValue)]) {
+                NSInteger value = styleMode.suggestedAutomaticModeValue;
+                if (value != 0) return value;
+            }
+        } @catch (__unused NSException *exception) {
+        }
+    }
+
+    CFPropertyListRef rawValue = CFPreferencesCopyAppValue((CFStringRef)kS15HEMSystemMostRecentAutomaticModeKey,
+                                                           (CFStringRef)kS15HEMSystemAppearanceDomain);
+    if (rawValue) {
+        NSInteger value = [(__bridge id)rawValue integerValue];
+        CFRelease(rawValue);
+        if (value != 0) return value;
+    }
+
+    return 100;
+}
+
+static S15HEMAppearanceMode S15HEMAppearanceModeForSystemModeValue(NSInteger value) {
+    if (value == UIUserInterfaceStyleLight) return S15HEMAppearanceModeLight;
+    if (value == UIUserInterfaceStyleDark) return S15HEMAppearanceModeDark;
+    return S15HEMAppearanceModeAutomatic;
+}
+
+static NSInteger S15HEMSystemModeValueForAppearanceMode(S15HEMAppearanceMode mode) {
+    switch (mode) {
+        case S15HEMAppearanceModeLight:
+            return UIUserInterfaceStyleLight;
+        case S15HEMAppearanceModeDark:
+            return UIUserInterfaceStyleDark;
+        case S15HEMAppearanceModeAutomatic:
+            return S15HEMSuggestedAutomaticSystemAppearanceModeValue();
+        case S15HEMAppearanceModeTinted:
+            break;
+    }
+    return S15HEMCurrentSystemAppearanceModeValue();
+}
+
+static BOOL S15HEMSetSystemAppearanceModeValue(NSInteger modeValue) {
+    Class styleModeClass = NSClassFromString(@"UISUserInterfaceStyleMode");
+    if (styleModeClass) {
+        @try {
+            SEL initSel = NSSelectorFromString(@"initWithDelegate:");
+            UISUserInterfaceStyleMode *styleMode = ((id (*)(id, SEL, id))objc_msgSend)([styleModeClass alloc], initSel, nil);
+            if ([styleMode respondsToSelector:@selector(setModeValue:)]) {
+                styleMode.modeValue = modeValue;
+                return YES;
+            }
+        } @catch (__unused NSException *exception) {
+        }
+    }
+
+    CFPreferencesSetAppValue((CFStringRef)kS15HEMSystemAppearanceModeValueKey,
+                             (__bridge CFPropertyListRef)@(modeValue),
+                             (CFStringRef)kS15HEMSystemAppearanceDomain);
+    if (modeValue >= 100) {
+        CFPreferencesSetAppValue((CFStringRef)kS15HEMSystemMostRecentAutomaticModeKey,
+                                 (__bridge CFPropertyListRef)@(modeValue),
+                                 (CFStringRef)kS15HEMSystemAppearanceDomain);
+    }
+    return CFPreferencesAppSynchronize((CFStringRef)kS15HEMSystemAppearanceDomain);
+}
+
+static void S15HEMRefreshActiveSheetControlStateAnimated(BOOL animated) {
+    UIWindow *window = S15HEMHomeScreenWindow();
+    if (!window) return;
+    id sheet = objc_getAssociatedObject(window, kS15HEMActiveSheetKey);
+    if (!sheet || ![sheet respondsToSelector:@selector(refreshControlStateAnimated:)]) return;
+    ((void (*)(id, SEL, BOOL))objc_msgSend)(sheet, @selector(refreshControlStateAnimated:), animated);
+}
+
+static void S15HEMSynchronizeAppearancePreferenceFromSystemIfNeeded(void) {
+    S15HEMAppearanceMode currentMode = S15HEMAppearanceModePreference();
+    if (currentMode == S15HEMAppearanceModeTinted) return;
+
+    S15HEMAppearanceMode systemMode = S15HEMAppearanceModeForSystemModeValue(S15HEMCurrentSystemAppearanceModeValue());
+    if (systemMode != currentMode) {
+        S15HEMAppearanceModeSetPreference(systemMode);
+    }
+}
+
 static CGFloat S15HEMCurrentIconScale(void) {
     return S15HEMIconSizePreference() == S15HEMIconSizeModeLarge ? 1.12 : 1.0;
+}
+
+static NSString *S15HEMShortViewSummary(UIView *view) {
+    if (!view) return @"(nil)";
+    return [NSString stringWithFormat:@"%@ frame=%@ alpha=%.2f hidden=%d",
+            NSStringFromClass(view.class),
+            NSStringFromCGRect(view.frame),
+            view.alpha,
+            view.hidden ? 1 : 0];
+}
+
+static NSString *S15HEMViewChainSummary(UIView *view, NSUInteger limit) {
+    if (!view) return @"(nil)";
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    UIView *current = view;
+    NSUInteger depth = 0;
+    while (current && depth < limit) {
+        [parts addObject:S15HEMShortViewSummary(current)];
+        current = current.superview;
+        depth++;
+    }
+    return [parts componentsJoinedByString:@" <- "];
+}
+
+static void S15HEMAppendTransitionProbe(NSString *phase, UIView *view, NSString *details) {
+    if (!view || sS15HEMTransitionProbeCount >= 250) return;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSFileManager defaultManager] removeItemAtPath:kS15HEMTransitionProbePath error:nil];
+        sS15HEMTransitionProbeStart = CACurrentMediaTime();
+    });
+
+    sS15HEMTransitionProbeCount++;
+    CFTimeInterval now = CACurrentMediaTime();
+    CFTimeInterval elapsed = sS15HEMTransitionProbeStart > 0 ? (now - sS15HEMTransitionProbeStart) : 0;
+    UIView *iconView = S15HEMNearestIconViewForView(view);
+    NSString *line = [NSString stringWithFormat:@"t=%.3f %lu %@ view={%@} icon={%@} chain=%@ %@\n",
+                      elapsed,
+                      (unsigned long)sS15HEMTransitionProbeCount,
+                      phase ?: @"(null)",
+                      S15HEMShortViewSummary(view),
+                      S15HEMShortViewSummary(iconView),
+                      S15HEMViewChainSummary(view, 5),
+                      details ?: @""];
+
+    NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data.length) return;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:kS15HEMTransitionProbePath]) {
+        [manager createFileAtPath:kS15HEMTransitionProbePath contents:nil attributes:nil];
+    }
+    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:kS15HEMTransitionProbePath];
+    if (!handle) return;
+    [handle seekToEndOfFile];
+    [handle writeData:data];
+    [handle closeFile];
+}
+
+static void S15HEMAppendTransitionProbeMessage(NSString *phase, NSString *details) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSFileManager defaultManager] removeItemAtPath:kS15HEMTransitionProbePath error:nil];
+        sS15HEMTransitionProbeStart = CACurrentMediaTime();
+    });
+
+    CFTimeInterval now = CACurrentMediaTime();
+    CFTimeInterval elapsed = sS15HEMTransitionProbeStart > 0 ? (now - sS15HEMTransitionProbeStart) : 0;
+    NSString *line = [NSString stringWithFormat:@"t=%.3f %@ %@\n",
+                      elapsed,
+                      phase ?: @"(null)",
+                      details ?: @""];
+    NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data.length) return;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:kS15HEMTransitionProbePath]) {
+        [manager createFileAtPath:kS15HEMTransitionProbePath contents:nil attributes:nil];
+    }
+    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:kS15HEMTransitionProbePath];
+    if (!handle) return;
+    [handle seekToEndOfFile];
+    [handle writeData:data];
+    [handle closeFile];
+}
+
+static void S15HEMLogVisibleIconHierarchySample(void) {
+    static BOOL logged = NO;
+    if (logged || !S15HEMIsSpringBoard()) return;
+    logged = YES;
+
+    NSUInteger emitted = 0;
+    for (UIWindow *window in S15HEMAllWindows()) {
+        if (!window || window.hidden || window.alpha <= 0.01) continue;
+        NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:window];
+        while (queue.count && emitted < 80) {
+            UIView *candidate = queue.firstObject;
+            [queue removeObjectAtIndex:0];
+            [queue addObjectsFromArray:candidate.subviews];
+
+            if (candidate.hidden || candidate.alpha <= 0.01) continue;
+            NSString *className = NSStringFromClass(candidate.class);
+            BOOL iconish = [className containsString:@"Icon"] ||
+                           [className containsString:@"Folder"] ||
+                           [className containsString:@"Label"];
+            if (!iconish) continue;
+
+            NSString *details = [NSString stringWithFormat:@"window=%@ respondsIcon=%d subviews=%lu",
+                                 NSStringFromClass(window.class),
+                                 [candidate respondsToSelector:@selector(icon)] ? 1 : 0,
+                                 (unsigned long)candidate.subviews.count];
+            S15HEMAppendTransitionProbe(@"hierarchy.sample", candidate, details);
+            emitted++;
+        }
+    }
+}
+
+static CGFloat S15HEMTransformScaleX(CGAffineTransform transform) {
+    return sqrt((transform.a * transform.a) + (transform.c * transform.c));
+}
+
+static CGFloat S15HEMTransformScaleY(CGAffineTransform transform) {
+    return sqrt((transform.b * transform.b) + (transform.d * transform.d));
+}
+
+static BOOL S15HEMTransformAlreadyIncludesScale(CGAffineTransform transform, CGFloat scale) {
+    if (scale <= 1.0) return YES;
+    CGFloat scaleX = S15HEMTransformScaleX(transform);
+    CGFloat scaleY = S15HEMTransformScaleY(transform);
+    return fabs(scaleX - scale) < 0.02 && fabs(scaleY - scale) < 0.02;
+}
+
+static CGAffineTransform S15HEMManagedTransformForIncomingTransform(CGAffineTransform transform) {
+    CGFloat scale = S15HEMCurrentIconScale();
+    if (scale <= 1.0) return transform;
+    if (S15HEMTransformAlreadyIncludesScale(transform, scale)) return transform;
+    return CGAffineTransformScale(transform, scale, scale);
 }
 
 static CGSize S15HEMScaledIconSize(CGSize size) {
@@ -150,7 +431,7 @@ static NSArray<UIWindow *> *S15HEMAllWindows(void) {
 static S15HEMAppearanceMode S15HEMAppearanceModePreference(void) {
     NSInteger value = [[NSUserDefaults standardUserDefaults] integerForKey:kS15HEMAppearanceModeKey];
     if (value < S15HEMAppearanceModeLight || value > S15HEMAppearanceModeTinted) {
-        return S15HEMAppearanceModeTinted;
+        return S15HEMAppearanceModeAutomatic;
     }
     return (S15HEMAppearanceMode)value;
 }
@@ -357,6 +638,22 @@ static void S15HEMApplyWallpaperDimmingForStyle(UIUserInterfaceStyle style) {
     }
 }
 
+static UIUserInterfaceStyle S15HEMResolvedSystemInterfaceStyle(void) {
+    UIWindow *homeWindow = S15HEMHomeScreenWindow();
+    UIUserInterfaceStyle style = homeWindow ? homeWindow.traitCollection.userInterfaceStyle : UIUserInterfaceStyleUnspecified;
+    if (style != UIUserInterfaceStyleUnspecified) return style;
+
+    for (UIWindow *window in S15HEMAllWindows()) {
+        UIUserInterfaceStyle windowStyle = window.traitCollection.userInterfaceStyle;
+        if (windowStyle != UIUserInterfaceStyleUnspecified) return windowStyle;
+    }
+
+    if (@available(iOS 13.0, *)) {
+        return UIScreen.mainScreen.traitCollection.userInterfaceStyle;
+    }
+    return UIUserInterfaceStyleLight;
+}
+
 static void S15HEMApplyWallpaperDimmingToHomeScreen(void) {
     UIWindow *window = S15HEMHomeScreenWindow();
     if (!window) return;
@@ -374,7 +671,7 @@ static void S15HEMApplyWallpaperDimmingToHomeScreen(void) {
     }
 
     [UIView animateWithDuration:0.22 animations:^{
-        overlay.alpha = shouldDim ? 0.10 : 0.0;
+        overlay.alpha = shouldDim ? 0.38 : 0.0;
     }];
 }
 
@@ -403,17 +700,6 @@ static BOOL S15HEMViewOrAncestorClassNameContains(UIView *view, NSString *fragme
     return NO;
 }
 
-static BOOL S15HEMViewLivesInIconListView(UIView *view) {
-    if (!view) return NO;
-    for (UIView *candidate = view; candidate; candidate = candidate.superview) {
-        NSString *className = [NSString stringWithUTF8String:object_getClassName(candidate)];
-        if ([className containsString:@"IconListView"]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
 static id S15HEMIconObjectForView(UIView *view) {
     for (UIView *candidate = view; candidate; candidate = candidate.superview) {
         if ([candidate respondsToSelector:@selector(icon)]) {
@@ -426,7 +712,9 @@ static id S15HEMIconObjectForView(UIView *view) {
 
 static UIView *S15HEMNearestIconViewForView(UIView *view) {
     for (UIView *candidate = view; candidate; candidate = candidate.superview) {
-        if ([NSStringFromClass(candidate.class) isEqualToString:@"SBIconView"]) {
+        NSString *className = NSStringFromClass(candidate.class);
+        if (S15HEMClassNameLooksLikeIconView(className) &&
+            [candidate respondsToSelector:@selector(icon)]) {
             return candidate;
         }
     }
@@ -451,7 +739,6 @@ static BOOL S15HEMIsWidgetIconModelForView(UIView *view) {
 
 static BOOL S15HEMShouldProcessIconView(UIView *iconView) {
     if (!iconView) return NO;
-    if (!S15HEMViewLivesInIconListView(iconView)) return NO;
     // Regular icons are always ~60pt wide. Widgets occupy multiple icon slots
     // and are always substantially wider. App-backed widgets use SBApplicationIcon
     // as their model so we can't rely on icon class alone — frame size is definitive.
@@ -479,7 +766,6 @@ static BOOL S15HEMShouldProcessIconView(UIView *iconView) {
 
 static BOOL S15HEMShouldProcessContentView(UIView *contentView) {
     if (!contentView) return NO;
-    if (!S15HEMViewLivesInIconListView(contentView)) return NO;
     // Widget image views live inside larger frames — regular icon image views are ~60pt
     CGSize contentFrame = contentView.frame.size;
     if (contentFrame.width > 80.0 || contentFrame.height > 80.0) return NO;
@@ -525,32 +811,82 @@ static UIView *S15HEMVisibleIconContainerView(UIView *iconView) {
     return nil;
 }
 
-static void S15HEMSetHiddenForLabelsInView(UIView *root, BOOL hidden) {
+static BOOL S15HEMLabelCandidateShouldBeManaged(UIView *candidate) {
+    if (!candidate) return NO;
+    NSString *className = [NSString stringWithUTF8String:object_getClassName(candidate)];
+    BOOL isLabelish = [className containsString:@"Label"] || [candidate isKindOfClass:UILabel.class];
+    BOOL isChrome = [className containsString:@"ImageView"] || [className containsString:@"Badge"] ||
+                    [className containsString:@"Editing"] || [className containsString:@"Shadow"];
+    return isLabelish && !isChrome;
+}
+
+static NSInteger S15HEMViewDepthFromAncestor(UIView *view, UIView *ancestor) {
+    if (!view || !ancestor) return NSNotFound;
+    NSInteger depth = 0;
+    for (UIView *current = view; current; current = current.superview) {
+        if (current == ancestor) return depth;
+        depth++;
+    }
+    return NSNotFound;
+}
+
+static BOOL S15HEMShouldForceHiddenForLabelView(UIView *labelView) {
+    if (!labelView) return NO;
+    if (S15HEMIconSizePreference() != S15HEMIconSizeModeLarge) return NO;
+    if (!S15HEMLabelCandidateShouldBeManaged(labelView)) return NO;
+
+    UIView *iconView = S15HEMNearestIconViewForView(labelView);
+    if (!iconView) return NO;
+
+    if (S15HEMShouldProcessIconView(iconView)) {
+        return YES;
+    }
+
+    NSInteger depth = S15HEMViewDepthFromAncestor(labelView, iconView);
+    return depth != NSNotFound && depth <= 2;
+}
+
+// maxDepth: how many levels to descend from root's subviews. -1 = unlimited (regular icons).
+// Use 2 for widget SBIconViews to avoid reaching into widget content (clock digits, weather text, etc.).
+static void S15HEMSetHiddenForLabelsInView(UIView *root, BOOL hidden, BOOL animate, NSInteger maxDepth) {
     if (!root) return;
-    NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:root];
-    while (queue.count) {
-        UIView *candidate = queue.firstObject;
-        [queue removeObjectAtIndex:0];
-        if (![candidate isKindOfClass:UILabel.class]) {
-            [queue addObjectsFromArray:candidate.subviews];
-            continue;
+    NSMutableArray<UIView *> *targets = [NSMutableArray array];
+    NSMutableArray<UIView *> *currentLevel = [NSMutableArray arrayWithArray:root.subviews];
+    NSInteger depth = 1;
+    while (currentLevel.count > 0 && (maxDepth < 0 || depth <= maxDepth)) {
+        NSMutableArray<UIView *> *nextLevel = [NSMutableArray array];
+        for (UIView *candidate in currentLevel) {
+            NSString *className = [NSString stringWithUTF8String:object_getClassName(candidate)];
+            BOOL isLabelish = [className containsString:@"Label"] || [candidate isKindOfClass:UILabel.class];
+            BOOL isChrome = [className containsString:@"ImageView"] || [className containsString:@"Badge"] ||
+                            [className containsString:@"Editing"] || [className containsString:@"Shadow"];
+            if (isLabelish && !isChrome) {
+                [targets addObject:candidate];
+                // Don't recurse into label views — children follow automatically
+            } else if (!isChrome) {
+                [nextLevel addObjectsFromArray:candidate.subviews];
+            }
         }
-
-        UILabel *label = (UILabel *)candidate;
-        UIView *superview = label.superview;
-        NSString *superName = NSStringFromClass(superview.class);
-        if ([superName containsString:@"IconLabel"] ||
-            [superName containsString:@"Icon"] ||
-            [superName containsString:@"Widget"]) {
-            label.alpha = hidden ? 0.0 : 1.0;
-            label.hidden = NO;
+        currentLevel = nextLevel;
+        depth++;
+    }
+    if (targets.count == 0) return;
+    CGFloat targetAlpha = hidden ? 0.0 : 1.0;
+    void (^applyAlpha)(void) = ^{
+        for (UIView *v in targets) {
+            objc_setAssociatedObject(v, kS15HEMApplyingManagedAlphaKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            v.alpha = targetAlpha;
+            objc_setAssociatedObject(v, kS15HEMApplyingManagedAlphaKey, nil, OBJC_ASSOCIATION_ASSIGN);
         }
-
-        NSString *className = [NSString stringWithUTF8String:object_getClassName(candidate)];
-        if ([className containsString:@"LegibilityLabelView"]) {
-            candidate.hidden = hidden;
-            candidate.alpha = hidden ? 0.0 : 1.0;
-        }
+    };
+    if (animate) {
+        [UIView animateWithDuration:0.22
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:applyAlpha
+                         completion:nil];
+    } else {
+        applyAlpha();
     }
 }
 
@@ -576,9 +912,13 @@ static void S15HEMApplyIconAppearanceToView(UIView *iconView) {
     CGFloat scale = S15HEMCurrentIconScale();
     void (^changes)(void) = ^{
         if (containerView) {
+            objc_setAssociatedObject(containerView, kS15HEMApplyingManagedTransformKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             containerView.transform = CGAffineTransformMakeScale(scale, scale);
+            objc_setAssociatedObject(containerView, kS15HEMApplyingManagedTransformKey, nil, OBJC_ASSOCIATION_ASSIGN);
         }
+        objc_setAssociatedObject(contentView, kS15HEMApplyingManagedTransformKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         contentView.transform = CGAffineTransformMakeScale(scale, scale);
+        objc_setAssociatedObject(contentView, kS15HEMApplyingManagedTransformKey, nil, OBJC_ASSOCIATION_ASSIGN);
     };
     if (animate) {
         [UIView animateWithDuration:0.28
@@ -599,7 +939,7 @@ static void S15HEMApplyIconAppearanceToView(UIView *iconView) {
         ((void (*)(id, SEL))objc_msgSend)(iconView, configureSizeSel);
     }
 
-    S15HEMSetHiddenForLabelsInView(iconView, large);
+    S15HEMSetHiddenForLabelsInView(iconView, large, animate, -1);
     objc_setAssociatedObject(iconView, kS15HEMLastAppliedIconModeKey, @(mode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -611,15 +951,22 @@ static void S15HEMApplyIconAppearanceToAllVisibleViews(BOOL animated) {
 }
 
 static void S15HEMApplyIconAppearanceInContainer(UIView *container, BOOL animated) {
-    (void)animated;
     if (!container) return;
+    BOOL large = S15HEMIconSizePreference() == S15HEMIconSizeModeLarge;
     NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:container];
     while (queue.count) {
         UIView *candidate = queue.firstObject;
         [queue removeObjectAtIndex:0];
         NSString *className = NSStringFromClass(candidate.class);
-        if ([className isEqualToString:@"SBIconView"]) {
-            S15HEMApplyIconAppearanceToView(candidate);
+        if (S15HEMClassNameLooksLikeIconView(className) &&
+            [candidate respondsToSelector:@selector(icon)]) {
+            if (S15HEMShouldProcessIconView(candidate)) {
+                S15HEMApplyIconAppearanceToView(candidate);
+            } else {
+                // Widget/non-processable: fade only the shallow app-name label (depth 2),
+                // never widget content (clock digits, weather text, etc.).
+                S15HEMSetHiddenForLabelsInView(candidate, large, animated, 2);
+            }
         }
         [queue addObjectsFromArray:candidate.subviews];
     }
@@ -723,12 +1070,30 @@ static void S15HEMApplyAppearanceModeToSpringBoard(void) {
 }
 
 static void S15HEMApplyAllCurrentSettings(void) {
+    S15HEMSynchronizeAppearancePreferenceFromSystemIfNeeded();
     S15HEMApplyAppearanceModeToSpringBoard();
-    UIWindow *window = S15HEMHomeScreenWindow();
-    UIUserInterfaceStyle style = window ? window.traitCollection.userInterfaceStyle : UIUserInterfaceStyleUnspecified;
+    UIUserInterfaceStyle style = S15HEMResolvedSystemInterfaceStyle();
     S15HEMApplyWallpaperDimmingForStyle(style);
     S15HEMApplyWallpaperDimmingToHomeScreen();
     S15HEMApplyIconAppearanceToAllVisibleViews(NO);
+    S15HEMRefreshActiveSheetControlStateAnimated(NO);
+}
+
+static void S15HEMHandleHomeScreenTraitChange(UITraitCollection *previousTraitCollection, UITraitCollection *currentTraitCollection) {
+    if (!currentTraitCollection) return;
+    if (previousTraitCollection &&
+        previousTraitCollection.userInterfaceStyle == currentTraitCollection.userInterfaceStyle) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        S15HEMAppearanceMode mode = S15HEMAppearanceModePreference();
+        if (mode == S15HEMAppearanceModeAutomatic || mode == S15HEMAppearanceModeTinted) {
+            S15HEMApplyAppearanceModeToSpringBoard();
+        }
+        S15HEMApplyWallpaperDimmingForStyle(currentTraitCollection.userInterfaceStyle);
+        S15HEMApplyWallpaperDimmingToHomeScreen();
+    });
 }
 
 static id S15HEMCreateHomeScreenEntryPointWithServiceConfiguration(id serviceConfiguration) {
@@ -1039,7 +1404,7 @@ static UIButton *S15HEMCreateAppearanceButton(S15HEMCustomizeSheetView *sheet, S
     borderView.translatesAutoresizingMaskIntoConstraints = NO;
     borderView.userInteractionEnabled = NO;
     borderView.backgroundColor = UIColor.clearColor;
-    borderView.layer.cornerRadius = 13.0;
+    borderView.layer.cornerRadius = 16.0;
     borderView.layer.cornerCurve = kCACornerCurveContinuous;
     borderView.layer.borderWidth = 7.0;
     borderView.layer.borderColor = UIColor.clearColor.CGColor;
@@ -1204,12 +1569,15 @@ static UIButton *S15HEMCreateAppearanceButton(S15HEMCustomizeSheetView *sheet, S
 - (void)appearanceButtonTapped:(UIControl *)control {
     NSUInteger index = (NSUInteger)control.tag;
     if (index >= self.appearanceButtons.count) return;
-    S15HEMAppearanceModeSetPreference((S15HEMAppearanceMode)index);
-    if (index != (NSUInteger)S15HEMAppearanceModeTinted) {
-        S15HEMApplyAppearanceModeToSpringBoard();
+    S15HEMAppearanceMode mode = (S15HEMAppearanceMode)index;
+    S15HEMAppearanceModeSetPreference(mode);
+    if (mode != S15HEMAppearanceModeTinted) {
+        S15HEMSetSystemAppearanceModeValue(S15HEMSystemModeValueForAppearanceMode(mode));
     }
+    S15HEMApplyAllCurrentSettings();
     [self refreshControlStateAnimated:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
+        S15HEMApplyAllCurrentSettings();
         [self refreshControlStateAnimated:YES];
     });
 }
@@ -1707,7 +2075,6 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 - (void)didMoveToWindow {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
-    if (![NSStringFromClass(((UIView *)self).class) isEqualToString:@"SBIconView"]) return;
     __weak UIView *weakIconView = (UIView *)self;
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView *iconView = weakIconView;
@@ -1719,7 +2086,6 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 - (void)configureSize {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
-    if (![NSStringFromClass(((UIView *)self).class) isEqualToString:@"SBIconView"]) return;
     S15HEMApplyIconAppearanceToView((UIView *)self);
 }
 
@@ -1727,10 +2093,30 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
     UIView *iconView = (UIView *)self;
-    if (![NSStringFromClass(iconView.class) isEqualToString:@"SBIconView"]) return;
+    if (!sS15HEMLoggedIconLayoutSample) {
+        sS15HEMLoggedIconLayoutSample = YES;
+        S15HEMAppendTransitionProbe(@"SBIconView.layoutSubviews.sample",
+                                    iconView,
+                                    [NSString stringWithFormat:@"mode=%ld transform={%.3f,%.3f,%.3f,%.3f}",
+                                     (long)S15HEMIconSizePreference(),
+                                     iconView.transform.a,
+                                     iconView.transform.b,
+                                     iconView.transform.c,
+                                     iconView.transform.d]);
+    }
     if (S15HEMShouldProcessIconView(iconView)) {
         S15HEMApplyIconAppearanceToView(iconView);
         return;
+    }
+    // Non-processable (widget) views: hide their labels in large mode too.
+    // Animate only when the mode actually changes, same logic as the regular icon path.
+    {
+        S15HEMIconSizeMode currentMode = S15HEMIconSizePreference();
+        BOOL large = currentMode == S15HEMIconSizeModeLarge;
+        NSNumber *lastModeVal = objc_getAssociatedObject(iconView, kS15HEMLastAppliedIconModeKey);
+        BOOL modeChanged = lastModeVal != nil && (NSInteger)lastModeVal.integerValue != (NSInteger)currentMode;
+        S15HEMSetHiddenForLabelsInView(iconView, large, modeChanged, 2);
+        objc_setAssociatedObject(iconView, kS15HEMLastAppliedIconModeKey, @(currentMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     // Defensive reset: a widget whose SBIconView frame was still small on an earlier
     // layout pass may have had our scale incorrectly applied. Now that its frame is
@@ -1752,6 +2138,42 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 
 %end
 
+%hook UIView
+
+- (void)setTransform:(CGAffineTransform)transform {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(transform);
+        return;
+    }
+
+    UIView *selfView = (UIView *)self;
+    BOOL applyingManagedTransform = [objc_getAssociatedObject(selfView, kS15HEMApplyingManagedTransformKey) boolValue];
+    if (!applyingManagedTransform) {
+        NSString *className = [NSString stringWithUTF8String:object_getClassName(selfView)];
+        if ([className containsString:@"TouchPassThrough"]) {
+            UIView *ownerIconView = S15HEMNearestIconViewForView(selfView);
+            if (ownerIconView && S15HEMShouldProcessIconView(ownerIconView) &&
+                S15HEMIconSizePreference() == S15HEMIconSizeModeLarge) {
+                CGFloat incomingScaleX = S15HEMTransformScaleX(transform);
+                CGFloat incomingScaleY = S15HEMTransformScaleY(transform);
+                if (fabs(incomingScaleX - 1.0) < 0.03 || fabs(incomingScaleY - 1.0) < 0.03) {
+                    S15HEMAppendTransitionProbe(@"UIView.setTransform.container",
+                                                selfView,
+                                                [NSString stringWithFormat:@"incoming={%.3f,%.3f} outgoing={%.3f,%.3f}",
+                                                 incomingScaleX, incomingScaleY,
+                                                 S15HEMTransformScaleX(S15HEMManagedTransformForIncomingTransform(transform)),
+                                                 S15HEMTransformScaleY(S15HEMManagedTransformForIncomingTransform(transform))]);
+                }
+                transform = S15HEMManagedTransformForIncomingTransform(transform);
+            }
+        }
+    }
+
+    %orig(transform);
+}
+
+%end
+
 %hook SBIconImageView
 
 - (CGSize)intrinsicContentSize {
@@ -1768,13 +2190,52 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
     return S15HEMScaledIconSize(original);
 }
 
+- (void)setTransform:(CGAffineTransform)transform {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(transform);
+        return;
+    }
+
+    UIView *selfView = (UIView *)self;
+    BOOL applyingManagedTransform = [objc_getAssociatedObject(selfView, kS15HEMApplyingManagedTransformKey) boolValue];
+    if (!applyingManagedTransform &&
+        S15HEMShouldProcessContentView(selfView) &&
+        S15HEMIconSizePreference() == S15HEMIconSizeModeLarge) {
+        CGFloat incomingScaleX = S15HEMTransformScaleX(transform);
+        CGFloat incomingScaleY = S15HEMTransformScaleY(transform);
+        if (fabs(incomingScaleX - 1.0) < 0.03 || fabs(incomingScaleY - 1.0) < 0.03) {
+            S15HEMAppendTransitionProbe(@"SBIconImageView.setTransform",
+                                        selfView,
+                                        [NSString stringWithFormat:@"incoming={%.3f,%.3f} outgoing={%.3f,%.3f}",
+                                         incomingScaleX, incomingScaleY,
+                                         S15HEMTransformScaleX(S15HEMManagedTransformForIncomingTransform(transform)),
+                                         S15HEMTransformScaleY(S15HEMManagedTransformForIncomingTransform(transform))]);
+        }
+        transform = S15HEMManagedTransformForIncomingTransform(transform);
+    }
+
+    %orig(transform);
+}
+
 - (void)layoutSubviews {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
     UIView *selfView = (UIView *)self;
+    if (!sS15HEMLoggedImageLayoutSample) {
+        sS15HEMLoggedImageLayoutSample = YES;
+        S15HEMAppendTransitionProbe(@"SBIconImageView.layoutSubviews.sample",
+                                    selfView,
+                                    [NSString stringWithFormat:@"transform={%.3f,%.3f,%.3f,%.3f}",
+                                     selfView.transform.a,
+                                     selfView.transform.b,
+                                     selfView.transform.c,
+                                     selfView.transform.d]);
+    }
     if (S15HEMShouldProcessContentView(selfView)) {
         CGFloat scale = S15HEMCurrentIconScale();
+        objc_setAssociatedObject(selfView, kS15HEMApplyingManagedTransformKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         selfView.transform = CGAffineTransformMakeScale(scale, scale);
+        objc_setAssociatedObject(selfView, kS15HEMApplyingManagedTransformKey, nil, OBJC_ASSOCIATION_ASSIGN);
         return;
     }
     // Defensive reset: undo our specific scale if it was incorrectly applied to a widget.
@@ -1796,9 +2257,80 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 
 %end
 
+%hook UIView
+
+- (void)setAlpha:(CGFloat)alpha {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(alpha);
+        return;
+    }
+
+    UIView *selfView = (UIView *)self;
+    BOOL applyingManagedAlpha = [objc_getAssociatedObject(selfView, kS15HEMApplyingManagedAlphaKey) boolValue];
+    if (!applyingManagedAlpha && S15HEMShouldForceHiddenForLabelView(selfView)) {
+        if (alpha > 0.01) {
+            S15HEMAppendTransitionProbe(@"labelView.setAlpha",
+                                        selfView,
+                                        [NSString stringWithFormat:@"incoming=%.3f forced=0.000 class=%@",
+                                         alpha,
+                                         NSStringFromClass(selfView.class)]);
+        }
+        alpha = 0.0;
+    }
+
+    %orig(alpha);
+}
+
+- (void)setHidden:(BOOL)hidden {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(hidden);
+        return;
+    }
+
+    UIView *selfView = (UIView *)self;
+    BOOL applyingManagedAlpha = [objc_getAssociatedObject(selfView, kS15HEMApplyingManagedAlphaKey) boolValue];
+    if (!applyingManagedAlpha && S15HEMShouldForceHiddenForLabelView(selfView)) {
+        hidden = YES;
+    }
+
+    %orig(hidden);
+}
+
+%end
+
+%hook UIWindow
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    %orig;
+    if (!S15HEMIsSpringBoard()) return;
+
+    UIWindow *window = (UIWindow *)self;
+    NSString *className = NSStringFromClass(window.class);
+    if (![className isEqualToString:@"SBHomeScreenWindow"] && window != S15HEMHomeScreenWindow()) return;
+    S15HEMHandleHomeScreenTraitChange(previousTraitCollection, window.traitCollection);
+}
+
+%end
+
 %hook SpringBoard
 
 - (void)applicationDidFinishLaunching:(id)application {
+    %orig;
+    S15HEMAppendTransitionProbeMessage(@"SpringBoard.launch",
+                                       [NSString stringWithFormat:@"bundle=%@ mode=%ld scale=%.2f",
+                                        NSBundle.mainBundle.bundleIdentifier ?: @"(nil)",
+                                        (long)S15HEMIconSizePreference(),
+                                        S15HEMCurrentIconScale()]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        S15HEMLogVisibleIconHierarchySample();
+        S15HEMApplyAllCurrentSettings();
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        S15HEMLogVisibleIconHierarchySample();
+    });
+}
+
+- (void)applicationDidBecomeActive:(id)application {
     %orig;
     dispatch_async(dispatch_get_main_queue(), ^{
         S15HEMApplyAllCurrentSettings();
