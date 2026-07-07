@@ -1,0 +1,1244 @@
+{"app_name":"SpringBoard","timestamp":"2026-07-07 00:30:03.00 -0400","app_version":"1.0","slice_uuid":"3ef3f468-bc34-3201-81e9-fb86425f09ee","build_version":"50","platform":2,"bundleID":"com.apple.springboard","share_with_app_devs":1,"is_first_party":1,"bug_type":"309","os_version":"iPhone OS 16.4.1 (20E252)","roots_installed":0,"name":"SpringBoard","incident_id":"DE63AEFB-F475-44B4-BBF4-F8F26D1EF4F4"}
+{
+  "uptime" : 830000,
+  "procRole" : "Foreground",
+  "version" : 2,
+  "userID" : 501,
+  "deployVersion" : 210,
+  "modelCode" : "iPhone10,6",
+  "coalitionID" : 18564,
+  "osVersion" : {
+    "isEmbedded" : true,
+    "train" : "iPhone OS 16.4.1",
+    "releaseType" : "User",
+    "build" : "20E252"
+  },
+  "captureTime" : "2026-07-07 00:30:01.0984 -0400",
+  "incident" : "DE63AEFB-F475-44B4-BBF4-F8F26D1EF4F4",
+  "pid" : 73871,
+  "cpuType" : "ARM-64",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "procLaunch" : "2026-07-07 00:29:39.2233 -0400",
+  "procStartAbsTime" : 20038639758432,
+  "procExitAbsTime" : 20039161226165,
+  "procName" : "SpringBoard",
+  "procPath" : "\/System\/Library\/CoreServices\/SpringBoard.app\/SpringBoard",
+  "bundleInfo" : {"CFBundleShortVersionString":"1.0","CFBundleVersion":"50","CFBundleIdentifier":"com.apple.springboard"},
+  "storeInfo" : {"deviceIdentifierForVendor":"34E54B34-C13F-4D4D-B1C7-E4F613282745"},
+  "parentProc" : "launchd",
+  "parentPid" : 1,
+  "coalitionName" : "com.apple.springboard",
+  "crashReporterKey" : "eac08b415b56c9e39dd147909d768d7758391b4a",
+  "wasUnlockedSinceBoot" : 1,
+  "isLocked" : 0,
+  "consecutiveCrashCount" : 2,
+  "throttleTimeout" : 5,
+  "codeSigningID" : "com.apple.springboard",
+  "codeSigningTeamID" : "",
+  "codeSigningFlags" : 838868992,
+  "codeSigningValidationCategory" : 1,
+  "codeSigningTrustLevel" : 0,
+  "basebandVersion" : "5.03.01",
+  "exception" : {"codes":"0x0000000000000000, 0x0000000000000000","rawCodes":[0,0],"type":"EXC_CRASH","signal":"SIGABRT"},
+  "asi" : {"libsystem_c.dylib":["abort() called"]},
+  "lastExceptionBacktrace" : [{"imageOffset":38268,"symbol":"__exceptionPreprocess","symbolLocation":160,"imageIndex":119},{"imageOffset":86096,"symbol":"objc_exception_throw","symbolLocation":56,"imageIndex":118},{"imageOffset":1483728,"symbol":"__CFExceptionProem","symbolLocation":0,"imageIndex":119},{"imageOffset":125480,"symbol":"___forwarding___","symbolLocation":1340,"imageIndex":119},{"imageOffset":526956,"symbol":"_CF_forwarding_prep_0","symbolLocation":92,"imageIndex":119},{"imageOffset":25736,"symbol":"invocation function for block in SURegisterProbeTriggers()","symbolLocation":48,"imageIndex":79},{"imageOffset":12368,"imageIndex":120},{"imageOffset":288304,"symbol":"_dispatch_block_async_invoke2","symbolLocation":104,"imageIndex":121},{"imageOffset":411520,"symbol":"_dispatch_client_callout","symbolLocation":16,"imageIndex":121},{"imageOffset":286224,"symbol":"_dispatch_main_queue_drain","symbolLocation":888,"imageIndex":121},{"imageOffset":285320,"symbol":"_dispatch_main_queue_callback_4CF$VARIANT$armv81","symbolLocation":36,"imageIndex":121},{"imageOffset":596764,"symbol":"__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__","symbolLocation":12,"imageIndex":119},{"imageOffset":481208,"symbol":"__CFRunLoopRun","symbolLocation":2080,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":6552,"symbol":"GSEventRunModal","symbolLocation":160,"imageIndex":122},{"imageOffset":3607480,"symbol":"-[UIApplication _run]","symbolLocation":868,"imageIndex":123},{"imageOffset":3606576,"symbol":"UIApplicationMain","symbolLocation":312,"imageIndex":123},{"imageOffset":638968,"symbol":"SBSystemAppMain","symbolLocation":5008,"imageIndex":124},{"imageOffset":99140,"symbol":"start","symbolLocation":1860,"imageIndex":0}],
+  "faultingThread" : 0,
+  "threads" : [{"triggered":true,"id":6532934,"threadState":{"x":[{"value":0},{"value":0},{"value":0},{"value":0},{"value":9098663167},{"value":6163156592},{"value":110},{"value":624},{"value":4306329088,"symbolLocation":0,"symbol":"_main_thread"},{"value":16075056363277689770},{"value":512},{"value":11},{"value":11},{"value":2095104},{"value":2043},{"value":4129359932},{"value":328},{"value":4129359932},{"value":0},{"value":6},{"value":259},{"value":4306329312,"symbolLocation":224,"symbol":"_main_thread"},{"value":10761941328},{"value":10775756800},{"value":8904018542},{"value":0},{"value":15},{"value":0},{"value":308}],"flavor":"ARM_THREAD_STATE64","lr":{"value":9099462136},"cpsr":{"value":1073741824},"fp":{"value":6163156448},"sp":{"value":6163156416},"esr":{"value":1442840704,"description":" Address size fault"},"pc":{"value":8843321688,"matchesCrashFrame":1},"far":{"value":8843356076}},"queue":"com.apple.main-thread","frames":[{"imageOffset":29016,"symbol":"__pthread_kill","symbolLocation":8,"imageIndex":114},{"imageOffset":54776,"symbol":"pthread_kill","symbolLocation":208,"imageIndex":115},{"imageOffset":115896,"symbol":"abort","symbolLocation":124,"imageIndex":116},{"imageOffset":81748,"symbol":"abort_message","symbolLocation":128,"imageIndex":117},{"imageOffset":19020,"symbol":"demangling_terminate_handler()","symbolLocation":300,"imageIndex":117},{"imageOffset":106516,"symbol":"_objc_terminate()","symbolLocation":124,"imageIndex":118},{"imageOffset":78884,"symbol":"std::__terminate(void (*)())","symbolLocation":12,"imageIndex":117},{"imageOffset":89504,"symbol":"__cxxabiv1::failed_throw(__cxxabiv1::__cxa_exception*)","symbolLocation":32,"imageIndex":117},{"imageOffset":89440,"symbol":"__cxa_throw","symbolLocation":132,"imageIndex":117},{"imageOffset":86400,"symbol":"objc_exception_throw","symbolLocation":360,"imageIndex":118},{"imageOffset":1483728,"symbol":"+[NSObject(NSObject) doesNotRecognizeSelector:]","symbolLocation":132,"imageIndex":119},{"imageOffset":125480,"symbol":"___forwarding___","symbolLocation":1340,"imageIndex":119},{"imageOffset":526956,"symbol":"_CF_forwarding_prep_0","symbolLocation":92,"imageIndex":119},{"imageOffset":25736,"symbol":"invocation function for block in SURegisterProbeTriggers()","symbolLocation":48,"imageIndex":79},{"imageOffset":12368,"imageIndex":120},{"imageOffset":288304,"symbol":"_dispatch_block_async_invoke2","symbolLocation":104,"imageIndex":121},{"imageOffset":411520,"symbol":"_dispatch_client_callout","symbolLocation":16,"imageIndex":121},{"imageOffset":286224,"symbol":"_dispatch_main_queue_drain","symbolLocation":888,"imageIndex":121},{"imageOffset":285320,"symbol":"_dispatch_main_queue_callback_4CF$VARIANT$armv81","symbolLocation":36,"imageIndex":121},{"imageOffset":596764,"symbol":"__CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__","symbolLocation":12,"imageIndex":119},{"imageOffset":481208,"symbol":"__CFRunLoopRun","symbolLocation":2080,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":6552,"symbol":"GSEventRunModal","symbolLocation":160,"imageIndex":122},{"imageOffset":3607480,"symbol":"-[UIApplication _run]","symbolLocation":868,"imageIndex":123},{"imageOffset":3606576,"symbol":"UIApplicationMain","symbolLocation":312,"imageIndex":123},{"imageOffset":638968,"symbol":"SBSystemAppMain","symbolLocation":5008,"imageIndex":124},{"imageOffset":99140,"symbol":"start","symbolLocation":1860,"imageIndex":0}]},{"id":6533038,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533039,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533040,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533041,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533043,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533047,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533051,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533067,"name":"com.apple.uikit.eventfetch-thread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":254488,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":208,"imageIndex":125},{"imageOffset":254228,"symbol":"-[NSRunLoop(NSRunLoop) runUntilDate:]","symbolLocation":60,"imageIndex":125},{"imageOffset":4795716,"symbol":"-[UIEventFetcher threadMain]","symbolLocation":404,"imageIndex":123},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533074,"name":"com.apple.CoreMotion.MotionThread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":757048,"symbol":"CFRunLoopRun","symbolLocation":60,"imageIndex":119},{"imageOffset":74224,"imageIndex":126},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533118,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533119,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533130,"name":"SBWiFiManager callback thread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":254488,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":208,"imageIndex":125},{"imageOffset":254148,"symbol":"-[NSRunLoop(NSRunLoop) run]","symbolLocation":60,"imageIndex":125},{"imageOffset":1863032,"symbol":"-[SBWiFiManager _runManagerCallbackThread]","symbolLocation":180,"imageIndex":124},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533136,"name":"CommonUtilities-WiFi-Thread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":757048,"symbol":"CFRunLoopRun","symbolLocation":60,"imageIndex":119},{"imageOffset":49592,"imageIndex":127},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533140,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533192,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533193,"frames":[{"imageOffset":5912,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":115}]},{"id":6533218,"name":"com.apple.UIKit.inProcessAnimationManager","frames":[{"imageOffset":3948,"symbol":"semaphore_wait_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":212260,"symbol":"_dispatch_sema4_wait$VARIANT$armv81","symbolLocation":24,"imageIndex":121},{"imageOffset":213856,"symbol":"_dispatch_semaphore_wait_slow","symbolLocation":128,"imageIndex":121},{"imageOffset":4432816,"symbol":"__66-[UIViewInProcessAnimationManager startAdvancingAnimationManager:]_block_invoke_3","symbolLocation":136,"imageIndex":123},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533228,"name":"WFWiFiStateMonitor callback thread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":254488,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":208,"imageIndex":125},{"imageOffset":254148,"symbol":"-[NSRunLoop(NSRunLoop) run]","symbolLocation":60,"imageIndex":125},{"imageOffset":315604,"symbol":"-[WFWiFiStateMonitor _runManagerCallbackThread]","symbolLocation":188,"imageIndex":128},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]},{"id":6533229,"name":"WFPersonalHotspotStateMonitor callback thread","frames":[{"imageOffset":4080,"symbol":"mach_msg2_trap","symbolLocation":8,"imageIndex":114},{"imageOffset":76504,"symbol":"mach_msg2_internal","symbolLocation":76,"imageIndex":114},{"imageOffset":77176,"symbol":"mach_msg_overwrite","symbolLocation":484,"imageIndex":114},{"imageOffset":5348,"symbol":"mach_msg","symbolLocation":20,"imageIndex":114},{"imageOffset":475832,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":156,"imageIndex":119},{"imageOffset":480336,"symbol":"__CFRunLoopRun","symbolLocation":1208,"imageIndex":119},{"imageOffset":499344,"symbol":"CFRunLoopRunSpecific","symbolLocation":584,"imageIndex":119},{"imageOffset":254488,"symbol":"-[NSRunLoop(NSRunLoop) runMode:beforeDate:]","symbolLocation":208,"imageIndex":125},{"imageOffset":254148,"symbol":"-[NSRunLoop(NSRunLoop) run]","symbolLocation":60,"imageIndex":125},{"imageOffset":376192,"symbol":"-[WFPersonalHotspotStateMonitor _runManagerCallbackThread]","symbolLocation":348,"imageIndex":128},{"imageOffset":351612,"symbol":"__NSThread__start__","symbolLocation":704,"imageIndex":125},{"imageOffset":12524,"symbol":"_pthread_start","symbolLocation":116,"imageIndex":115},{"imageOffset":5932,"symbol":"thread_start","symbolLocation":8,"imageIndex":115}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4305666048,
+    "size" : 573440,
+    "uuid" : "444f5041-322e-342e-3900-7917e8bc185e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/basebin\/gen\/dyld",
+    "name" : "dyld"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4303716352,
+    "size" : 16384,
+    "uuid" : "3ef3f468-bc34-3201-81e9-fb86425f09ee",
+    "path" : "\/System\/Library\/CoreServices\/SpringBoard.app\/SpringBoard",
+    "name" : "SpringBoard"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4304109568,
+    "size" : 49152,
+    "uuid" : "536ef4ef-4659-3ea3-afd5-1403e1faf347",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/basebin\/systemhook.dylib",
+    "name" : "systemhook.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4304273408,
+    "size" : 32768,
+    "uuid" : "1a6326cb-6365-3a5f-93d5-2d07dc242466",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/basebin\/rootlesshooks.dylib",
+    "name" : "rootlesshooks.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4304355328,
+    "size" : 114688,
+    "uuid" : "cc275a75-11bf-32f6-81c4-bd273416edfd",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/basebin\/libjailbreak.dylib",
+    "name" : "libjailbreak.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4304601088,
+    "size" : 163840,
+    "uuid" : "5e4752c3-e4b1-30ec-8017-6720a34ad2db",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libellekit.dylib",
+    "name" : "libellekit.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4305027072,
+    "size" : 131072,
+    "uuid" : "8a48be03-295a-34b4-8505-c8dd7f106720",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/basebin\/libchoma.dylib",
+    "name" : "libchoma.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4306649088,
+    "size" : 98304,
+    "uuid" : "b05a745d-ef4b-3eed-b748-e9728bda8dc4",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/ellekit\/MobileSafety.dylib",
+    "name" : "MobileSafety.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4306829312,
+    "size" : 49152,
+    "uuid" : "fa712fea-8349-314e-81ad-910f50ed8b56",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/   Choicy.dylib",
+    "name" : "   Choicy.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4306944000,
+    "size" : 32768,
+    "uuid" : "2c7eed6b-058c-353c-ba10-e25a3c3d45b7",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libroot.dylib",
+    "name" : "libroot.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307025920,
+    "size" : 32768,
+    "uuid" : "6df25f9b-2a80-36f3-a20e-6fbfa97ae3c6",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/0000CrossOverIPC.dylib",
+    "name" : "0000CrossOverIPC.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307091456,
+    "size" : 32768,
+    "uuid" : "8dbfb516-171c-3373-b5af-9e3ab4ed5d4f",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libCrossOverIPC.dylib",
+    "name" : "libCrossOverIPC.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307189760,
+    "size" : 49152,
+    "uuid" : "2e14898d-c798-37fb-afc0-8d31686cab8b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/0Cr4shed.dylib",
+    "name" : "0Cr4shed.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307304448,
+    "size" : 81920,
+    "uuid" : "9a32fd2a-1d0c-3de6-ac49-d0897d66d86a",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/Frameworks\/Cephei.framework\/Cephei",
+    "name" : "Cephei"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307533824,
+    "size" : 32768,
+    "uuid" : "97ee364d-01f2-39dd-939b-84769271f429",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/AAASnowBoardStub.dylib",
+    "name" : "AAASnowBoardStub.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307599360,
+    "size" : 81920,
+    "uuid" : "0a0ce481-1089-32e6-82d6-8b694751d9e3",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ArtFull.dylib",
+    "name" : "ArtFull.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307730432,
+    "size" : 32768,
+    "uuid" : "74b0fa22-63d3-3387-ae0e-4e1b8dba7ecf",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/AutoCalloutBar.dylib",
+    "name" : "AutoCalloutBar.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307795968,
+    "size" : 32768,
+    "uuid" : "5e628cf2-f2a8-37e9-8467-ac92ddbb0e4f",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/AutoUnlockX.dylib",
+    "name" : "AutoUnlockX.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307877888,
+    "size" : 32768,
+    "uuid" : "a2f67ed7-ed64-3ba3-874e-c5fbc7e38f68",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/BadgeSync.dylib",
+    "name" : "BadgeSync.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4307976192,
+    "size" : 32768,
+    "uuid" : "31fdf15a-1b1b-3053-9317-7021616d24dd",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/BattFX.dylib",
+    "name" : "BattFX.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308074496,
+    "size" : 65536,
+    "uuid" : "3d46430a-19b7-4341-9f5b-7372ed431e23",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/BatteryMirror.dylib",
+    "name" : "BatteryMirror.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308205568,
+    "size" : 81920,
+    "uuid" : "56c75298-c9f9-35ec-b9a6-615fecfc17fd",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CCSupport.dylib",
+    "name" : "CCSupport.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308336640,
+    "size" : 32768,
+    "uuid" : "8109fa6f-8422-3618-9eaf-c79afbf3486a",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CCSupportBatteryFix.dylib",
+    "name" : "CCSupportBatteryFix.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308418560,
+    "size" : 163840,
+    "uuid" : "6e372d22-94a5-37cd-a5c6-08b658965f8e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CanvasSync.dylib",
+    "name" : "CanvasSync.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308697088,
+    "size" : 147456,
+    "uuid" : "49299c7e-746b-3ad4-93eb-e3c946c9acc6",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/Frameworks\/Orion.framework\/Orion",
+    "name" : "Orion"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4308942848,
+    "size" : 49152,
+    "uuid" : "0bf96020-2730-39a1-b607-c5948e1340c1",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ChoicySB.dylib",
+    "name" : "ChoicySB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309041152,
+    "size" : 32768,
+    "uuid" : "770db7f6-de5f-3343-be3a-f3a2a012ae25",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CleanSuggest.dylib",
+    "name" : "CleanSuggest.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309123072,
+    "size" : 49152,
+    "uuid" : "e62af4fa-fd19-3460-adcb-4940ab5601ad",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CozyBadges.dylib",
+    "name" : "CozyBadges.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309237760,
+    "size" : 32768,
+    "uuid" : "7e8f4d19-b44e-3c8c-a162-9b7e4a9eefe8",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Cr4shedSB.dylib",
+    "name" : "Cr4shedSB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309319680,
+    "size" : 131072,
+    "uuid" : "d76a845f-e5d6-4260-b4a8-4575f04b0a90",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/CustHome.dylib",
+    "name" : "CustHome.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309549056,
+    "size" : 49152,
+    "uuid" : "261412a9-b70c-3b6f-b96b-743366368e67",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/DockLibrary.dylib",
+    "name" : "DockLibrary.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4309647360,
+    "size" : 294912,
+    "uuid" : "d657b26a-4780-41e3-aa36-0f75bcb14a5b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/DuoWall.dylib",
+    "name" : "DuoWall.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310056960,
+    "size" : 32768,
+    "uuid" : "add3c457-3c9f-3364-95b8-fdb3476ebb35",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/EmoZoom.dylib",
+    "name" : "EmoZoom.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310138880,
+    "size" : 32768,
+    "uuid" : "22097c5f-173a-3386-b636-a7559a550208",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/EmojiFontManager.dylib",
+    "name" : "EmojiFontManager.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310302720,
+    "size" : 32768,
+    "uuid" : "9ea15041-eb45-3a08-a255-5533e8041bee",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/EmojiPortPE.dylib",
+    "name" : "EmojiPortPE.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310384640,
+    "size" : 81920,
+    "uuid" : "58af8b69-6b98-3548-965a-9fe29f638375",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libEmojiLibrary.dylib",
+    "name" : "libEmojiLibrary.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310597632,
+    "size" : 147456,
+    "uuid" : "3f1c2b7b-1317-3b37-8bb8-b50d3d55e347",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/EmojiPort\/EmojiAttributes.dylib",
+    "name" : "EmojiAttributes.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4310827008,
+    "size" : 32768,
+    "uuid" : "cbf1d16d-605d-321a-a457-81f45f7bc8d3",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libundirect.dylib",
+    "name" : "libundirect.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4311089152,
+    "size" : 32768,
+    "uuid" : "3a10becb-10b0-38a7-9f87-01226657f78f",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/EmojiPort\/EmojiPortPEReal.dylib",
+    "name" : "EmojiPortPEReal.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4311220224,
+    "size" : 32768,
+    "uuid" : "bd98e852-2c32-31bc-90fa-8605bc3a7fdc",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ExplosiveIcons.dylib",
+    "name" : "ExplosiveIcons.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4311302144,
+    "size" : 32768,
+    "uuid" : "2f4a5a03-4fd3-3dac-81c4-b71ad0ba4005",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/FLEXing.dylib",
+    "name" : "FLEXing.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4311384064,
+    "size" : 1032192,
+    "uuid" : "3380ccf3-fa2f-37cd-ae6b-8db52b8262e5",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/libFLEX.dylib",
+    "name" : "libFLEX.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4312858624,
+    "size" : 32768,
+    "uuid" : "bb30110b-0b6d-3aef-8ec6-a5c0a4c56b0d",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Finn.dylib",
+    "name" : "Finn.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4312940544,
+    "size" : 81920,
+    "uuid" : "1fb19bdc-7680-3b4f-9973-80dd404c28c1",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Fiona.dylib",
+    "name" : "Fiona.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4313071616,
+    "size" : 32768,
+    "uuid" : "4565fdc1-e49f-3c9d-b257-ee99a498270a",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/FxxkHapticTouch.dylib",
+    "name" : "FxxkHapticTouch.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4313153536,
+    "size" : 49152,
+    "uuid" : "b4e39837-a3a7-3514-bc2f-31cc3b56a7b3",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Griddy.dylib",
+    "name" : "Griddy.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4313251840,
+    "size" : 32768,
+    "uuid" : "3c607901-f2ff-3e4b-a71b-fc844c8b30fc",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/IconRotation.dylib",
+    "name" : "IconRotation.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4313333760,
+    "size" : 2785280,
+    "uuid" : "25ab739e-3017-3d19-b746-cb0bef061914",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/JellyfishReborn.dylib",
+    "name" : "JellyfishReborn.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4316577792,
+    "size" : 278528,
+    "uuid" : "6c52dc8c-5180-3776-bfa3-a3dab40dfae9",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/LastLook.dylib",
+    "name" : "LastLook.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4316971008,
+    "size" : 294912,
+    "uuid" : "40eb552b-1e40-49a6-a161-0715e71275bb",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/LiquidSiri.dylib",
+    "name" : "LiquidSiri.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4317593600,
+    "size" : 32768,
+    "uuid" : "231e3fc0-2d70-33a4-80be-76a6d3ae17d0",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/LiveTextEnabler.dylib",
+    "name" : "LiveTextEnabler.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4317773824,
+    "size" : 409600,
+    "uuid" : "0c8092bf-8280-3b31-9f53-d91d3b41a279",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Lynx.dylib",
+    "name" : "Lynx.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318314496,
+    "size" : 49152,
+    "uuid" : "5198730c-8ade-3345-87f2-cbe3d30cc9fd",
+    "path" : "\/System\/Library\/ControlCenter\/Bundles\/FocusUIModule.bundle\/FocusUIModule",
+    "name" : "FocusUIModule"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318429184,
+    "size" : 49152,
+    "uuid" : "d9099f64-1cb5-3fa3-8647-0d8e40513239",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/MenuSupport.dylib",
+    "name" : "MenuSupport.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318527488,
+    "size" : 32768,
+    "uuid" : "9b232fb6-e794-3fd8-80a5-6514ba32bc7f",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/MoreComplications.dylib",
+    "name" : "MoreComplications.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318609408,
+    "size" : 32768,
+    "uuid" : "af719b0a-d037-419e-9b02-21cc8e4317a7",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/MuteFlash.dylib",
+    "name" : "MuteFlash.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318691328,
+    "size" : 32768,
+    "uuid" : "e2668b39-4b58-4e1b-b883-666c8de39c58",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/MuteModule.dylib",
+    "name" : "MuteModule.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318773248,
+    "size" : 32768,
+    "uuid" : "c8e98972-faac-3dcd-bbda-b327a0346e3b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NoForcePortraitLock.dylib",
+    "name" : "NoForcePortraitLock.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318855168,
+    "size" : 32768,
+    "uuid" : "9b0c9fac-9873-30d1-a2e0-f76f0cf0beea",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NoPassAfterRespringSafe.dylib",
+    "name" : "NoPassAfterRespringSafe.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318920704,
+    "size" : 32768,
+    "uuid" : "331b416f-ff65-3273-89b2-0318774f7f7e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NotiTapDelay.dylib",
+    "name" : "NotiTapDelay.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4318986240,
+    "size" : 32768,
+    "uuid" : "91431a8c-d91b-3132-90e0-81fe8dd659c1",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NotificationTester.dylib",
+    "name" : "NotificationTester.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319068160,
+    "size" : 49152,
+    "uuid" : "f4e807e3-73ed-3977-a6d9-6f1b0398b130",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NotificationsGroupCount.dylib",
+    "name" : "NotificationsGroupCount.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319166464,
+    "size" : 32768,
+    "uuid" : "d97a231f-8757-3dc1-a655-a78650ac67ef",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NowPlayingIconXVI.dylib",
+    "name" : "NowPlayingIconXVI.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319248384,
+    "size" : 32768,
+    "uuid" : "3bcd01aa-b8a0-341a-a484-9ef011677970",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/NowXVIII.dylib",
+    "name" : "NowXVIII.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319330304,
+    "size" : 49152,
+    "uuid" : "97ffedbd-5113-318c-93ce-abd0bcb1a516",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PanCake.dylib",
+    "name" : "PanCake.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319412224,
+    "size" : 65536,
+    "uuid" : "4150f153-b3c5-339b-8876-70f9995b8d46",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PeepReborn.dylib",
+    "name" : "PeepReborn.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319543296,
+    "size" : 32768,
+    "uuid" : "8fc41c6b-2b57-3b55-9c07-ed9b866232c7",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PhotosNoForYou.dylib",
+    "name" : "PhotosNoForYou.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319608832,
+    "size" : 32768,
+    "uuid" : "684eae6b-f34c-3cee-9edb-54ead9605250",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PodsGrant.dylib",
+    "name" : "PodsGrant.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319690752,
+    "size" : 65536,
+    "uuid" : "38113b7f-66e9-30b1-9543-3a7b2262f3af",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Polyfills.dylib",
+    "name" : "Polyfills.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319805440,
+    "size" : 49152,
+    "uuid" : "5c7a3fa5-5e6a-3c40-8605-0c7840d847d1",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PopOutButtons.dylib",
+    "name" : "PopOutButtons.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4319920128,
+    "size" : 114688,
+    "uuid" : "415982c1-cd95-325e-8bc8-7be605ba7dd7",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libgcuniversal.dylib",
+    "name" : "libgcuniversal.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320100352,
+    "size" : 32768,
+    "uuid" : "542e2f4a-1059-39e5-943b-f4a05e30cff0",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/PurpleDND.dylib",
+    "name" : "PurpleDND.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320165888,
+    "size" : 32768,
+    "uuid" : "142efdd5-535f-3d33-93d8-9ab3f603c50d",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/QuickCCDismiss.dylib",
+    "name" : "QuickCCDismiss.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320231424,
+    "size" : 98304,
+    "uuid" : "e1cc2a3c-2d39-4873-8bdf-0658881de25a",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ReRoadRunner.dylib",
+    "name" : "ReRoadRunner.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320493568,
+    "size" : 49152,
+    "uuid" : "1fec975c-2b95-3cfc-b745-ae0c82828573",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Ring.dylib",
+    "name" : "Ring.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320591872,
+    "size" : 32768,
+    "uuid" : "6bac21bb-0ebb-3f6c-874a-bfc1cc4a1d5d",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/RoundDockRemastered.dylib",
+    "name" : "RoundDockRemastered.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320690176,
+    "size" : 32768,
+    "uuid" : "4ec2b45c-cb34-3d22-8d11-b6623c837adc",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/libcolorpicker.dylib",
+    "name" : "libcolorpicker.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4320772096,
+    "size" : 294912,
+    "uuid" : "4886778e-0b94-3226-b4a9-8cab4eaf55eb",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/Frameworks\/Alderis.framework\/Alderis",
+    "name" : "Alderis"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321230848,
+    "size" : 32768,
+    "uuid" : "ce83ef34-f310-3875-86b2-c68075d9231e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SFSymbols.dylib",
+    "name" : "SFSymbols.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321312768,
+    "size" : 49152,
+    "uuid" : "b77c4fa1-8966-4ddf-9cae-5500687d68a2",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SevenUp.dylib",
+    "name" : "SevenUp.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321411072,
+    "size" : 32768,
+    "uuid" : "0ef14469-05f7-313e-a37b-63fcc587ab00",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ShadowBuster.dylib",
+    "name" : "ShadowBuster.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321492992,
+    "size" : 32768,
+    "uuid" : "f5bdbb58-e6f3-32b3-8398-af99469a544b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/ShyLabels.dylib",
+    "name" : "ShyLabels.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321574912,
+    "size" : 32768,
+    "uuid" : "c91f7528-323a-3974-b2c3-ca1faa0ee072",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SingleMute.dylib",
+    "name" : "SingleMute.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4321656832,
+    "size" : 2572288,
+    "uuid" : "b3863771-0fd3-3de3-9245-637e8bb3a0f8",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SleepSaver2.dylib",
+    "name" : "SleepSaver2.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4324540416,
+    "size" : 32768,
+    "uuid" : "91286677-3e03-3222-8fc4-ffcdf87f4b1b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SmoothCursor.dylib",
+    "name" : "SmoothCursor.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4324622336,
+    "size" : 32768,
+    "uuid" : "29f1a287-5c59-3f78-87bd-5ece378bed6c",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SmoothKB.dylib",
+    "name" : "SmoothKB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4324704256,
+    "size" : 49152,
+    "uuid" : "87fc17d4-7661-3a08-9ea7-44bb41d3153b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SnowBoardIconEffectsSB.dylib",
+    "name" : "SnowBoardIconEffectsSB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4324802560,
+    "size" : 32768,
+    "uuid" : "ccc76880-ef53-3f36-90d4-72d9375a73b0",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Snowboard.dylib",
+    "name" : "Snowboard.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4324884480,
+    "size" : 376832,
+    "uuid" : "3ab6836d-300a-30d9-ba92-2a486421f387",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/SnowBoardBase.dylib",
+    "name" : "SnowBoardBase.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325376000,
+    "size" : 32768,
+    "uuid" : "dffae57b-84ef-38a6-b891-5b2b73eb00c2",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/SnowBoard\/Extensions\/SnowBoardIconMasksExtension.bundle\/SnowBoardIconMasksExtension",
+    "name" : "SnowBoardIconMasksExtension"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325457920,
+    "size" : 32768,
+    "uuid" : "6915d1f8-cdc8-32dd-8646-fd91fa9ecec4",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/SnowBoard\/Extensions\/SnowBoardSettingsIconsExtension.bundle\/SnowBoardSettingsIconsExtension",
+    "name" : "SnowBoardSettingsIconsExtension"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325539840,
+    "size" : 49152,
+    "uuid" : "c9d6d08a-d3d3-3bd0-bea4-1a880802a7c3",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/SnowBoard\/Extensions\/SnowBoardIconEffectsExtension.bundle\/SnowBoardIconEffectsExtension",
+    "name" : "SnowBoardIconEffectsExtension"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325638144,
+    "size" : 32768,
+    "uuid" : "c8d04e97-4292-3049-b8e7-8016ca65b98b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/SnowBoard\/Extensions\/SnowBoardUIExtension.bundle\/SnowBoardUIExtension",
+    "name" : "SnowBoardUIExtension"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325703680,
+    "size" : 98304,
+    "uuid" : "f960998c-154a-34c5-8ec0-ce6bea3afeb2",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/SnowBoard\/Extensions\/SnowBoardPresetExtension.bundle\/SnowBoardPresetExtension",
+    "name" : "SnowBoardPresetExtension"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325851136,
+    "size" : 32768,
+    "uuid" : "b2a8380e-457b-3cdd-9296-3ab083048bd1",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SnowBoardIconMaskSB.dylib",
+    "name" : "SnowBoardIconMaskSB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4325933056,
+    "size" : 32768,
+    "uuid" : "f722520e-e651-375f-ab00-b52e7d84941f",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SnowBoardPresetExtensionSB.dylib",
+    "name" : "SnowBoardPresetExtensionSB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326014976,
+    "size" : 344064,
+    "uuid" : "ead9ab33-d7e5-4cbd-806c-924d52ab1300",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Solarium15Plus.dylib",
+    "name" : "Solarium15Plus.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326555648,
+    "size" : 49152,
+    "uuid" : "663cdd7b-50d0-3844-b739-d9e81cfbe63a",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Spectrum.dylib",
+    "name" : "Spectrum.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326653952,
+    "size" : 49152,
+    "uuid" : "b64d72f6-0af2-3d00-804f-1fb02df5cfee",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/SwitchShades.dylib",
+    "name" : "SwitchShades.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326735872,
+    "size" : 32768,
+    "uuid" : "4b69e1e3-461c-4a30-9054-b57936083908",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/TakeScreenshotaptic.dylib",
+    "name" : "TakeScreenshotaptic.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326817792,
+    "size" : 49152,
+    "uuid" : "3ca41120-d11e-4f02-a074-2bd8023a9d73",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/TapTimeNeo.dylib",
+    "name" : "TapTimeNeo.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4326932480,
+    "size" : 32768,
+    "uuid" : "6f1cb8db-a417-3a20-8ef1-91df4a59f69b",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Trim.dylib",
+    "name" : "Trim.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327014400,
+    "size" : 32768,
+    "uuid" : "5294fecc-e94b-37e4-825b-fedd3cef9b19",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/TwitterLabelBack.dylib",
+    "name" : "TwitterLabelBack.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327079936,
+    "size" : 65536,
+    "uuid" : "5d4aadd2-9fb3-3a68-b6a6-e41751842585",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/Velvet2.dylib",
+    "name" : "Velvet2.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327194624,
+    "size" : 49152,
+    "uuid" : "08fff816-6584-4faa-9d78-2b88fcd661b8",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/WidgeSize.dylib",
+    "name" : "WidgeSize.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327292928,
+    "size" : 114688,
+    "uuid" : "848a658c-195f-31c0-96a2-aa045e6524c4",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/aaaSnowBoardUISB.dylib",
+    "name" : "aaaSnowBoardUISB.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327440384,
+    "size" : 98304,
+    "uuid" : "f5f1bd77-1eb9-31c4-b6db-59220bf4c51e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/usr\/lib\/TweakInject\/iKeywi4.dylib",
+    "name" : "iKeywi4.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4327587840,
+    "size" : 49152,
+    "uuid" : "a2183545-1d50-3a8b-b1b0-844b2e6eb616",
+    "path" : "\/private\/preboot\/Cryptexes\/OS\/usr\/lib\/libobjc-trampolines.dylib",
+    "name" : "libobjc-trampolines.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4329013248,
+    "size" : 32768,
+    "uuid" : "649b10fe-b231-384a-8647-a6b2cbe7d2fa",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/ControlCenter\/CCSupport_Providers\/HomeProvider.bundle\/HomeProvider",
+    "name" : "HomeProvider"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4356685824,
+    "size" : 32768,
+    "uuid" : "ea6f0836-8156-3497-9a6b-989ffe1660d5",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/ControlCenter\/Bundles\/AutoBrightness.bundle\/AutoBrightness",
+    "name" : "AutoBrightness"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357160960,
+    "size" : 32768,
+    "uuid" : "15556469-1232-3f6a-bfda-523b3c1601e8",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/ControlCenter\/Bundles\/UptimeModule.bundle\/UptimeModule",
+    "name" : "UptimeModule"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357390336,
+    "size" : 49152,
+    "uuid" : "47ffca6a-e38e-336e-b66f-9fb48974315e",
+    "path" : "\/private\/preboot\/6A0B75A995DC4517A6177E3F233CE078A556A6440C06EA2F0E58849369DBF406298B52DC73DD14892FF05D45C35B31A2\/dopamine-s5HakB\/procursus\/Library\/ControlCenter\/Bundles\/CCPowerMenu.bundle\/CCPowerMenu",
+    "name" : "CCPowerMenu"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357488640,
+    "size" : 98304,
+    "uuid" : "a5f9f790-c2bb-3fda-ab45-aeca6485a44e",
+    "path" : "\/System\/Library\/ControlCenter\/Bundles\/ReplayKitModule.bundle\/ReplayKitModule",
+    "name" : "ReplayKitModule"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 4357996544,
+    "size" : 65536,
+    "uuid" : "187adfff-3145-3ddd-b6fc-4578526cd73b",
+    "path" : "\/System\/Library\/SpringBoardPlugins\/StoreDemoPlugin.servicebundle\/StoreDemoPlugin",
+    "name" : "StoreDemoPlugin"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8843292672,
+    "size" : 221160,
+    "uuid" : "aa20f233-d97e-39f8-8739-3dfc06956661",
+    "path" : "\/usr\/lib\/system\/libsystem_kernel.dylib",
+    "name" : "libsystem_kernel.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 9099407360,
+    "size" : 69632,
+    "uuid" : "790cc894-e48b-3012-9762-f3aa29e55f98",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7977058304,
+    "size" : 499712,
+    "uuid" : "a4feda82-c32c-3ae1-98ba-e65e488b069f",
+    "path" : "\/usr\/lib\/system\/libsystem_c.dylib",
+    "name" : "libsystem_c.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 9098567680,
+    "size" : 106496,
+    "uuid" : "e2ae82c2-0329-3825-ab2b-079df529f877",
+    "path" : "\/usr\/lib\/libc++abi.dylib",
+    "name" : "libc++abi.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7747043328,
+    "size" : 237216,
+    "uuid" : "96084ecf-2ae7-32a4-a595-0ef72f71a010",
+    "path" : "\/usr\/lib\/libobjc.A.dylib",
+    "name" : "libobjc.A.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7861403648,
+    "size" : 3993600,
+    "uuid" : "3f529c4a-5003-3e5d-84f7-03806108055e",
+    "path" : "\/System\/Library\/Frameworks\/CoreFoundation.framework\/CoreFoundation",
+    "name" : "CoreFoundation"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8461406208,
+    "size" : 45048,
+    "uuid" : "25633b44-a560-3c69-bd7c-b7f621a4fff5",
+    "path" : "\/usr\/lib\/system\/libsystem_notify.dylib",
+    "name" : "libsystem_notify.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7975960576,
+    "size" : 540672,
+    "uuid" : "76cd7374-2cd9-3722-a441-caeeef6a4b34",
+    "path" : "\/usr\/lib\/system\/libdispatch.dylib",
+    "name" : "libdispatch.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8785788928,
+    "size" : 36864,
+    "uuid" : "0c7cf0fe-6fde-3cc6-a91c-831310b72bfc",
+    "path" : "\/System\/Library\/PrivateFrameworks\/GraphicsServices.framework\/GraphicsServices",
+    "name" : "GraphicsServices"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7894540288,
+    "size" : 24190976,
+    "uuid" : "45d3e653-d22e-33da-9184-d4f88d330c29",
+    "path" : "\/System\/Library\/PrivateFrameworks\/UIKitCore.framework\/UIKitCore",
+    "name" : "UIKitCore"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8895119360,
+    "size" : 11407360,
+    "uuid" : "8f9ea10f-abe3-3e5d-9934-9e718748ea0d",
+    "path" : "\/System\/Library\/PrivateFrameworks\/SpringBoard.framework\/SpringBoard",
+    "name" : "SpringBoard"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 7764574208,
+    "size" : 8683520,
+    "uuid" : "22ddc34a-9672-3b99-ac0c-d7ff3974b342",
+    "path" : "\/System\/Library\/Frameworks\/Foundation.framework\/Foundation",
+    "name" : "Foundation"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8041361408,
+    "size" : 4038656,
+    "uuid" : "09a6fab0-dc12-3f13-bf27-3fd92c70e1cc",
+    "path" : "\/System\/Library\/Frameworks\/CoreMotion.framework\/CoreMotion",
+    "name" : "CoreMotion"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 8288690176,
+    "size" : 114688,
+    "uuid" : "abb9434d-89e0-3c0b-9510-5d84c240c5f1",
+    "path" : "\/System\/Library\/PrivateFrameworks\/CommonUtilities.framework\/CommonUtilities",
+    "name" : "CommonUtilities"
+  },
+  {
+    "source" : "P",
+    "arch" : "arm64",
+    "base" : 9700278272,
+    "size" : 798720,
+    "uuid" : "77ffccff-d086-3fd3-87ec-6ec4bd12c4d9",
+    "path" : "\/System\/Library\/PrivateFrameworks\/WiFiKit.framework\/WiFiKit",
+    "name" : "WiFiKit"
+  }
+],
+  "sharedCache" : {
+  "base" : 7746289664,
+  "size" : 2845818880,
+  "uuid" : "3c549e93-9c57-3eba-92fe-989901fcc01d"
+},
+  "vmSummary" : "ReadOnly portion of Libraries: Total=1.3G resident=0K(0%) swapped_out_or_unallocated=1.3G(100%)\nWritable regions: Total=635.3M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=635.3M(100%)\n\n                                VIRTUAL   REGION \nREGION TYPE                        SIZE    COUNT (non-coalesced) \n===========                     =======  ======= \nAccelerate framework               128K        1 \nActivity Tracing                   256K        1 \nCG raster data                    17.5M      188 \nColorSync                          448K       25 \nCoreAnimation                     2800K       91 \nCoreUI image data                  224K        2 \nFoundation                          16K        1 \nImage IO                          5680K       49 \nKernel Alloc Once                   32K        1 \nMALLOC                           613.7M      155 \nMALLOC guard page                  128K        8 \nMach message                       448K       28 \nSQLite page cache                 1536K       12 \nSTACK GUARD                        320K       20 \nStack                             11.1M       20 \nVM_ALLOCATE                        720K       21 \n__CTF                               824        1 \n__DATA                            27.2M     1271 \n__DATA_CONST                     110.6M     1268 \n__DATA_DIRTY                      10.6M     1049 \n__FONT_DATA                        346K        3 \n__INFO_FILTER                         8        1 \n__LINKEDIT                       320.5M      115 \n__OBJC_RO                         79.7M        1 \n__OBJC_RW                         2462K        1 \n__TEXT                             1.0G     1323 \ndyld private memory                272K        2 \nmapped file                      325.5M      176 \nshared memory                       64K        4 \n===========                     =======  ======= \nTOTAL                              2.5G     5838 \n",
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "com.apple.main-thread"
+  }
+},
+  "logWritingSignature" : "5ffa0882f4aa482cc7492ae4c4872b75cfcdb385",
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "6081ed9716bb6d61d81d5014",
+      "factorPackIds" : {
+        "BIFROST_PROD_1" : "6a4bd88107b94b19c1bdee2c"
+      },
+      "deploymentId" : 240004100
+    },
+    {
+      "rolloutId" : "64c17a9925d75a7281053d4c",
+      "factorPackIds" : {
+        "SIRI_AUDIO_DISABLE_MEDIA_ENTITY_SYNC" : "64d29746ad29a465b3bbeace"
+      },
+      "deploymentId" : 240000002
+    }
+  ],
+  "experiments" : [
+
+  ]
+}
+}

@@ -1,0 +1,1581 @@
+[00:48:09.766] ===== METHOD DUMP BEGIN =====
+[00:48:09.769] -- SBIconController (super: UIViewController) --
+[00:48:09.804]   +_getApplicationDataStore:configurationKey:forDataSource:
+[00:48:09.805]   +safeCategoryBaseClass
+[00:48:09.806]   +sharedInstance
+[00:48:09.807]   +sharedInstanceIfExists
+[00:48:09.808]   -.cxx_destruct | v16@0:8
+[00:48:09.809]   -_addSmartStackToTodayList:completionHandler: | v32@0:8@16@?24
+[00:48:09.810]   -_addStateCaptureHandlerForHomeScreenDefaults | @16@0:8
+[00:48:09.810]   -_addStateCaptureHandlerForInterestingAppIconLocations | @16@0:8
+[00:48:09.811]   -_addStateCaptureHandlerForKeyDisplayIDsWithBadgingEnabled | @16@0:8
+[00:48:09.812]   -_addStateCaptureHandlerForRestrictions | @16@0:8
+[00:48:09.812]   -_aggregateLoggingAppKeyForIcon: | @24@0:8@16
+[00:48:09.813]   -_allowsBadgingForApplicationBundleIdentifier: | B24@0:8@16
+[00:48:09.814]   -_appLibraryListLayoutProviderForWindowScene: | @24@0:8@16
+[00:48:09.814]   -_backupRestoringDidChange: | v24@0:8@16
+[00:48:09.815]   -_badgesAreEnabledForSectionInfo: | B24@0:8@16
+[00:48:09.816]   -_beginAppearanceTransitionForChildViewControllersToVisible:animated: | v24@0:8B16B20
+[00:48:09.816]   -_beginDisablingAllOrientationChangesForReason: | v24@0:8@16
+[00:48:09.817]   -_bookmarkDidUninstall: | v24@0:8@16
+[00:48:09.817]   -_configureCategoryMapProviderToUseCategoryMapAtURL: | @24@0:8@16
+[00:48:09.818]   -_configureDeweyEachAppHasItsOwnCategory: | v24@0:8Q16
+[00:48:09.818]   -_configureDeweyOneCategoryWithAllApps | v16@0:8
+[00:48:09.818]   -_configureEditingGestureRecognizers | v16@0:8
+[00:48:09.819]   -_configureFloatingDockController:forWindowScene: | v32@0:8@16@24
+[00:48:09.819]   -_configureLibraryWithCategoryLimit: | v24@0:8q16
+[00:48:09.820]   -_containerViewControllerForPresentingFromTodayViewControllerAllowingCoverSheet: | @20@0:8B16
+[00:48:09.820]   -_controlCenterWillDismiss: | v24@0:8@16
+[00:48:09.821]   -_controlCenterWillPresent: | v24@0:8@16
+[00:48:09.821]   -_coverSheetDidPresent: | v24@0:8@16
+[00:48:09.822]   -_coverSheetWillPresent: | v24@0:8@16
+[00:48:09.822]   -_createTestFolder | @16@0:8
+[00:48:09.822]   -_createTestFolderWithOverrideIconList: | @24@0:8@16
+[00:48:09.823]   -_createWidgetIconWithDataSource:gridSize: | @32@0:8@16Q24
+[00:48:09.823]   -_createWidgetIconWithDescriptors:gridSize: | @32@0:8@16Q24
+[00:48:09.824]   -_createWidgetIconWithKind:extensionBundleIdentifier:gridSize: | @40@0:8@16@24Q32
+[00:48:09.824]   -_currentFolderController | @16@0:8
+[00:48:09.825]   -_dismissPageManagementIfPresented: | v24@0:8@?16
+[00:48:09.825]   -_dragSessionContainsAppClipWebClipIcon: | B24@0:8@16
+[00:48:09.825]   -_effectiveOrientation | q16@0:8
+[00:48:09.826]   -_enableWidgetSuggestionsForIconsInModel:withRootFolder: | B32@0:8@16@24
+[00:48:09.826]   -_endAppearanceTransitionForChildViewControllersToVisible: | v20@0:8B16
+[00:48:09.827]   -_endDisablingAllOrientationChangesForReason: | v24@0:8@16
+[00:48:09.827]   -_enqueueTransitionName:withHandler: | v32@0:8@16@?24
+[00:48:09.828]   -_ensureRootFolderController | v16@0:8
+[00:48:09.828]   -_failCurrentTestWithMessage: | v24@0:8@16
+[00:48:09.829]   -_focusModeFromDoNotDisturbState: | @24@0:8@16
+[00:48:09.829]   -_foldersInList: | Q24@0:8@16
+[00:48:09.829]   -_forceTouchControllerWillPresent: | v24@0:8@16
+[00:48:09.830]   -_handleEditingGesture: | v24@0:8@16
+[00:48:09.830]   -_handleSearchAffordanceTap | v16@0:8
+[00:48:09.831]   -_homeScreenOverlayControllerIfNeeded | @16@0:8
+[00:48:09.831]   -_iconForceTouchControllerDidDismiss: | v24@0:8@16
+[00:48:09.832]   -_iconForceTouchControllerWillPresent: | v24@0:8@16
+[00:48:09.832]   -_iconModelDidLayout: | v24@0:8@16
+[00:48:09.833]   -_ignoreMutatingIconListsOnApplicationInstall | B16@0:8
+[00:48:09.833]   -_installedAppsDidChange: | v24@0:8@16
+[00:48:09.833]   -_isHostedByCoverSheet | B16@0:8
+[00:48:09.834]   -_isWidgetWithContainerBundleIdentifierValid: | B24@0:8@16
+[00:48:09.834]   -_launchFromIconView:withActions: | v32@0:8@16@24
+[00:48:09.835]   -_launchWidgetIcon:fromLocation:withContext: | v40@0:8@16@24@32
+[00:48:09.835]   -_libraryViewControllerForWindowScene: | @24@0:8@16
+[00:48:09.836]   -_libraryViewControllers | @16@0:8
+[00:48:09.836]   -_lockScreenUIWillLock: | v24@0:8@16
+[00:48:09.837]   -_mainSwitcherCreated: | v24@0:8@16
+[00:48:09.837]   -_makeTodayViewControllers | v16@0:8
+[00:48:09.837]   -_mutateIconListsForInstalledAppsDidChangeWithController:added:modified:removed: | v48@0:8@16@24@32@40
+[00:48:09.838]   -_newTodayViewControllerWithIconManager:iconListModel:rootFolder:location: | @48@0:8@16@24@32q40
+[00:48:09.838]   -_obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler: | v24@0:8@?16
+[00:48:09.838]   -_openFolderController | @16@0:8
+[00:48:09.839]   -_performInitialLayoutWithOrientation: | v24@0:8q16
+[00:48:09.839]   -_performWidgetMigrationIfNecessary | v16@0:8
+[00:48:09.839]   -_performWidgetMigrationIfNecessaryForApplication: | v24@0:8@16
+[00:48:09.840]   -_ppt_popHomeScreenState | v16@0:8
+[00:48:09.840]   -_ppt_prepareTransientIconModelStoreWithError: | @24@0:8^@16
+[00:48:09.840]   -_ppt_pushHomeScreenStateWithError: | B24@0:8^@16
+[00:48:09.841]   -_prepareDefaultTodayLayoutIfNecessary | v16@0:8
+[00:48:09.841]   -_presentPageManagement: | v24@0:8@?16
+[00:48:09.841]   -_primaryAppleAccountDidChange: | v24@0:8@16
+[00:48:09.842]   -_rebuildTodayViewControllers | v16@0:8
+[00:48:09.842]   -_reduceMotionStatusDidChange: | v24@0:8@16
+[00:48:09.842]   -_registerAnalytics | v16@0:8
+[00:48:09.843]   -_rootFolderController | @16@0:8
+[00:48:09.843]   -_rootFolderDidChange | v16@0:8
+[00:48:09.843]   -_runAppIconForceTouchTest:withOptions: | v32@0:8@16@24
+[00:48:09.844]   -_runFolderCloseTest | v16@0:8
+[00:48:09.844]   -_runFolderOpenTest | v16@0:8
+[00:48:09.844]   -_runFolderTestWithName:actions: | v32@0:8@16@?24
+[00:48:09.845]   -_runScrollFolderTest: | v24@0:8q16
+[00:48:09.845]   -_runTest:afterMovingIconsIntoFolder:withFolderOpen: | v36@0:8@?16@24B32
+[00:48:09.845]   -_setFolderDisplayLayoutElementActive: | v20@0:8B16
+[00:48:09.846]   -_setIgnoreMutatingIconListsOnApplicationInstall: | v20@0:8B16
+[00:48:09.846]   -_setUpLibraryViewControllerForWindowScene: | @24@0:8@16
+[00:48:09.846]   -_setWidgetEditingDisplayLayoutElementActive: | v20@0:8B16
+[00:48:09.847]   -_shouldHideAppIconForceTouchInfoForApplication: | B24@0:8@16
+[00:48:09.847]   -_shouldTodayViewController:receiveTouch: | B32@0:8@16@24
+[00:48:09.847]   -_showInfoAlertIfNeeded: | v20@0:8B16
+[00:48:09.848]   -_showsBadgesInAppLibraryDidChange | v16@0:8
+[00:48:09.848]   -_startSpotlightInteractiveGestureTransactionForGesture: | v24@0:8@16
+[00:48:09.848]   -_storeAccountDidChange: | v24@0:8@16
+[00:48:09.849]   -_teardownDeweyTestConfigurations | v16@0:8
+[00:48:09.849]   -_tryToPrepareDynamicDefaultTodayLayout | v16@0:8
+[00:48:09.849]   -_tryToPrepareNonDynamicDefaultTodayLayout | B16@0:8
+[00:48:09.850]   -_unlockAnimationDidFinish: | v24@0:8@16
+[00:48:09.850]   -_updateEnabledBadgesSetWithSections: | v24@0:8@16
+[00:48:09.850]   -_updateFocusModeManagerWithDoNotDisturbState: | v24@0:8@16
+[00:48:09.851]   -_updateIconModelStore | v16@0:8
+[00:48:09.851]   -_updateUninstallingSystemAppsRestricted | v16@0:8
+[00:48:09.851]   -_updateVisibleIconsAfterOcclusionChange | v16@0:8
+[00:48:09.852]   -accountStoreQueue | @16@0:8
+[00:48:09.852]   -activateTodayViewWithCompletion: | v24@0:8@?16
+[00:48:09.852]   -addFloatingDockControllerObserver: | v24@0:8@16
+[00:48:09.852]   -addIconOcclusionReason:updateVisibleIcons: | v28@0:8Q16B24
+[00:48:09.853]   -addIconToHomeScreen: | v24@0:8@16
+[00:48:09.853]   -addSmartStacksForWidgetDiscoverabilityAndPrepareWidgetIntroduction | v16@0:8
+[00:48:09.857]   -addWidgetSheetKeyboardFocusAssertion | @16@0:8
+[00:48:09.857]   -alertItemsController | @16@0:8
+[00:48:09.858]   -alertItemsController:didActivateAlertItem: | v32@0:8@16@24
+[00:48:09.858]   -alertItemsController:didDeactivateAlertItem:forReason: | v36@0:8@16@24i32
+[00:48:09.858]   -alertItemsController:willActivateAlertItem: | v32@0:8@16@24
+[00:48:09.858]   -allApplicationPlaceholdersForIconModel: | @24@0:8@16
+[00:48:09.859]   -allApplicationsForIconModel: | @24@0:8@16
+[00:48:09.859]   -allowedInterfaceOrientations | Q16@0:8
+[00:48:09.860]   -allowedInterfaceOrientationsForIconManager: | Q24@0:8@16
+[00:48:09.860]   -allowsBadgingForIcon: | B24@0:8@16
+[00:48:09.860]   -allowsHomeScreenOverlay | B16@0:8
+[00:48:09.861]   -allowsUninstall | B16@0:8
+[00:48:09.861]   -analyticsClient | @16@0:8
+[00:48:09.861]   -animationWindow | @16@0:8
+[00:48:09.862]   -animator:animationSettingsForOperation:childViewController: | @40@0:8@16Q24@32
+[00:48:09.862]   -appIconForceTouchWindows | @16@0:8
+[00:48:09.862]   -appPredictionViewController:badgeValueForApplicationWithBundleIdentifier: | @32@0:8@16@24
+[00:48:09.863]   -appPredictionViewController:iconForApplicationWithBundleIdentifier: | @32@0:8@16@24
+[00:48:09.863]   -appPredictionViewController:launchAppFromIcon: | B32@0:8@16@24
+[00:48:09.863]   -appPredictionViewController:shouldDisplayBadgeWithBundleIdentifier: | B32@0:8@16@24
+[00:48:09.863]   -appSwitcherHeaderIconImageCache | @16@0:8
+[00:48:09.864]   -appSwitcherUnmaskedIconImageCache | @16@0:8
+[00:48:09.864]   -applicationController | @16@0:8
+[00:48:09.864]   -applicationPlaceholderController | @16@0:8
+[00:48:09.865]   -applicationRestrictionController:didUpdateVisibleTags:hiddenTags: | v40@0:8@16@24@32
+[00:48:09.865]   -areAnyIconViewContextMenusAnimating | B16@0:8
+[00:48:09.865]   -areAnyIconViewContextMenusShowing | B16@0:8
+[00:48:09.866]   -areHomeScreenIconsOccluded | B16@0:8
+[00:48:09.866]   -assistantController | @16@0:8
+[00:48:09.866]   -assistantWillAppear:windowScene: | v32@0:8@16@24
+[00:48:09.866]   -backgroundViewForEditingDoneButtonForHomeScreenOverlayController: | @24@0:8@16
+[00:48:09.867]   -backgroundViewForSpotlightPresentableViewController: | @24@0:8@16
+[00:48:09.867]   -barSwipeAffordanceView:systemGestureTypeForType: | Q32@0:8@16q24
+[00:48:09.867]   -bestListLayoutProviderLayoutOptions | Q16@0:8
+[00:48:09.868]   -canAppPredictionsWidgetAlignWithGrid | B16@0:8
+[00:48:09.868]   -containerView | @16@0:8
+[00:48:09.868]   -containerViewForPresentingContextMenuForIconView: | @24@0:8@16
+[00:48:09.868]   -contentOverlayInsetsFromParentIfAvailableForFolderController: | {UIEdgeInsets=dddd}24@0:8@16
+[00:48:09.869]   -contentView | @16@0:8
+[00:48:09.869]   -coverSheetPresentationManager | @16@0:8
+[00:48:09.869]   -coverSheetTodayViewController | @16@0:8
+[00:48:09.870]   -createFloatingDockControllerForWindowScene: | @24@0:8@16
+[00:48:09.870]   -createModalLibraryControllerForWindowScene:withLibraryViewController: | @32@0:8@16@24
+[00:48:09.870]   -createStatusBarVisibiltyAssertionForWindowScene: | @24@0:8@16
+[00:48:09.870]   -currentAnimationContainer | @16@0:8
+[00:48:09.871]   -currentIconListIndex | q16@0:8
+[00:48:09.871]   -dealloc | v16@0:8
+[00:48:09.871]   -defaultIconStateForIconManager: | @24@0:8@16
+[00:48:09.872]   -defaultSearchViewPresentationSourceForViewController: | Q24@0:8@16
+[00:48:09.872]   -delayedLaunchRequestTimer | @16@0:8
+[00:48:09.872]   -description | @16@0:8
+[00:48:09.872]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:09.873]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:09.873]   -dismissAppIconForceTouchControllers: | v24@0:8@?16
+[00:48:09.873]   -dismissHomeScreenOverlayControllerAnimated:completion: | v28@0:8B16@?20
+[00:48:09.874]   -dismissHomeScreenOverlayUsingTransitionCoordinator: | v24@0:8@16
+[00:48:09.874]   -dismissHomeScreenOverlays | v16@0:8
+[00:48:09.874]   -dismissHomeScreenOverlaysAnimated: | v20@0:8B16
+[00:48:09.874]   -dismissHomeScreenOverlaysAnimated:completion: | v28@0:8B16@?20
+[00:48:09.875]   -dismissLibraryForIconManager:windowScene:animated: | v36@0:8@16@24B32
+[00:48:09.875]   -dismissLibraryFromOverlayControllerAnimated:completion: | v28@0:8B16@?20
+[00:48:09.875]   -dismissOverlaysForIconManager: | v24@0:8@16
+[00:48:09.876]   -dismissSearchView | v16@0:8
+[00:48:09.876]   -dismissTodayOverlay | v16@0:8
+[00:48:09.876]   -dismissTodayOverlayAnimated: | v20@0:8B16
+[00:48:09.876]   -dismissTodayOverlayAnimated:completion: | v28@0:8B16@?20
+[00:48:09.877]   -dismissTodayOverlayForIconManager: | v24@0:8@16
+[00:48:09.877]   -dismissTodayOverlaySpotlightAnimated: | v20@0:8B16
+[00:48:09.877]   -dismissingMenuForFolderPresentation | B16@0:8
+[00:48:09.877]   -displayFeatureIntroductionItem:atLocation: | v32@0:8@16Q24
+[00:48:09.878]   -displayFeatureIntroductionsAtLocation: | v24@0:8Q16
+[00:48:09.878]   -displayLayoutTransition | @16@0:8
+[00:48:09.878]   -distanceToTopOfSpotlightIconsForIconManager: | d24@0:8@16
+[00:48:09.879]   -dndModeConfigurationService | @16@0:8
+[00:48:09.879]   -dndStateService | @16@0:8
+[00:48:09.879]   -earlyTerminateAnyContextMenuAnimations | v16@0:8
+[00:48:09.879]   -fallbackDefaultFirstPageWidgetsForIconManager: | @24@0:8@16
+[00:48:09.880]   -fallbackIconContainerView | @16@0:8
+[00:48:09.880]   -floatingDockBehaviorAssertions | @16@0:8
+[00:48:09.880]   -floatingDockControllerObservers | @16@0:8
+[00:48:09.880]   -folderController:iconListView:springLoadedInteractionForIconDragDidCompleteOnIconView: | v40@0:8@16@24@32
+[00:48:09.881]   -folderNameForDisplayID: | @24@0:8@16
+[00:48:09.881]   -forbidApplicationBundleIdentifierFromLibrary: | B24@0:8@16
+[00:48:09.881]   -gestureRecognizer:shouldReceiveTouch: | B32@0:8@16@24
+[00:48:09.881]   -gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer: | B32@0:8@16@24
+[00:48:09.882]   -getLeadingTopButtonFrame:trailingTopButtonFrame: | v32@0:8^{CGRect={CGPoint=dd}{CGSize=dd}}16^{CGRect={CGPoint=dd}{CGSize=dd}}24
+[00:48:09.882]   -handleHomeButtonTap | v16@0:8
+[00:48:09.882]   -handleNavigationCommand:withDirection: | v32@0:8@16q24
+[00:48:09.883]   -handleSpotlightDismissalFromViewController: | v24@0:8@16
+[00:48:09.883]   -handleSpotlightPresentationFromViewController: | v24@0:8@16
+[00:48:09.883]   -hasRestrictedEnforcedLayout | B16@0:8
+[00:48:09.883]   -homeGesturePerformedForBarSwipeAffordanceView: | v24@0:8@16
+[00:48:09.884]   -homeScreenOverlayController | @16@0:8
+[00:48:09.887]   -homeScreenOverlayController:displayLayoutIdentifierForSidebarViewController: | @32@0:8@16@24
+[00:48:09.888]   -homeScreenOverlayController:setSuppressesEditingStateForListView: | v28@0:8@16B24
+[00:48:09.888]   -homeScreenOverlayWantsToEndEditing: | v24@0:8@16
+[00:48:09.888]   -homeScreenOverlayWantsWidgetEditingViewControllerPresented: | v24@0:8@16
+[00:48:09.888]   -iconDragManager | @16@0:8
+[00:48:09.889]   -iconManager | @16@0:8
+[00:48:09.889]   -iconManager:accessibilityTintColorForIconView: | @32@0:8@16@24
+[00:48:09.889]   -iconManager:accessibilityTintColorForScreenRect: | @56@0:8@16{CGRect={CGPoint=dd}{CGSize=dd}}24
+[00:48:09.889]   -iconManager:additionalDragLiftScaleForIconView: | d32@0:8@16@24
+[00:48:09.890]   -iconManager:allowsBadgingForIcon: | B32@0:8@16@24
+[00:48:09.890]   -iconManager:allowsBadgingForIconLocation: | B32@0:8@16@24
+[00:48:09.890]   -iconManager:animator:animationSettingsForOperation:childViewController: | @48@0:8@16@24Q32@40
+[00:48:09.890]   -iconManager:applicationShortcutItemsForIconView: | @32@0:8@16@24
+[00:48:09.891]   -iconManager:backgroundViewForComponentsOfIconView: | @32@0:8@16@24
+[00:48:09.891]   -iconManager:backgroundViewForDockForRootFolderController: | @32@0:8@16@24
+[00:48:09.891]   -iconManager:canAcceptDropInSession:inIconListView: | B40@0:8@16@24@32
+[00:48:09.892]   -iconManager:canAddDragItemsToSession:fromIconView: | B40@0:8@16@24@32
+[00:48:09.892]   -iconManager:canAddIcon:toIconList:inFolder: | B48@0:8@16@24@32@40
+[00:48:09.892]   -iconManager:canAddIconToIgnoredList: | B32@0:8@16@24
+[00:48:09.892]   -iconManager:canBeginDragForIconView: | B32@0:8@16@24
+[00:48:09.893]   -iconManager:canCustomElementAlignWithGrid: | B32@0:8@16@24
+[00:48:09.893]   -iconManager:closeBoxTypeForIconView:proposedType: | q40@0:8@16@24q32
+[00:48:09.893]   -iconManager:configurationDataForDataSource:ofIcon: | @40@0:8@16@24@32
+[00:48:09.893]   -iconManager:configureIconView:forIcon: | v40@0:8@16@24@32
+[00:48:09.894]   -iconManager:containerViewControllerForConfigurationOfIconView: | @32@0:8@16@24
+[00:48:09.894]   -iconManager:containerViewControllerForModalInteractionFromIconView: | @32@0:8@16@24
+[00:48:09.894]   -iconManager:containerViewForPresentingContextMenuForIconView: | @32@0:8@16@24
+[00:48:09.895]   -iconManager:contentBoundingRectForConfigurationOfIconView: | {CGRect={CGPoint=dd}{CGSize=dd}}32@0:8@16@24
+[00:48:09.895]   -iconManager:contentOverlayInsetsFromParentIfAvailableForFolderController: | {UIEdgeInsets=dddd}32@0:8@16@24
+[00:48:09.895]   -iconManager:dataSource:ofIcon:didUpdateConfigurationData: | v48@0:8@16@24@32@40
+[00:48:09.896]   -iconManager:defaultAutomaticFavoriteIconIdentifiersWithMaximumCount: | @32@0:8@16Q24
+[00:48:09.896]   -iconManager:didAddItemsToIconDragWithUniqueIdentifier:numberOfDraggedItems: | v40@0:8@16@24Q32
+[00:48:09.896]   -iconManager:didCloseFolder: | v32@0:8@16@24
+[00:48:09.896]   -iconManager:didCreateRootFolderController: | v32@0:8@16@24
+[00:48:09.897]   -iconManager:didCreateRootViewController: | v32@0:8@16@24
+[00:48:09.897]   -iconManager:didDismissPageManagementWithLayoutManager:context: | v40@0:8@16@24@32
+[00:48:09.897]   -iconManager:didEndIconDragWithUniqueIdentifier:numberOfDraggedItems: | v40@0:8@16@24Q32
+[00:48:09.897]   -iconManager:didOpenFolder: | v32@0:8@16@24
+[00:48:09.898]   -iconManager:didReceiveTapOnLaunchDisabledIconView: | v32@0:8@16@24
+[00:48:09.898]   -iconManager:didRemoveConfigurableDataSource:ofIcon: | v40@0:8@16@24@32
+[00:48:09.898]   -iconManager:didSpringLoadIconView: | v32@0:8@16@24
+[00:48:09.898]   -iconManager:displayFeatureIntroductionItem:atLocation: | v40@0:8@16@24Q32
+[00:48:09.899]   -iconManager:displayFeatureIntroductionItemIfUnlocked: | v32@0:8@16@24
+[00:48:09.899]   -iconManager:dragPreviewForIconView: | @32@0:8@16@24
+[00:48:09.899]   -iconManager:draggingStartLocationForIconView:proposedStartLocation: | q40@0:8@16@24q32
+[00:48:09.899]   -iconManager:fakeStatusBarForFolderController: | @32@0:8@16@24
+[00:48:09.900]   -iconManager:floatingDockViewControllerForView: | @32@0:8@16@24
+[00:48:09.900]   -iconManager:floatingDockViewControllerForViewController: | @32@0:8@16@24
+[00:48:09.900]   -iconManager:focusEffectTypeForIconView: | Q32@0:8@16@24
+[00:48:09.900]   -iconManager:folderController:canChangeCurrentPageIndexToIndex: | B40@0:8@16@24q32
+[00:48:09.901]   -iconManager:folderControllerDidEndScrolling: | v32@0:8@16@24
+[00:48:09.901]   -iconManager:folderControllerWillBeginScrolling: | v32@0:8@16@24
+[00:48:09.901]   -iconManager:homeScreenContentViewForConfigurationOfIconView: | @32@0:8@16@24
+[00:48:09.901]   -iconManager:homeScreenContentViewForModalInteractionFromIconView: | @32@0:8@16@24
+[00:48:09.902]   -iconManager:iconClassForApplicationWithBundleIdentifier:proposedClass: | #40@0:8@16@24#32
+[00:48:09.902]   -iconManager:iconDropSessionDidEnter: | v32@0:8@16@24
+[00:48:09.902]   -iconManager:iconView:configurationDidEndWithInteraction: | v40@0:8@16@24@32
+[00:48:09.902]   -iconManager:iconView:configurationWillBeginWithInteraction: | v40@0:8@16@24@32
+[00:48:09.903]   -iconManager:iconView:configurationWillEndWithInteraction: | v40@0:8@16@24@32
+[00:48:09.903]   -iconManager:iconView:willUseContextMenuStyle: | v40@0:8@16@24@32
+[00:48:09.903]   -iconManager:iconViewDisplaysCloseBox: | B32@0:8@16@24
+[00:48:09.903]   -iconManager:iconViewDisplaysLabel: | B32@0:8@16@24
+[00:48:09.904]   -iconManager:isCustomElementValid: | B32@0:8@16@24
+[00:48:09.904]   -iconManager:isIconVisibleForBundleIdentifier: | B32@0:8@16@24
+[00:48:09.904]   -iconManager:isPartialEditingAllowedForIconLocation: | B32@0:8@16@24
+[00:48:09.904]   -iconManager:isViewOnMainDisplayWindowScene: | B32@0:8@16@24
+[00:48:09.905]   -iconManager:isWidgetValid: | B32@0:8@16@24
+[00:48:09.905]   -iconManager:launchActionsForIconView: | @32@0:8@16@24
+[00:48:09.905]   -iconManager:launchIcon:location:animated:completionHandler: | v52@0:8@16@24@32B40@?44
+[00:48:09.906]   -iconManager:launchIconForIconView:withActions: | v40@0:8@16@24@32
+[00:48:09.906]   -iconManager:launchURLForIconView: | @32@0:8@16@24
+[00:48:09.906]   -iconManager:localizedFolderNameForDefaultDisplayName: | @32@0:8@16@24
+[00:48:09.906]   -iconManager:minimumHomeScreenScaleForFolderController: | d32@0:8@16@24
+[00:48:09.907]   -iconManager:nestingViewController:willPerformOperation:onViewController:withTransitionCoordinator: | v56@0:8@16@24q32@40@48
+[00:48:09.907]   -iconManager:possibleUserIconTapBegan: | v32@0:8@16@24
+[00:48:09.907]   -iconManager:possibleUserIconTapBeganAfterInformingIcon: | v32@0:8@16@24
+[00:48:09.908]   -iconManager:prepareAddSheetViewController: | v32@0:8@16@24
+[00:48:09.908]   -iconManager:prepareForPageHidingEducationWithCompletionHandler: | v32@0:8@16@?24
+[00:48:09.908]   -iconManager:reasonToDisallowInteractionOnIconView: | @32@0:8@16@24
+[00:48:09.909]   -iconManager:rootFolderController:didEndOverscrollOnFirstPageWithVelocity:translation: | v48@0:8@16@24d32d40
+[00:48:09.909]   -iconManager:rootFolderController:didEndOverscrollOnLastPageWithVelocity:translation: | v48@0:8@16@24d32d40
+[00:48:09.909]   -iconManager:rootFolderController:didOverscrollOnFirstPageByAmount: | v40@0:8@16@24d32
+[00:48:09.909]   -iconManager:rootFolderController:didOverscrollOnLastPageByAmount: | v40@0:8@16@24d32
+[00:48:09.910]   -iconManager:rootFolderController:willUseTransitionContext:toTransitionToState: | v48@0:8@16@24@32q40
+[00:48:09.910]   -iconManager:screenSnapshotProviderForComponentsOfIconView: | @32@0:8@16@24
+[00:48:09.910]   -iconManager:setTemporaryIntent:forIconWithIdentifier:widgetUniqueIdentifier: | v48@0:8@16@24@32@40
+[00:48:09.910]   -iconManager:shouldActivateApplicationShortcutItem:atIndex:forIconView: | B48@0:8@16@24Q32@40
+[00:48:09.911]   -iconManager:shouldCacheRecentViewController:forIdentifier: | B40@0:8@16@24@32
+[00:48:09.911]   -iconManager:shouldContinueToUseBackgroundView:forComponentsOfIconView: | B40@0:8@16@24@32
+[00:48:09.911]   -iconManager:shouldPlaceIconOnIgnoredList: | B32@0:8@16@24
+[00:48:09.911]   -iconManager:statusBarEdgeInsetsForFolderController: | {UIEdgeInsets=dddd}32@0:8@16@24
+[00:48:09.912]   -iconManager:statusBarInsetsDidChange: | v56@0:8@16{UIEdgeInsets=dddd}24
+[00:48:09.912]   -iconManager:statusBarStyleRequestForFolderController: | @32@0:8@16@24
+[00:48:09.912]   -iconManager:supportedMultitaskingShortcutActionsForIconView: | Q32@0:8@16@24
+[00:48:09.912]   -iconManager:touchesEndedForIconView: | v32@0:8@16@24
+[00:48:09.913]   -iconManager:viewControllerForCustomIcon:element: | @40@0:8@16@24@32
+[00:48:09.913]   -iconManager:wantsLaunchForWidgetURL: | v32@0:8@16@24
+[00:48:09.913]   -iconManager:wantsToHideStatusBarForFolderController:animated: | @36@0:8@16@24B32
+[00:48:09.914]   -iconManager:wantsUninstallForIcon:location: | v40@0:8@16@24@32
+[00:48:09.914]   -iconManager:willAddDefaultFirstPageWidgetsBasedOnPinnedWidgets:suggestionWidgets: | @40@0:8@16@24@32
+[00:48:09.914]   -iconManager:willBeginIconDragWithUniqueIdentifier:numberOfDraggedItems: | v40@0:8@16@24Q32
+[00:48:09.914]   -iconManager:willCloseFolder: | v32@0:8@16@24
+[00:48:09.918]   -iconManager:willCloseFolderController: | v32@0:8@16@24
+[00:48:09.918]   -iconManager:willDestroyRootFolderController: | v32@0:8@16@24
+[00:48:09.918]   -iconManager:willDestroyRootViewController: | v32@0:8@16@24
+[00:48:09.918]   -iconManager:willDismissPageManagementUsingAnimator:context: | v40@0:8@16@24@32
+[00:48:09.919]   -iconManager:willOpenFolder: | v32@0:8@16@24
+[00:48:09.919]   -iconManager:willOpenFolderController: | v32@0:8@16@24
+[00:48:09.919]   -iconManager:willPrepareIconViewForLaunch: | v32@0:8@16@24
+[00:48:09.919]   -iconManager:willPresentPageManagementWithLayoutManager:animator:context: | v48@0:8@16@24@32@40
+[00:48:09.920]   -iconManager:willRemoveFakeStatusBar:forFolderController: | v40@0:8@16@24@32
+[00:48:09.920]   -iconManager:willRemoveViewControllerForIdentifier: | v32@0:8@16@24
+[00:48:09.920]   -iconManager:willUseIconImageCache: | v32@0:8@16@24
+[00:48:09.920]   -iconManager:willUseRootFolderControllerConfiguration: | v32@0:8@16@24
+[00:48:09.921]   -iconManagerCanBeginIconDrags: | B24@0:8@16
+[00:48:09.921]   -iconManagerCanSaveIconState: | B24@0:8@16
+[00:48:09.921]   -iconManagerCanUseSeparateWindowForRotation: | B24@0:8@16
+[00:48:09.921]   -iconManagerDidAddOrRemoveWidgetIcon: | v24@0:8@16
+[00:48:09.922]   -iconManagerDidDismissWidgetEditing: | v24@0:8@16
+[00:48:09.922]   -iconManagerDidFinishInstallForIcon: | v24@0:8@16
+[00:48:09.922]   -iconManagerDidNoteIconStateChangedExternally: | v24@0:8@16
+[00:48:09.923]   -iconManagerDidSaveIconState: | v24@0:8@16
+[00:48:09.923]   -iconManagerEditingDidChange: | v24@0:8@16
+[00:48:09.923]   -iconManagerFolderAnimatingDidChange: | v24@0:8@16
+[00:48:09.923]   -iconManagerIconDraggingDidChange: | v24@0:8@16
+[00:48:09.924]   -iconManagerListLayoutProviderDidChange: | v24@0:8@16
+[00:48:09.924]   -iconManagerShouldShowWidgetIntroductionPopoverForDefaultWidgets: | B24@0:8@16
+[00:48:09.924]   -iconManagerWillAnimateWidgetInsertion: | v24@0:8@16
+[00:48:09.924]   -iconManagerWillPresentWidgetEditing: | v24@0:8@16
+[00:48:09.925]   -iconModel:applicationWithBundleIdentifier: | @32@0:8@16@24
+[00:48:09.925]   -iconOcclusionReasons | Q16@0:8
+[00:48:09.925]   -iconPathForIconWithDisplayID: | @24@0:8@16
+[00:48:09.925]   -importIconState: | B24@0:8@16
+[00:48:09.926]   -initWithMainDisplayWindowScene: | @24@0:8@16
+[00:48:09.926]   -initWithMainDisplayWindowScene:alertItemsController:analyticsClient:applicationController:applicationPlaceholderController:assistantController:coverSheetPresentationManager:lockScreenManager:mainDisplaySceneManager:policyAggregator:userInterfaceController:widgetMetricsServer: | @112@0:8@16@24@32@40@48@56@64@72@80@88@96@104
+[00:48:09.926]   -interactivePullToTodaySearchTransition | @16@0:8
+[00:48:09.927]   -interfaceOrientationForIconManager: | q24@0:8@16
+[00:48:09.927]   -isAnySearchVisibleOrTransitioning | B16@0:8
+[00:48:09.927]   -isAppLibraryAllowed | B16@0:8
+[00:48:09.927]   -isAppLibrarySupported | B16@0:8
+[00:48:09.928]   -isEditingAllowedForIconManager: | B24@0:8@16
+[00:48:09.928]   -isEditingForHomeScreenOverlayController: | B24@0:8@16
+[00:48:09.928]   -isEnterpriseMultiUser | B16@0:8
+[00:48:09.928]   -isFloatingDockSupportedForIconManager: | B24@0:8@16
+[00:48:09.929]   -isFloatingDockVisibleForIconManager: | B24@0:8@16
+[00:48:09.929]   -isFocusAllowedForIconManager: | B24@0:8@16
+[00:48:09.929]   -isHideSuggestionSupportedForIconView:inLocation: | B32@0:8@16@24
+[00:48:09.929]   -isHideSupportedForIcon:inLocation: | B32@0:8@16@24
+[00:48:09.930]   -isIconContentPossiblyVisibleOverApplicationForIconManager: | B24@0:8@16
+[00:48:09.930]   -isMainDisplayLibraryViewVisible | B16@0:8
+[00:48:09.930]   -isModalAppLibrarySupported | B16@0:8
+[00:48:09.930]   -isNewsTodayWidgetAvailableForCurrentLocale | B16@0:8
+[00:48:09.931]   -isOnlyHideSuggestionSupportedForIcon:inLocation: | B32@0:8@16@24
+[00:48:09.931]   -isRootFolderContentVisibleForIconManager: | B24@0:8@16
+[00:48:09.931]   -isShowingHomeScreenOverlay | B16@0:8
+[00:48:09.931]   -isShowingSidebar | B16@0:8
+[00:48:09.932]   -isSidebarPinned | B16@0:8
+[00:48:09.932]   -isTodayOverlayPresented | B16@0:8
+[00:48:09.932]   -isTodayOverlaySpotlightVisible | B16@0:8
+[00:48:09.932]   -isTodayViewRotating: | B24@0:8@16
+[00:48:09.933]   -isUninstallOrHideSupportedForIcon:inLocation: | B32@0:8@16@24
+[00:48:09.933]   -isUninstallSupportedForIcon: | B24@0:8@16
+[00:48:09.933]   -isUninstallingSystemAppsRestricted | B16@0:8
+[00:48:09.934]   -isUpgradeRestore | B16@0:8
+[00:48:09.934]   -keepTodayViewIconImagesStaticAssertion | @16@0:8
+[00:48:09.934]   -launchActionsForIconView: | @24@0:8@16
+[00:48:09.934]   -launchActivationSettingsForIconView: | @24@0:8@16
+[00:48:09.935]   -launchURLForIconView: | @24@0:8@16
+[00:48:09.935]   -layoutStateTransitionCoordinator:transitionDidBeginWithTransitionContext: | v32@0:8@16@24
+[00:48:09.935]   -legibilitySettings | @16@0:8
+[00:48:09.935]   -libraryViewController:didDismissSearchController: | v32@0:8@16@24
+[00:48:09.936]   -libraryViewController:willDismissFolderController: | v32@0:8@16@24
+[00:48:09.936]   -libraryViewController:willDismissSearchController: | v32@0:8@16@24
+[00:48:09.936]   -libraryViewController:willPresentFolderController: | v32@0:8@16@24
+[00:48:09.936]   -libraryViewController:willPresentSearchController: | v32@0:8@16@24
+[00:48:09.937]   -libraryViewControllerDidDismiss: | v24@0:8@16
+[00:48:09.937]   -libraryViewControllerRequestsDismissal: | v24@0:8@16
+[00:48:09.937]   -libraryViewControllerWillPresent: | v24@0:8@16
+[00:48:09.938]   -libraryViewControllersForIconManager: | @24@0:8@16
+[00:48:09.938]   -listsAllowRotatedLayoutForIconManager: | B24@0:8@16
+[00:48:09.938]   -loadView | v16@0:8
+[00:48:09.939]   -localizedDefaultFolderNameForIconManager: | @24@0:8@16
+[00:48:09.939]   -localizedFolderNameForDefaultDisplayName: | @24@0:8@16
+[00:48:09.939]   -lockScreenManager | @16@0:8
+[00:48:09.939]   -mainDisplaySceneManager | @16@0:8
+[00:48:09.940]   -mainDisplayWindowScene | @16@0:8
+[00:48:09.940]   -markIconsOccludedForReason: | @24@0:8@16
+[00:48:09.940]   -maxPresentationOffset | d16@0:8
+[00:48:09.940]   -maximumListCountForFoldersForIconManager: | Q24@0:8@16
+[00:48:09.941]   -minimumHomeScreenScale | d16@0:8
+[00:48:09.941]   -minimumHomeScreenScaleForFloatingDockController: | d24@0:8@16
+[00:48:09.941]   -modeConfigurationService:didReceiveAvailableModesUpdate: | v32@0:8@16@24
+[00:48:09.941]   -model | @16@0:8
+[00:48:09.942]   -noteTransientOverlayPresented | v16@0:8
+[00:48:09.942]   -noteViewCovered | v16@0:8
+[00:48:09.942]   -noteViewUncovered | v16@0:8
+[00:48:09.943]   -notificationIconImageCache | @16@0:8
+[00:48:09.943]   -notifyFloatingDockControllerObserversDidRegister: | v24@0:8@16
+[00:48:09.943]   -nowPlayingAppDidChange | v@:
+[00:48:09.943]   -nowPlayingAppDidTerminate | v@:
+[00:48:09.944]   -nowPlayingInfoDidChange | v@:
+[00:48:09.944]   -observer:noteServerConnectionStateChanged: | v28@0:8@16B24
+[00:48:09.944]   -observer:updateSectionInfo: | v32@0:8@16@24
+[00:48:09.944]   -obtainProactiveSecondPageWidgetSuggestion | v16@0:8
+[00:48:09.948]   -organizeInFoldersTestRecipe | @16@0:8
+[00:48:09.948]   -orientation | q16@0:8
+[00:48:09.948]   -overlayController:didChangePresentationProgress:newPresentationProgress:fromLeading: | v44@0:8@16d24d32B40
+[00:48:09.949]   -overlayController:visibilityDidChange: | v28@0:8@16B24
+[00:48:09.949]   -overlayControllerDidBeginChangingPresentationProgress: | v24@0:8@16
+[00:48:09.949]   -overlayLibraryViewController | @16@0:8
+[00:48:09.949]   -performAfterContextMenuAnimationsHaveCompleted: | v24@0:8@?16
+[00:48:09.950]   -policyAggregator | @16@0:8
+[00:48:09.950]   -popToCurrentRootIconListWhenPossible | v16@0:8
+[00:48:09.950]   -popoverDelayTimer | @16@0:8
+[00:48:09.950]   -possibleInterfaceOrientations | Q16@0:8
+[00:48:09.951]   -possibleInterfaceOrientationsForIconManager: | Q24@0:8@16
+[00:48:09.951]   -preferredFocusEnvironments | @16@0:8
+[00:48:09.951]   -prepareForImminentExit | v16@0:8
+[00:48:09.951]   -presentLibraryCategoryPodFromOverlayControllerForCategoryIdentifier:animated:completion: | v36@0:8@16B24@?28
+[00:48:09.952]   -presentLibraryForIconManager:windowScene:animated: | v36@0:8@16@24B32
+[00:48:09.952]   -presentLibraryFromOverlayControllerAnimated:completion: | v28@0:8B16@?20
+[00:48:09.952]   -presentTodayOverlayForIconManager: | v24@0:8@16
+[00:48:09.952]   -proactiveHomeScreenSuggestionProvider:willUseTemporaryIntent:forIconWithIdentifier:widgetUniqueIdentifier: | v48@0:8@16@24@32@40
+[00:48:09.953]   -proactiveHomeScreenSuggestionProviderDidUpdatePrediction: | v24@0:8@16
+[00:48:09.953]   -proactiveHomeScreenUsageObserver:intentForWidget:ofIcon: | @40@0:8@16@24@32
+[00:48:09.953]   -proactiveOnboardingDefaultStacks | @16@0:8
+[00:48:09.953]   -proactiveSuggestionProvider | @16@0:8
+[00:48:09.954]   -proactiveUsageObserver | @16@0:8
+[00:48:09.954]   -profileConnectionDidReceiveEffectiveSettingsChangedNotification:userInfo: | v32@0:8@16@24
+[00:48:09.954]   -profileConnectionDidReceiveProfileListChangedNotification:userInfo: | v32@0:8@16@24
+[00:48:09.955]   -publisher:didUpdateLayout:withTransition: | v40@0:8@16@24@32
+[00:48:09.955]   -recycledViewsContainerProviderForIconManager: | @24@0:8@16
+[00:48:09.955]   -registerForNowPlayingNotifications | v@:
+[00:48:09.955]   -relayoutTestRecipe | @16@0:8
+[00:48:09.956]   -removeFloatingDockControllerObserver: | v24@0:8@16
+[00:48:09.956]   -removeIconOcclusionReason:updateVisibleIcons: | v28@0:8Q16B24
+[00:48:09.956]   -removeIconsOccludedAssertion: | v24@0:8@16
+[00:48:09.956]   -resetCategories | B16@0:8
+[00:48:09.957]   -resetHomeScreenLayout | B16@0:8
+[00:48:09.957]   -rootFolder | @16@0:8
+[00:48:09.957]   -rootFolderController:transitionContextForTransitioningToState:animated:interactive: | @40@0:8@16q24B32B36
+[00:48:09.957]   -rootFolderController:transitionDidFinish: | v32@0:8@16@24
+[00:48:09.958]   -rootFolderController:transitionWillBegin: | v32@0:8@16@24
+[00:48:09.958]   -rootFolderController:transitionWillFinish: | v32@0:8@16@24
+[00:48:09.958]   -rootFolderController:transitionWillReverse: | v32@0:8@16@24
+[00:48:09.958]   -rootFolderPageStateProvider:didContinueTransitionToState:progress: | v40@0:8@16q24d32
+[00:48:09.959]   -rootFolderPageStateProvider:didEndTransitionFromState:toState:successfully: | v44@0:8@16q24q32B40
+[00:48:09.959]   -rootFolderPageStateProvider:willBeginTransitionToState:animated:interactive: | v40@0:8@16q24B32B36
+[00:48:09.959]   -rootFolderPageStateProvider:willEndTransitionToState:successfully: | v36@0:8@16q24B32
+[00:48:09.959]   -rootFolderSettings | @16@0:8
+[00:48:09.960]   -rootViewController | @16@0:8
+[00:48:09.960]   -runDownloadingIconTestRecipe | @16@0:8
+[00:48:09.960]   -runRemoveAndRestoreIconTestRecipe | @16@0:8
+[00:48:09.960]   -runWidgetDiscoverabilityTest | v16@0:8
+[00:48:09.961]   -runWidgetDiscoverabilityTestRecipe | @16@0:8
+[00:48:09.961]   -scrollAccessoryAuxiliaryView | @16@0:8
+[00:48:09.961]   -scrollAccessoryBorrowedForSearchPresentationAssertion | @16@0:8
+[00:48:09.961]   -searchAffordanceViewForSpotlightPresentableViewController: | @24@0:8@16
+[00:48:09.962]   -searchBarDidFocus | v16@0:8
+[00:48:09.962]   -searchGesture:changedPercentComplete: | v32@0:8@16d24
+[00:48:09.962]   -searchGesture:endedGesture: | v28@0:8@16B24
+[00:48:09.962]   -searchGesture:startedShowing: | v28@0:8@16B24
+[00:48:09.963]   -searchPresentableViewController | @16@0:8
+[00:48:09.963]   -searchPresentablesForPresenter: | @24@0:8@16
+[00:48:09.963]   -searchPresenter | @16@0:8
+[00:48:09.963]   -searchPresenterCanPresent: | B24@0:8@16
+[00:48:09.964]   -searchPresenterDestinationPageState | q16@0:8
+[00:48:09.964]   -searchPresenterDidDismissSearch: | v24@0:8@16
+[00:48:09.964]   -searchPresenterDidPresentSearch: | v24@0:8@16
+[00:48:09.964]   -searchPresenterOutstandingAnimationCount | Q16@0:8
+[00:48:09.965]   -searchPresenterPageStateTransition | @16@0:8
+[00:48:09.965]   -searchPresenterWillDismissSearch:animated: | v28@0:8@16B24
+[00:48:09.965]   -searchPresenterWillPresentSearch:animated: | v28@0:8@16B24
+[00:48:09.965]   -searchTopOffsetForSearchPresenter: | d24@0:8@16
+[00:48:09.966]   -setAddWidgetSheetKeyboardFocusAssertion: | v24@0:8@16
+[00:48:09.966]   -setCoverSheetTodayViewController: | v24@0:8@16
+[00:48:09.966]   -setDelayedLaunchRequestTimer: | v24@0:8@16
+[00:48:09.966]   -setDismissingMenuForFolderPresentation: | v20@0:8B16
+[00:48:09.967]   -setDisplayLayoutTransition: | v24@0:8@16
+[00:48:09.967]   -setDndModeConfigurationService: | v24@0:8@16
+[00:48:09.967]   -setDndStateService: | v24@0:8@16
+[00:48:09.967]   -setFloatingDockBehaviorAssertions: | v24@0:8@16
+[00:48:09.968]   -setFloatingDockControllerObservers: | v24@0:8@16
+[00:48:09.968]   -setHasRestrictedEnforcedLayout: | v20@0:8B16
+[00:48:09.968]   -setHomeScreenOverlayController: | v24@0:8@16
+[00:48:09.968]   -setIconOcclusionReasons: | v24@0:8Q16
+[00:48:09.969]   -setInteractivePullToTodaySearchTransition: | v24@0:8@16
+[00:48:09.969]   -setKeepTodayViewIconImagesStaticAssertion: | v24@0:8@16
+[00:48:09.969]   -setLegibilitySettings: | v24@0:8@16
+[00:48:09.969]   -setMaxPresentationOffset: | v24@0:8d16
+[00:48:09.970]   -setModel: | v24@0:8@16
+[00:48:09.970]   -setNowPlayingArtworkForApp:withArtwork: | v@:@@
+[00:48:09.970]   -setOverlayLibraryViewController: | v24@0:8@16
+[00:48:09.970]   -setPopoverDelayTimer: | v24@0:8@16
+[00:48:09.971]   -setProactiveSuggestionProvider: | v24@0:8@16
+[00:48:09.971]   -setProactiveUsageObserver: | v24@0:8@16
+[00:48:09.971]   -setRootViewController: | v24@0:8@16
+[00:48:09.971]   -setScrollAccessoryAuxiliaryView: | v24@0:8@16
+[00:48:09.972]   -setScrollAccessoryBorrowedForSearchPresentationAssertion: | v24@0:8@16
+[00:48:09.972]   -setSearchPresentableViewController: | v24@0:8@16
+[00:48:09.972]   -setSearchPresenter: | v24@0:8@16
+[00:48:09.972]   -setSearchPresenterDestinationPageState: | v24@0:8q16
+[00:48:09.973]   -setSearchPresenterOutstandingAnimationCount: | v24@0:8Q16
+[00:48:09.973]   -setSearchPresenterPageStateTransition: | v24@0:8@16
+[00:48:09.973]   -setSpotlightViewController: | v24@0:8@16
+[00:48:09.973]   -setSuspendWallpaperAnimationForOverlayViewAssertion: | v24@0:8@16
+[00:48:09.974]   -setSuspendWallpaperAnimationForSpotlightAssertion: | v24@0:8@16
+[00:48:09.974]   -setTemporaryIntent:forIconWithIdentifier:widgetUniqueIdentifier: | v40@0:8@16@24@32
+[00:48:09.974]   -setTipsUsageObserver: | v24@0:8@16
+[00:48:09.974]   -setTodayViewController: | v24@0:8@16
+[00:48:09.975]   -setTopOffset: | v24@0:8d16
+[00:48:09.978]   -setUninstallingSystemAppsRestricted: | v20@0:8B16
+[00:48:09.978]   -setUserIconStateFileStatus: | v24@0:8q16
+[00:48:09.979]   -setWallpaperAnimationDisabled:forReason: | v28@0:8B16@20
+[00:48:09.979]   -setWidgetAddSheetAffordanceViewController: | v24@0:8@16
+[00:48:09.979]   -settings:changedValueForKey: | v32@0:8@16@24
+[00:48:09.979]   -shouldAddNewIconsToRootFolder | B16@0:8
+[00:48:09.980]   -shouldAutomaticallyForwardAppearanceMethods | B16@0:8
+[00:48:09.980]   -shouldAutorotate | B16@0:8
+[00:48:09.980]   -shouldUseLiveBlurForBackgroundViewForComponentsOfIconView: | B24@0:8@16
+[00:48:09.980]   -showsAddWidgetButtonWhileEditingForHomeScreenOverlayController: | B24@0:8@16
+[00:48:09.981]   -showsDoneButtonWhileEditingForHomeScreenOverlayController: | B24@0:8@16
+[00:48:09.981]   -shuffleStackTestRecipe | @16@0:8
+[00:48:09.981]   -spotlightPresentableViewControllerShouldDismiss: | v24@0:8@16
+[00:48:09.981]   -spotlightViewController | @16@0:8
+[00:48:09.982]   -stateService:didReceiveDoNotDisturbStateUpdate: | v32@0:8@16@24
+[00:48:09.982]   -succinctDescription | @16@0:8
+[00:48:09.982]   -succinctDescriptionBuilder | @16@0:8
+[00:48:09.982]   -suggestedOnboardingStack | @16@0:8
+[00:48:09.983]   -supportedInterfaceOrientations | Q16@0:8
+[00:48:09.983]   -supportedMultitaskingShortcutActionsForBundleIdentifier: | Q24@0:8@16
+[00:48:09.983]   -suspendWallpaperAnimationForOverlayViewAssertion | @16@0:8
+[00:48:09.983]   -suspendWallpaperAnimationForSpotlightAssertion | @16@0:8
+[00:48:09.984]   -tableUIIconImageCache | @16@0:8
+[00:48:09.984]   -temporaryIntentDataForIconWithIdentifier:widgetUniqueIdentifier: | @32@0:8@16@24
+[00:48:09.984]   -testSetupForIconManagerAddWidgetsToEachPage: | @24@0:8@16
+[00:48:09.984]   -testSetupForIconManagerWidgetScrollPerformanceTest: | @24@0:8@16
+[00:48:09.985]   -testSetupForIconManagerWidgetScrollTest: | @24@0:8@16
+[00:48:09.985]   -testSetupHomeScreenForWidgetScrollPerformanceTest: | @24@0:8@16
+[00:48:09.985]   -tipsUsageObserver | @16@0:8
+[00:48:09.985]   -todayViewController | @16@0:8
+[00:48:09.986]   -todayViewControllerWillPresentSpotlight: | v24@0:8@16
+[00:48:09.986]   -todayViewDidAppear: | v24@0:8@16
+[00:48:09.986]   -todayViewWantsToEndEditing: | v24@0:8@16
+[00:48:09.987]   -toggleSearchTestRecipe | @16@0:8
+[00:48:09.987]   -topOffset | d16@0:8
+[00:48:09.987]   -transitionContextToShowSpotlight:fromTodayView:animated:interactive: | @32@0:8B16B20B24B28
+[00:48:09.987]   -unforbidApplicationBundleIdentifierFromLibrary: | B24@0:8@16
+[00:48:09.988]   -updateContentViewOrientationAndLayoutIfNeeded | v16@0:8
+[00:48:09.988]   -updateNumberOfRowsWithDuration: | v24@0:8d16
+[00:48:09.988]   -updatePresentationProgress:withOffset:presentationState: | v40@0:8d16d24q32
+[00:48:09.988]   -updateRootFolderWithCurrentDoNotDisturbState | v16@0:8
+[00:48:09.989]   -userIconStateFileStatus | q16@0:8
+[00:48:09.989]   -userInterfaceController | @16@0:8
+[00:48:09.989]   -viewControllerForPresentingViewControllersForIconManager: | @24@0:8@16
+[00:48:09.989]   -viewDidAppear: | v20@0:8B16
+[00:48:09.990]   -viewDidDisappear: | v20@0:8B16
+[00:48:09.990]   -viewWillAppear: | v20@0:8B16
+[00:48:09.990]   -viewWillDisappear: | v20@0:8B16
+[00:48:09.990]   -viewWillLayoutSubviews | v16@0:8
+[00:48:09.991]   -viewWillTransitionToSize:withTransitionCoordinator: | v40@0:8{CGSize=dd}16@32
+[00:48:09.991]   -visibleIconStateDisplayIdentifiers | @16@0:8
+[00:48:09.991]   -wantsHomeAffordanceForSpotlightPresentableViewController: | B24@0:8@16
+[00:48:09.991]   -widgetAddSheetAffordanceViewController | @16@0:8
+[00:48:09.992]   -widgetIntroductionPreviewViewForIconManager: | @24@0:8@16
+[00:48:09.992]   -widgetMetricsServer | @16@0:8
+[00:48:09.992]   -willBeginModifyingPresentationProgressForState:animated:needsInitialLayout: | @?36@0:8q16B24^B28
+[00:48:09.992]   -windowForIconDragPreviewsForIconManager:forWindowScene: | @32@0:8@16@24
+[00:48:09.993]   -windowSceneDidDisconnect: | v24@0:8@16
+[00:48:09.994]   @property mainDisplayWindowScene
+[00:48:09.994]   @property rootViewController
+[00:48:09.995]   @property hasRestrictedEnforcedLayout
+[00:48:09.995]   @property uninstallingSystemAppsRestricted
+[00:48:09.996]   @property delayedLaunchRequestTimer
+[00:48:09.996]   @property popoverDelayTimer
+[00:48:09.996]   @property iconOcclusionReasons
+[00:48:09.996]   @property todayViewController
+[00:48:09.997]   @property coverSheetTodayViewController
+[00:48:09.997]   @property spotlightViewController
+[00:48:09.997]   @property overlayLibraryViewController
+[00:48:09.997]   @property interactivePullToTodaySearchTransition
+[00:48:09.998]   @property displayLayoutTransition
+[00:48:09.998]   @property relayoutTestRecipe
+[00:48:09.998]   @property toggleSearchTestRecipe
+[00:48:09.999]   @property runDownloadingIconTestRecipe
+[00:48:09.999]   @property runRemoveAndRestoreIconTestRecipe
+[00:48:09.999]   @property organizeInFoldersTestRecipe
+[00:48:09.999]   @property shuffleStackTestRecipe
+[00:48:10.000]   @property runWidgetDiscoverabilityTestRecipe
+[00:48:10.000]   @property rootFolderSettings
+[00:48:10.000]   @property dismissingMenuForFolderPresentation
+[00:48:10.000]   @property keepTodayViewIconImagesStaticAssertion
+[00:48:10.001]   @property suspendWallpaperAnimationForSpotlightAssertion
+[00:48:10.001]   @property suspendWallpaperAnimationForOverlayViewAssertion
+[00:48:10.001]   @property proactiveUsageObserver
+[00:48:10.001]   @property proactiveSuggestionProvider
+[00:48:10.002]   @property tipsUsageObserver
+[00:48:10.002]   @property accountStoreQueue
+[00:48:10.003]   @property widgetMetricsServer
+[00:48:10.003]   @property widgetAddSheetAffordanceViewController
+[00:48:10.004]   @property dndStateService
+[00:48:10.004]   @property dndModeConfigurationService
+[00:48:10.004]   @property suggestedOnboardingStack
+[00:48:10.004]   @property userIconStateFileStatus
+[00:48:10.005]   @property floatingDockControllerObservers
+[00:48:10.005]   @property floatingDockBehaviorAssertions
+[00:48:10.005]   @property searchPresenter
+[00:48:10.006]   @property searchPresentableViewController
+[00:48:10.006]   @property searchPresenterPageStateTransition
+[00:48:10.007]   @property searchPresenterDestinationPageState
+[00:48:10.007]   @property searchPresenterOutstandingAnimationCount
+[00:48:10.007]   @property scrollAccessoryAuxiliaryView
+[00:48:10.007]   @property scrollAccessoryBorrowedForSearchPresentationAssertion
+[00:48:10.008]   @property addWidgetSheetKeyboardFocusAssertion
+[00:48:10.008]   @property applicationController
+[00:48:10.008]   @property applicationPlaceholderController
+[00:48:10.009]   @property userInterfaceController
+[00:48:10.009]   @property policyAggregator
+[00:48:10.009]   @property alertItemsController
+[00:48:10.010]   @property assistantController
+[00:48:10.010]   @property model
+[00:48:10.010]   @property homeScreenOverlayController
+[00:48:10.010]   @property rootFolderController
+[00:48:10.011]   @property openFolderController
+[00:48:10.011]   @property currentFolderController
+[00:48:10.012]   @property _ignoreMutatingIconListsOnApplicationInstall
+[00:48:10.012]   @property currentIconListIndex
+[00:48:10.012]   @property areAnyIconViewContextMenusShowing
+[00:48:10.013]   @property isAnySearchVisibleOrTransitioning
+[00:48:10.013]   @property appIconForceTouchWindows
+[00:48:10.013]   @property iconManager
+[00:48:10.013]   @property appSwitcherHeaderIconImageCache
+[00:48:10.014]   @property appSwitcherUnmaskedIconImageCache
+[00:48:10.014]   @property tableUIIconImageCache
+[00:48:10.014]   @property notificationIconImageCache
+[00:48:10.015]   @property contentView
+[00:48:10.015]   @property rootFolder
+[00:48:10.015]   @property visibleIconStateDisplayIdentifiers
+[00:48:10.015]   @property allowedInterfaceOrientations
+[00:48:10.016]   @property possibleInterfaceOrientations
+[00:48:10.016]   @property legibilitySettings
+[00:48:10.016]   @property appLibrarySupported
+[00:48:10.016]   @property appLibraryAllowed
+[00:48:10.017]   @property modalAppLibrarySupported
+[00:48:10.017]   @property iconDragManager
+[00:48:10.017]   @property currentAnimationContainer
+[00:48:10.017]   @property showingHomeScreenOverlay
+[00:48:10.018]   @property todayOverlaySpotlightVisible
+[00:48:10.018]   @property showingSidebar
+[00:48:10.018]   @property sidebarPinned
+[00:48:10.018]   @property shouldAddNewIconsToRootFolder
+[00:48:10.019]   @property hash
+[00:48:10.019]   @property superclass
+[00:48:10.019]   @property description
+[00:48:10.019]   @property debugDescription
+[00:48:10.020]   @property searchTransitionSettings
+[00:48:10.020]   @property topOffset
+[00:48:10.020]   @property maxPresentationOffset
+[00:48:10.020]   @property containerView
+[00:48:10.021]   @property animationWindow
+[00:48:10.021]   @property fallbackIconContainerView
+[00:48:10.021] -- SBIconModel (super: SBHIconModel) --
+[00:48:10.022]   +applicationIconClass
+[00:48:10.023]   +bookmarkClass
+[00:48:10.023]   +bookmarkIconClass
+[00:48:10.023]   +currentLocaleDidChangeNotificationName
+[00:48:10.023]   +migratedIdentifierForLeafIdentifier:
+[00:48:10.024]   -.cxx_destruct | v16@0:8
+[00:48:10.024]   -_replaceAppIconsWithDownloadingIcons | v16@0:8
+[00:48:10.024]   -_replaceAppIconsWithDownloadingIcons: | v24@0:8@16
+[00:48:10.024]   -addApplication: | @24@0:8@16
+[00:48:10.025]   -addBookmarkIconForWebClip: | @24@0:8@16
+[00:48:10.025]   -adjustIconsToShow:iconsToHide:afterChangeToVisibleIconTags:hiddenIconTags: | v48@0:8@16@24@32@40
+[00:48:10.025]   -applicationIconForBundleIdentifier: | @24@0:8@16
+[00:48:10.025]   -applicationWithBundleIdentifier: | @24@0:8@16
+[00:48:10.026]   -bookmarkIconForWebClipIdentifier: | @24@0:8@16
+[00:48:10.026]   -cachedFlattenedForecastedDesiredIconState | @16@0:8
+[00:48:10.026]   -clearDesiredIconStateWithOptions: | v24@0:8Q16
+[00:48:10.026]   -exportFlattenedState:includeMissingIcons: | @24@0:8B16B20
+[00:48:10.027]   -exportPendingState:includeMissingIcons: | @24@0:8B16B20
+[00:48:10.027]   -exportState: | @20@0:8B16
+[00:48:10.027]   -forecastedLayoutForIconState:includeMissingIcons: | @28@0:8@16B24
+[00:48:10.028]   -importState: | B24@0:8@16
+[00:48:10.028]   -indexPathForIconInPlatformState: | @24@0:8@16
+[00:48:10.028]   -isIconVisible: | B24@0:8@16
+[00:48:10.028]   -loadAllIcons | v16@0:8
+[00:48:10.029]   -modernizeRootArchive: | @24@0:8@16
+[00:48:10.029]   -setCachedFlattenedForecastedDesiredIconState: | v24@0:8@16
+[00:48:10.029]   -shouldAvoidCreatingIconForApplication: | B24@0:8@16
+[00:48:10.029]   -shouldAvoidPlacingIconOnFirstPage: | B24@0:8@16
+[00:48:10.030]   -willLayout | v16@0:8
+[00:48:10.030]   @property cachedFlattenedForecastedDesiredIconState
+[00:48:10.030] -- SBIcon (super: NSObject) --
+[00:48:10.034]   +canGenerateIconsInBackground
+[00:48:10.035]   +forcesBackgroundIconGeneration
+[00:48:10.035]   +genericIconImageWithInfo:
+[00:48:10.035]   +hasIconImage
+[00:48:10.035]   +iconImageFromUnmaskedImage:info:
+[00:48:10.036]   -.cxx_destruct | v16@0:8
+[00:48:10.036]   -_notifyAccessoriesDidUpdate | v16@0:8
+[00:48:10.036]   -_notifyImageDidUpdate | v16@0:8
+[00:48:10.036]   -_notifyLaunchEnabledDidChange | v16@0:8
+[00:48:10.037]   -_sbhIconLibraryCollationString | @16@0:8
+[00:48:10.037]   -_sbhIconLibraryOverrideCollationSectionTitle | @16@0:8
+[00:48:10.037]   -accessoryTextForLocation: | @24@0:8@16
+[00:48:10.037]   -accessoryTypeForLocation: | q24@0:8@16
+[00:48:10.038]   -addNodeObserver: | v24@0:8@16
+[00:48:10.038]   -addObserver: | v24@0:8@16
+[00:48:10.038]   -application | @16@0:8
+[00:48:10.038]   -applicationBundleID | @16@0:8
+[00:48:10.039]   -applicationPlaceholder | @16@0:8
+[00:48:10.039]   -archivableStateDidChange | v16@0:8
+[00:48:10.039]   -automationID | @16@0:8
+[00:48:10.040]   -badgeNumberOrString | @16@0:8
+[00:48:10.040]   -badgeValue | q16@0:8
+[00:48:10.040]   -canBeAddedToMultiItemDrag | B16@0:8
+[00:48:10.040]   -canBeAddedToSubfolder | B16@0:8
+[00:48:10.041]   -canBeReceivedByIcon | B16@0:8
+[00:48:10.041]   -canGenerateIconsInBackground | B16@0:8
+[00:48:10.041]   -canReceiveGrabbedIcon | B16@0:8
+[00:48:10.041]   -canTightenLabel | B16@0:8
+[00:48:10.042]   -canTruncateLabel | B16@0:8
+[00:48:10.042]   -completeUninstall | v16@0:8
+[00:48:10.042]   -containedNodeIdentifiers | @16@0:8
+[00:48:10.042]   -containsNodeIdentifier: | B24@0:8@16
+[00:48:10.043]   -copyWithZone: | @24@0:8^{_NSZone=}16
+[00:48:10.043]   -delegate | @16@0:8
+[00:48:10.043]   -description | @16@0:8
+[00:48:10.043]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:10.044]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:10.044]   -displayName | @16@0:8
+[00:48:10.044]   -displayNameForLocation: | @24@0:8@16
+[00:48:10.044]   -displayNameForObscuredDisabledLaunchForLocation: | @24@0:8@16
+[00:48:10.045]   -draggingUserActivity | @16@0:8
+[00:48:10.045]   -enumerateObserversUsingBlock: | v24@0:8@?16
+[00:48:10.045]   -folder | @16@0:8
+[00:48:10.045]   -folderFallbackTitle | @16@0:8
+[00:48:10.046]   -folderTitleOptions | @16@0:8
+[00:48:10.046]   -generateIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.046]   -genericIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.046]   -gridSizeClass | Q16@0:8
+[00:48:10.047]   -hasApplication | B16@0:8
+[00:48:10.047]   -hasApplicationPlaceholder | B16@0:8
+[00:48:10.047]   -hasObserver: | B24@0:8@16
+[00:48:10.047]   -iTunesCategoriesOrderedByRelevancy | @16@0:8
+[00:48:10.048]   -iconImageCacheIdentifier | @16@0:8
+[00:48:10.048]   -iconImageViewClassForLocation: | #24@0:8@16
+[00:48:10.048]   -iconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.048]   -iconLibraryQueryingAlphaSortString | @16@0:8
+[00:48:10.049]   -iconLibraryQueryingFilterStrings | @16@0:8
+[00:48:10.049]   -indexPathsForContainedNodeIdentifier:prefixPath: | @32@0:8@16@24
+[00:48:10.049]   -isAdditionalItemsIndicatorIcon | B16@0:8
+[00:48:10.049]   -isAppClipIcon | B16@0:8
+[00:48:10.050]   -isApplicationIcon | B16@0:8
+[00:48:10.050]   -isBookmarkIcon | B16@0:8
+[00:48:10.050]   -isCategoryIcon | B16@0:8
+[00:48:10.050]   -isClusteredIconPlaceholder | B16@0:8
+[00:48:10.051]   -isDebugIcon | B16@0:8
+[00:48:10.051]   -isFolderIcon | B16@0:8
+[00:48:10.051]   -isGrabbedIconPlaceholder | B16@0:8
+[00:48:10.051]   -isGridSizeClassAllowed: | B24@0:8Q16
+[00:48:10.052]   -isLaunchDisabledForObscuredReason | B16@0:8
+[00:48:10.052]   -isLaunchEnabled | B16@0:8
+[00:48:10.052]   -isLeafIcon | B16@0:8
+[00:48:10.052]   -isLibraryPodIcon | B16@0:8
+[00:48:10.053]   -isPlaceholder | B16@0:8
+[00:48:10.053]   -isProgressPaused | B16@0:8
+[00:48:10.053]   -isTimedOut | B16@0:8
+[00:48:10.053]   -isUninstallSupported | B16@0:8
+[00:48:10.053]   -isUninstalled | B16@0:8
+[00:48:10.054]   -isWidgetIcon | B16@0:8
+[00:48:10.054]   -isWidgetStackIcon | B16@0:8
+[00:48:10.054]   -labelAccessoryType | q16@0:8
+[00:48:10.054]   -launchFromLocation:context: | v32@0:8@16@24
+[00:48:10.055]   -leafIdentifier | @16@0:8
+[00:48:10.055]   -localeChanged | v16@0:8
+[00:48:10.055]   -localizedCompareDisplayNames: | q24@0:8@16
+[00:48:10.055]   -nodeDescriptionWithPrefix: | @24@0:8@16
+[00:48:10.056]   -nodeIdentifier | @16@0:8
+[00:48:10.056]   -nodesAlongIndexPath:consumedIndexes: | @32@0:8@16Q24
+[00:48:10.056]   -noteBadgeDidChange | v16@0:8
+[00:48:10.056]   -overrideBadgeNumberOrString | @16@0:8
+[00:48:10.057]   -parentFolderIcon | @16@0:8
+[00:48:10.057]   -possibleUserTapBeganWithAbsoluteTime:andContinuousTime: | v32@0:8Q16Q24
+[00:48:10.057]   -possibleUserTapDidCancel | v16@0:8
+[00:48:10.057]   -progressPercent | d16@0:8
+[00:48:10.058]   -progressState | q16@0:8
+[00:48:10.058]   -reloadIconImage | v16@0:8
+[00:48:10.058]   -removeNodeObserver: | v24@0:8@16
+[00:48:10.059]   -removeObserver: | v24@0:8@16
+[00:48:10.059]   -representedSceneIdentifier | @16@0:8
+[00:48:10.059]   -setBadge: | v24@0:8@16
+[00:48:10.059]   -setDelegate: | v24@0:8@16
+[00:48:10.060]   -setGridSizeClass: | v24@0:8Q16
+[00:48:10.060]   -setIconImageCacheIdentifier: | v24@0:8@16
+[00:48:10.060]   -setOverrideBadgeNumberOrString: | v24@0:8@16
+[00:48:10.060]   -setUninstalled | v16@0:8
+[00:48:10.061]   -shouldAnimateProgress | B16@0:8
+[00:48:10.061]   -shouldWarmUp | B16@0:8
+[00:48:10.061]   -statusDescriptionForLocation: | @24@0:8@16
+[00:48:10.061]   -succinctDescription | @16@0:8
+[00:48:10.062]   -succinctDescriptionBuilder | @16@0:8
+[00:48:10.062]   -supportedGridSizeClasses | Q16@0:8
+[00:48:10.062]   -supportsRasterization | B16@0:8
+[00:48:10.062]   -supportsStackConfiguration | B16@0:8
+[00:48:10.063]   -tags | @16@0:8
+[00:48:10.063]   -uninstallAlertBody | @16@0:8
+[00:48:10.063]   -uninstallAlertCancelTitle | @16@0:8
+[00:48:10.063]   -uninstallAlertConfirmTitle | @16@0:8
+[00:48:10.064]   -uninstallAlertTitle | @16@0:8
+[00:48:10.064]   -uniqueIdentifier | @16@0:8
+[00:48:10.064]   -unmaskedIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.065]   @property hash
+[00:48:10.065]   @property superclass
+[00:48:10.065]   @property description
+[00:48:10.069]   @property debugDescription
+[00:48:10.069]   @property overrideBadgeNumberOrString
+[00:48:10.069]   @property iTunesCategoriesOrderedByRelevancy
+[00:48:10.069]   @property delegate
+[00:48:10.070]   @property shouldWarmUp
+[00:48:10.070]   @property canGenerateIconsInBackground
+[00:48:10.070]   @property iconImageCacheIdentifier
+[00:48:10.070]   @property displayName
+[00:48:10.071]   @property canTruncateLabel
+[00:48:10.071]   @property canTightenLabel
+[00:48:10.071]   @property tags
+[00:48:10.071]   @property badgeValue
+[00:48:10.072]   @property badgeNumberOrString
+[00:48:10.072]   @property labelAccessoryType
+[00:48:10.072]   @property launchEnabled
+[00:48:10.072]   @property launchDisabledForObscuredReason
+[00:48:10.073]   @property supportsStackConfiguration
+[00:48:10.073]   @property supportsRasterization
+[00:48:10.073]   @property progressState
+[00:48:10.074]   @property progressPercent
+[00:48:10.074]   @property progressPaused
+[00:48:10.074]   @property shouldAnimateProgress
+[00:48:10.074]   @property uninstalled
+[00:48:10.075]   @property uninstallSupported
+[00:48:10.075]   @property uninstallAlertTitle
+[00:48:10.075]   @property uninstallAlertBody
+[00:48:10.076]   @property uninstallAlertConfirmTitle
+[00:48:10.076]   @property uninstallAlertCancelTitle
+[00:48:10.076]   @property timedOut
+[00:48:10.076]   @property folderTitleOptions
+[00:48:10.077]   @property folderFallbackTitle
+[00:48:10.077]   @property canReceiveGrabbedIcon
+[00:48:10.077]   @property canBeReceivedByIcon
+[00:48:10.077]   @property canBeAddedToMultiItemDrag
+[00:48:10.078]   @property automationID
+[00:48:10.078]   @property canBeAddedToSubfolder
+[00:48:10.078]   @property gridSizeClass
+[00:48:10.078]   @property supportedGridSizeClasses
+[00:48:10.079]   @property draggingUserActivity
+[00:48:10.079]   @property uniqueIdentifier
+[00:48:10.079]   @property hash
+[00:48:10.079]   @property superclass
+[00:48:10.080]   @property description
+[00:48:10.080]   @property debugDescription
+[00:48:10.080] -- SBApplicationIcon (super: SBHApplicationIcon) --
+[00:48:10.080]   -application | @16@0:8
+[00:48:10.081]   -applicationPlaceholder | @16@0:8
+[00:48:10.081]   -generateIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.081]   -genericIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.081]   -iconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.082]   -unmaskedIconImageWithInfo: | @48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.082] -- SBIconImageView (super: UIView) --
+[00:48:10.083]   -.cxx_destruct | v16@0:8
+[00:48:10.084]   -_clearProgressView | v16@0:8
+[00:48:10.084]   -_generateSquareContentsImage | @16@0:8
+[00:48:10.084]   -_shouldAnimatePropertyWithKey: | B24@0:8@16
+[00:48:10.085]   -_updateOverlayAlpha | v16@0:8
+[00:48:10.085]   -_updateProgressMask | v16@0:8
+[00:48:10.085]   -brightness | d16@0:8
+[00:48:10.085]   -cachedEffectsImage | @@:
+[00:48:10.086]   -cachedFolderForegroundEffectsImage | @@:
+[00:48:10.086]   -clearCachedImages | v16@0:8
+[00:48:10.086]   -clearIconImageInfo | v16@0:8
+[00:48:10.086]   -contentsImage | @16@0:8
+[00:48:10.087]   -continuousCornerRadius | d16@0:8
+[00:48:10.087]   -dealloc | v16@0:8
+[00:48:10.087]   -description | @16@0:8
+[00:48:10.087]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:10.088]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:10.088]   -didEndAsynchronousImageLoadForIcon: | v24@0:8@16
+[00:48:10.088]   -displayedImage | @16@0:8
+[00:48:10.088]   -hasOpaqueImage | B16@0:8
+[00:48:10.089]   -icon | @16@0:8
+[00:48:10.089]   -iconImageCache | @16@0:8
+[00:48:10.089]   -iconImageCache:didUpdateImageForIcon: | v32@0:8@16@24
+[00:48:10.089]   -iconImageDidUpdate: | v24@0:8@16
+[00:48:10.090]   -iconImageInfo | {SBIconImageInfo={CGSize=dd}dd}16@0:8
+[00:48:10.090]   -iconView | @16@0:8
+[00:48:10.090]   -iconViewFolderIconImageCacheDidChange | v16@0:8
+[00:48:10.090]   -iconViewLegibilitySettingsDidChange | v16@0:8
+[00:48:10.091]   -initWithFrame: | @48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16
+[00:48:10.091]   -intrinsicContentSize | {CGSize=dd}16@0:8
+[00:48:10.091]   -isJittering | B16@0:8
+[00:48:10.091]   -isPaused | B16@0:8
+[00:48:10.092]   -lastChange | i@:
+[00:48:10.092]   -layoutSubviews | v16@0:8
+[00:48:10.092]   -location | @16@0:8
+[00:48:10.092]   -needsRefreshing | B@:
+[00:48:10.093]   -originalEffectForegroundLayerFrame | {CGRect={CGPoint=dd}{CGSize=dd}}@:
+[00:48:10.093]   -originalEffectLayerFrame | {CGRect={CGPoint=dd}{CGSize=dd}}@:
+[00:48:10.093]   -overlayAlpha | d16@0:8
+[00:48:10.093]   -prepareForReuse | v16@0:8
+[00:48:10.094]   -progressViewCanBeRemoved: | v24@0:8@16
+[00:48:10.094]   -sb_updateEffectOrder | v@:
+[00:48:10.094]   -sb_updateEffects | v@:
+[00:48:10.095]   -setBrightness: | v24@0:8d16
+[00:48:10.095]   -setIcon:location:animated: | v36@0:8@16@24B32
+[00:48:10.095]   -setIconImageCache: | v24@0:8@16
+[00:48:10.095]   -setIconImageInfo: | v48@0:8{SBIconImageInfo={CGSize=dd}dd}16
+[00:48:10.096]   -setIconView: | v24@0:8@16
+[00:48:10.096]   -setJittering: | v20@0:8B16
+[00:48:10.096]   -setLastChange: | v@:i
+[00:48:10.096]   -setLocation: | v24@0:8@16
+[00:48:10.097]   -setNeedsRefreshing: | v@:B
+[00:48:10.099]   -setOriginalEffectForegroundLayerFrame: | v@:{CGRect={CGPoint=dd}{CGSize=dd}}
+[00:48:10.099]   -setOriginalEffectLayerFrame: | v@:{CGRect={CGPoint=dd}{CGSize=dd}}
+[00:48:10.100]   -setOverlayAlpha: | v24@0:8d16
+[00:48:10.100]   -setPaused: | v20@0:8B16
+[00:48:10.100]   -setProgressAlpha: | v24@0:8d16
+[00:48:10.100]   -setProgressState:paused:percent:animated: | v40@0:8q16B24d28B36
+[00:48:10.101]   -setShowsSquareCorners: | v20@0:8B16
+[00:48:10.101]   -setSnowboard_disableEffects: | v@:B
+[00:48:10.101]   -setTransform: | v64@0:8{CGAffineTransform=dddddd}16
+[00:48:10.101]   -showsSquareCorners | B16@0:8
+[00:48:10.102]   -sizeThatFits: | {CGSize=dd}32@0:8{CGSize=dd}16
+[00:48:10.102]   -snapshot | @16@0:8
+[00:48:10.102]   -snowboard_disableEffects | B@:
+[00:48:10.102]   -sourceView | @16@0:8
+[00:48:10.103]   -squareContentsImage | @16@0:8
+[00:48:10.103]   -succinctDescription | @16@0:8
+[00:48:10.103]   -succinctDescriptionBuilder | @16@0:8
+[00:48:10.103]   -updateImageAnimated: | v20@0:8B16
+[00:48:10.104]   -visibleBounds | {CGRect={CGPoint=dd}{CGSize=dd}}16@0:8
+[00:48:10.104]   -willBeginAsynchronousImageLoadForIcon: | v24@0:8@16
+[00:48:10.104]   @property snowboard_disableEffects
+[00:48:10.104]   @property originalEffectForegroundLayerFrame
+[00:48:10.105]   @property originalEffectLayerFrame
+[00:48:10.105]   @property needsRefreshing
+[00:48:10.105]   @property lastChange
+[00:48:10.105]   @property location
+[00:48:10.106]   @property overlayAlpha
+[00:48:10.106]   @property icon
+[00:48:10.106]   @property iconView
+[00:48:10.107]   @property iconImageCache
+[00:48:10.107]   @property iconImageInfo
+[00:48:10.107]   @property brightness
+[00:48:10.108]   @property displayedImage
+[00:48:10.108]   @property paused
+[00:48:10.108]   @property showsSquareCorners
+[00:48:10.108]   @property jittering
+[00:48:10.109]   @property hash
+[00:48:10.109]   @property superclass
+[00:48:10.109]   @property description
+[00:48:10.109]   @property debugDescription
+[00:48:10.110]   @property visibleBounds
+[00:48:10.110]   @property continuousCornerRadius
+[00:48:10.110] -- SBAppLayout (super: NSObject) --
+[00:48:10.112]   +appLayoutWithProtobufRepresentation:
+[00:48:10.112]   +homeScreenAppLayout
+[00:48:10.113]   -.cxx_destruct | v16@0:8
+[00:48:10.113]   -_leafAppLayoutForItem:role: | @32@0:8@16q24
+[00:48:10.113]   -_preferredWindowScene | @16@0:8
+[00:48:10.113]   -allItems | @16@0:8
+[00:48:10.114]   -anyLeafAppLayout | @16@0:8
+[00:48:10.114]   -appLayoutByAdjustingCenterWindowItemsForChamois | @16@0:8
+[00:48:10.114]   -appLayoutByAdjustingFloatingItemsForChamois | @16@0:8
+[00:48:10.114]   -appLayoutByInsertingItem:withLayoutAttributes:inLayoutRole: | @40@0:8@16@24q32
+[00:48:10.115]   -appLayoutByInsertingLeafAppLayout:inRole: | @32@0:8@16q24
+[00:48:10.115]   -appLayoutByModifyingConfiguration: | @24@0:8q16
+[00:48:10.115]   -appLayoutByModifyingEnvironment: | @24@0:8q16
+[00:48:10.116]   -appLayoutByModifyingHiddenState: | @20@0:8B16
+[00:48:10.116]   -appLayoutByModifyingLayoutAttributes:forItem: | @32@0:8@16@24
+[00:48:10.116]   -appLayoutByModifyingLayoutAttributes:forItemInRole: | @32@0:8@16q24
+[00:48:10.116]   -appLayoutByModifyingLayoutAttributesForItems: | @24@0:8@16
+[00:48:10.117]   -appLayoutByModifyingPreferredDisplayOrdinal: | @24@0:8q16
+[00:48:10.117]   -appLayoutByRemovingItemInLayoutRole: | @24@0:8q16
+[00:48:10.117]   -appLayoutWithItemsPassingTest: | @24@0:8@?16
+[00:48:10.117]   -appLayoutsBySplittingMedusaIncompatibleItemsWithApplicationController: | @24@0:8@16
+[00:48:10.118]   -cachedLastOverlappingModel | @16@0:8
+[00:48:10.118]   -cachedLastOverlappingModelKey | @16@0:8
+[00:48:10.118]   -centerConfiguration | q16@0:8
+[00:48:10.118]   -centerItem | @16@0:8
+[00:48:10.119]   -compare: | q24@0:8@16
+[00:48:10.119]   -configuration | q16@0:8
+[00:48:10.119]   -containsAllItemsFromAppLayout: | B24@0:8@16
+[00:48:10.119]   -containsAllItemsFromSet: | B24@0:8@16
+[00:48:10.120]   -containsAnyItemFromAppLayout: | B24@0:8@16
+[00:48:10.120]   -containsAnyItemFromSet: | B24@0:8@16
+[00:48:10.120]   -containsItem: | B24@0:8@16
+[00:48:10.120]   -containsItemWithBundleIdentifier: | B24@0:8@16
+[00:48:10.121]   -containsItemWithUniqueIdentifier: | B24@0:8@16
+[00:48:10.121]   -continuousExposeIdentifier | @16@0:8
+[00:48:10.121]   -copyWithZone: | @24@0:8^{_NSZone=}16
+[00:48:10.121]   -description | @16@0:8
+[00:48:10.122]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:10.122]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:10.122]   -enumerate: | v24@0:8@?16
+[00:48:10.123]   -environment | q16@0:8
+[00:48:10.123]   -flippedAppLayout | @16@0:8
+[00:48:10.123]   -floatingItem | @16@0:8
+[00:48:10.123]   -hasSameItemsInLayoutRoles:asAppLayout: | B32@0:8Q16@24
+[00:48:10.124]   -hash | Q16@0:8
+[00:48:10.124]   -init | @16@0:8
+[00:48:10.124]   -initWithItems:centerItem:floatingItem:configuration:itemsToLayoutAttributes:centerConfiguration:environment:hidden:preferredDisplayOrdinal: | @84@0:8@16@24@32q40@48q56q64B72q76
+[00:48:10.124]   -initWithItemsForLayoutRoles:configuration:centerConfiguration:environment:hidden:preferredDisplayOrdinal: | @60@0:8@16q24q32q40B48q52
+[00:48:10.125]   -initWithItemsForLayoutRoles:configuration:environment:hidden:preferredDisplayOrdinal: | @52@0:8@16q24q32B40q44
+[00:48:10.125]   -initWithItemsForLayoutRoles:configuration:environment:preferredDisplayOrdinal: | @48@0:8@16q24q32q40
+[00:48:10.125]   -initWithItemsForLayoutRoles:configuration:itemsToLayoutAttributes:centerConfiguration:environment:hidden:preferredDisplayOrdinal: | @68@0:8@16q24@32q40q48B56q60
+[00:48:10.125]   -initWithPlistRepresentation: | @24@0:8@16
+[00:48:10.126]   -isCenterOverFull | B16@0:8
+[00:48:10.126]   -isCenterOverSplit | B16@0:8
+[00:48:10.126]   -isEqual: | B24@0:8@16
+[00:48:10.126]   -isFullScreen | B16@0:8
+[00:48:10.127]   -isHidden | B16@0:8
+[00:48:10.127]   -isInsetForHomeAffordance | B16@0:8
+[00:48:10.129]   -isOrContainsAppLayout: | B24@0:8@16
+[00:48:10.129]   -isSplitConfiguration | B16@0:8
+[00:48:10.130]   -itemForLayoutRole: | @24@0:8q16
+[00:48:10.130]   -itemsToLayoutAttributesMap | @16@0:8
+[00:48:10.130]   -layoutAttributesForItem: | @24@0:8@16
+[00:48:10.130]   -layoutAttributesForItemInRole: | @24@0:8q16
+[00:48:10.131]   -layoutRoleForItem: | q24@0:8@16
+[00:48:10.131]   -leafAppLayoutForItem: | @24@0:8@16
+[00:48:10.131]   -leafAppLayoutForRole: | @24@0:8q16
+[00:48:10.131]   -leafAppLayouts | @16@0:8
+[00:48:10.132]   -plistRepresentation | @16@0:8
+[00:48:10.132]   -preferredDisplayIdentity | @16@0:8
+[00:48:10.132]   -preferredDisplayOrdinal | q16@0:8
+[00:48:10.132]   -protobufRepresentation | @16@0:8
+[00:48:10.133]   -setCachedLastOverlappingModel: | v24@0:8@16
+[00:48:10.133]   -setCachedLastOverlappingModelKey: | v24@0:8@16
+[00:48:10.133]   -succinctDescription | @16@0:8
+[00:48:10.133]   -succinctDescriptionBuilder | @16@0:8
+[00:48:10.134]   -switcherLayoutElementType | Q16@0:8
+[00:48:10.134]   -type | q16@0:8
+[00:48:10.134]   -zOrderedItems | @16@0:8
+[00:48:10.134]   -zOrderedLeafAppLayouts | @16@0:8
+[00:48:10.135]   @property configuration
+[00:48:10.135]   @property type
+[00:48:10.135]   @property environment
+[00:48:10.135]   @property insetForHomeAffordance
+[00:48:10.136]   @property hidden
+[00:48:10.136]   @property centerConfiguration
+[00:48:10.136]   @property centerItem
+[00:48:10.136]   @property floatingItem
+[00:48:10.137]   @property preferredDisplayOrdinal
+[00:48:10.137]   @property continuousExposeIdentifier
+[00:48:10.137]   @property itemsToLayoutAttributesMap
+[00:48:10.137]   @property cachedLastOverlappingModel
+[00:48:10.138]   @property cachedLastOverlappingModelKey
+[00:48:10.138]   @property hash
+[00:48:10.138]   @property superclass
+[00:48:10.138]   @property description
+[00:48:10.139]   @property debugDescription
+[00:48:10.139] -- SBDisplayItem (super: NSObject) --
+[00:48:10.139]   +applicationDisplayItemWithBundleIdentifier:sceneIdentifier:
+[00:48:10.140]   +displayItemForLayoutElement:
+[00:48:10.140]   +displayItemWithProtobufRepresentation:
+[00:48:10.140]   +displayItemWithType:bundleIdentifier:uniqueIdentifier:
+[00:48:10.140]   +homeScreenDisplayItem
+[00:48:10.141]   +remoteAlertDisplayItemWithServiceBundleIdentifier:
+[00:48:10.141]   +switcherServiceDisplayItemWithServiceIdentifier:
+[00:48:10.141]   +webAppDisplayItemWithWebAppIdentifier:
+[00:48:10.141]   -.cxx_destruct | v16@0:8
+[00:48:10.142]   -_calculateUniqueStringRepresentation | @16@0:8
+[00:48:10.142]   -_initWithArrayPlistRepresentation: | @24@0:8@16
+[00:48:10.142]   -_initWithDictionaryPlistRepresentation: | @24@0:8@16
+[00:48:10.142]   -_initWithLegacyPlistRepresentation:sceneIdentifierFromBundleIdentifierGenerator: | @32@0:8@16@?24
+[00:48:10.143]   -_initWithPlistRepresentation:sceneIdentifierFromBundleIdentifierGenerator: | @32@0:8@16@?24
+[00:48:10.143]   -_newSceneIdentifierForBundleIdentifier: | @24@0:8@16
+[00:48:10.143]   -bundleIdentifier | @16@0:8
+[00:48:10.143]   -compare: | q24@0:8@16
+[00:48:10.143]   -copyWithZone: | @24@0:8^{_NSZone=}16
+[00:48:10.144]   -description | @16@0:8
+[00:48:10.144]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:10.144]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:10.144]   -displayItemForFloatingDockSuggestionsComparison | @16@0:8
+[00:48:10.145]   -hash | Q16@0:8
+[00:48:10.145]   -init | @16@0:8
+[00:48:10.145]   -initWithLegacyPlistRepresentation: | @24@0:8@16
+[00:48:10.145]   -initWithPlistRepresentation: | @24@0:8@16
+[00:48:10.146]   -initWithType:bundleIdentifier:uniqueIdentifier: | @40@0:8q16@24@32
+[00:48:10.146]   -isEqual: | B24@0:8@16
+[00:48:10.146]   -isEqualToDisplayItemForFloatingDockSuggestions: | B24@0:8@16
+[00:48:10.146]   -isHomeScreenDisplayItem | B16@0:8
+[00:48:10.147]   -plistRepresentation | @16@0:8
+[00:48:10.147]   -protobufRepresentation | @16@0:8
+[00:48:10.147]   -succinctDescription | @16@0:8
+[00:48:10.148]   -succinctDescriptionBuilder | @16@0:8
+[00:48:10.148]   -type | q16@0:8
+[00:48:10.148]   -uniqueIdentifier | @16@0:8
+[00:48:10.148]   -uniqueStringRepresentation | @16@0:8
+[00:48:10.148]   -webClipIdentifier | @16@0:8
+[00:48:10.149]   @property type
+[00:48:10.149]   @property bundleIdentifier
+[00:48:10.149]   @property uniqueIdentifier
+[00:48:10.149]   @property webClipIdentifier
+[00:48:10.150]   @property hash
+[00:48:10.150]   @property superclass
+[00:48:10.150]   @property description
+[00:48:10.150]   @property debugDescription
+[00:48:10.151] -- SBApplicationController (super: NSObject) --
+[00:48:10.152]   +_setClearAllLegacySnapshotsWhenLoaded:
+[00:48:10.152]   +_setClearSystemAppSnapshotsWhenLoaded:
+[00:48:10.153]   +_sharedInstanceCreateIfNecessary:
+[00:48:10.153]   +sharedInstance
+[00:48:10.153]   +sharedInstanceIfExists
+[00:48:10.153]   -.cxx_destruct | v16@0:8
+[00:48:10.154]   -_allApplicationsFilteredBySystem: | @20@0:8B16
+[00:48:10.154]   -_appClassForInfo: | #24@0:8@16
+[00:48:10.154]   -_appInfosToBundleIDs: | @24@0:8@16
+[00:48:10.154]   -_appLayoutContainsOnlyResizableApps: | B24@0:8@16
+[00:48:10.155]   -_appLibrary | @16@0:8
+[00:48:10.155]   -_appLibraryObserver | @16@0:8
+[00:48:10.155]   -_finishDeferredMajorVersionMigrationTasks_FlushLegacySnapshots | v16@0:8
+[00:48:10.155]   -_finishDeferredMajorVersionMigrationTasks_FlushSystemSnapshots | v16@0:8
+[00:48:10.156]   -_loadApplicationFromApplicationInfo: | @24@0:8@16
+[00:48:10.156]   -_loadApplications:remove: | v32@0:8@16@24
+[00:48:10.156]   -_lock_applicationWithBundleIdentifier: | @24@0:8@16
+[00:48:10.156]   -_memoryWarningReceived | v16@0:8
+[00:48:10.157]   -_preLoadApplications | v16@0:8
+[00:48:10.159]   -_removeApplicationsFromModelWithBundleIdentifier:forInstall:withReason: | v36@0:8@16B24@28
+[00:48:10.160]   -_sendInstalledAppsDidChangeNotification:removed:replaced:updated: | v48@0:8@16@24@32@40
+[00:48:10.160]   -_splashBoardController | @16@0:8
+[00:48:10.160]   -_updateVisibilityOverrides | v16@0:8
+[00:48:10.160]   -_updateVisibilityOverridesInBackground | v16@0:8
+[00:48:10.161]   -allApplications | @16@0:8
+[00:48:10.161]   -allBundleIdentifiers | @16@0:8
+[00:48:10.161]   -allInstalledApplications | @16@0:8
+[00:48:10.161]   -allSplashBoardApplications | @16@0:8
+[00:48:10.162]   -alwaysAvailableApplicationBundleIdentifiers | @16@0:8
+[00:48:10.162]   -applicationForDisplayItem: | @24@0:8@16
+[00:48:10.162]   -applicationRestrictionsMayHaveChanged | v16@0:8
+[00:48:10.162]   -applicationVisibilityMayHaveChanged | v16@0:8
+[00:48:10.163]   -applicationWithBundleIdentifier: | @24@0:8@16
+[00:48:10.163]   -applicationWithPid: | @20@0:8i16
+[00:48:10.163]   -applicationsAdded: | v24@0:8@16
+[00:48:10.163]   -applicationsDemoted: | v24@0:8@16
+[00:48:10.164]   -applicationsRemoved: | v24@0:8@16
+[00:48:10.164]   -applicationsReplaced: | v24@0:8@16
+[00:48:10.164]   -applicationsUpdated: | v24@0:8@16
+[00:48:10.164]   -bundleIdentifiersWithVisibilityOverrideHidden | @16@0:8
+[00:48:10.165]   -cameraApplication | @16@0:8
+[00:48:10.165]   -clockApplication | @16@0:8
+[00:48:10.165]   -dataActivationApplication | @16@0:8
+[00:48:10.165]   -dealloc | v16@0:8
+[00:48:10.166]   -faceTimeApp | @16@0:8
+[00:48:10.166]   -iPodOutApplication | @16@0:8
+[00:48:10.166]   -inCallServiceApp | @16@0:8
+[00:48:10.166]   -init | @16@0:8
+[00:48:10.167]   -loginApplication | @16@0:8
+[00:48:10.167]   -mapsApplication | @16@0:8
+[00:48:10.167]   -mobilePhone | @16@0:8
+[00:48:10.167]   -musicApplication | @16@0:8
+[00:48:10.168]   -notesApplication | @16@0:8
+[00:48:10.168]   -recentlyUsedBundleIDs | @16@0:8
+[00:48:10.168]   -requestUninstallApplication:options:withCompletion: | v40@0:8@16Q24@?32
+[00:48:10.168]   -requestUninstallApplicationWithBundleIdentifier:options:withCompletion: | v40@0:8@16Q24@?32
+[00:48:10.169]   -restrictionController | @16@0:8
+[00:48:10.169]   -runningApplications | @16@0:8
+[00:48:10.169]   -setupApplication | @16@0:8
+[00:48:10.169]   -splashBoardSystemApplications | @16@0:8
+[00:48:10.170]   -testFlightApplication | @16@0:8
+[00:48:10.170]   -uninstallApplication: | v24@0:8@16
+[00:48:10.170]   -waitForUninstallsToComplete: | v24@0:8d16
+[00:48:10.170]   -webApplication | @16@0:8
+[00:48:10.171]   @property hash
+[00:48:10.171]   @property superclass
+[00:48:10.171]   @property description
+[00:48:10.171]   @property debugDescription
+[00:48:10.172] -- SBApplication (super: NSObject) --
+[00:48:10.177]   +KJHKJHw39rq9w87q903475q0983rskjd
+[00:48:10.178]   +_appStateKeysToPrefetch
+[00:48:10.178]   +_bestAvailableClassicModeForHostingExtensionContainedInApplication:
+[00:48:10.178]   +_canonicalScreenTypeForClassicMode:
+[00:48:10.178]   +_classicModeForLaunchingSize:
+[00:48:10.179]   +_defaultLaunchingSizeForDisplayConfiguration:classicMode:
+[00:48:10.179]   +_deviceSafeAreaInsets
+[00:48:10.179]   +_markAllManifestsForReingestion
+[00:48:10.179]   +_niceScreenTypeForClassicType:matchingAValidDisplayZoomModeOnScreenType:
+[00:48:10.180]   +_reingestStaticDefaultImagesForAllApps
+[00:48:10.180]   +restrictedClassicModeDisplayConfigurationForDisplayConfiguration:classicMode:
+[00:48:10.180]   +safeCategoryBaseClass
+[00:48:10.180]   +snapshotSortDescriptorForContentTypeMask
+[00:48:10.181]   +snapshotSortDescriptorForCreationDate
+[00:48:10.181]   +snapshotSortDescriptorForCustomSafeAreaInsets:
+[00:48:10.181]   +snapshotSortDescriptorForImageScale:
+[00:48:10.181]   +snapshotSortDescriptorForInterfaceOrientationMask:
+[00:48:10.182]   +snapshotSortDescriptorForLaunchInterfaceIdentifier:
+[00:48:10.182]   +snapshotSortDescriptorForNames:
+[00:48:10.182]   +snapshotSortDescriptorForReferenceSize:
+[00:48:10.182]   +snapshotSortDescriptorForRequiredOSVersion:
+[00:48:10.183]   +snapshotSortDescriptorForScheme:
+[00:48:10.183]   +snapshotSortDescriptorForStatusBarStateMask:
+[00:48:10.183]   +snapshotSortDescriptorForUIUserInterfaceStyle:
+[00:48:10.183]   +snapshotSortDescriptorPreferringProtectedContent
+[00:48:10.184]   +snapshotSortDescriptorsForNames:scheme:imageScale:referenceSize:userInterfaceStyle:statusBarStateMask:interfaceOrientationMask:requiredOSVersion:
+[00:48:10.184]   -.cxx_destruct | v16@0:8
+[00:48:10.184]   -__noteSnapshotDidUpdate:forSceneIdentifier: | v32@0:8q16@24
+[00:48:10.184]   -_applicationRestorationCheckState | i16@0:8
+[00:48:10.185]   -_baseSceneIdentifier | @16@0:8
+[00:48:10.185]   -_bypassesClassicMode | B16@0:8
+[00:48:10.185]   -_calculateSupportedTypesForSplashBoard | v16@0:8
+[00:48:10.185]   -_calculateSupportedTypesLazilyIfNecessary | v16@0:8
+[00:48:10.186]   -_canLaunchInClassicMode: | B24@0:8q16
+[00:48:10.186]   -_cancelPreheatForUserLaunchIfNecessary | v16@0:8
+[00:48:10.186]   -_classicAppScaledOnPhone | B16@0:8
+[00:48:10.186]   -_classicAppScaledPadOnPad | B16@0:8
+[00:48:10.187]   -_classicAppScaledPhoneOnPad | B16@0:8
+[00:48:10.187]   -_classicMode | q16@0:8
+[00:48:10.187]   -_classicModeForHostingExtensionContainedInApplication: | q24@0:8@16
+[00:48:10.187]   -_classicModeForHostingExtensionContainedInThisApplicationInUnknownHostingHierarchy | q16@0:8
+[00:48:10.188]   -_classicModeFromSupportedTypes | q16@0:8
+[00:48:10.188]   -_clearSceneTitles | v16@0:8
+[00:48:10.188]   -_dataStore | @16@0:8
+[00:48:10.188]   -_defaultClassicMode | q16@0:8
+[00:48:10.189]   -_defaultLaunchImageBaseName | @16@0:8
+[00:48:10.189]   -_defaultPNGNameFromSuspensionSettingsWithExpiration:sceneID: | @32@0:8^d16@24
+[00:48:10.189]   -_defaultPNGNameUsingFallbacksWithSceneID:contentOverridesContext: | @32@0:8@16@24
+[00:48:10.189]   -_didExitWithContext: | v24@0:8@16
+[00:48:10.190]   -_didSuspend | v16@0:8
+[00:48:10.190]   -_exposeRealDisplayCornerRadii | B16@0:8
+[00:48:10.190]   -_ingestDefaultPNGsInManifest:withLaunchImageBaseName: | v32@0:8@16@24
+[00:48:10.190]   -_ingestInfoPlistImagesInManifest: | v24@0:8@16
+[00:48:10.191]   -_initializationContext | @16@0:8
+[00:48:10.191]   -_internalProcessState | @16@0:8
+[00:48:10.191]   -_invalidateStatusBarStyleOverridesAssertions | v16@0:8
+[00:48:10.191]   -_isClassicViaOverride | B16@0:8
+[00:48:10.192]   -_isNewEnoughToKnowAbout2020Phones | B16@0:8
+[00:48:10.192]   -_isNewEnoughToKnowAboutRoundPads | B16@0:8
+[00:48:10.192]   -_isNewlyInstalled | B16@0:8
+[00:48:10.193]   -_isRecentlyUpdated | B16@0:8
+[00:48:10.193]   -_lockStateDidChange: | v24@0:8@16
+[00:48:10.193]   -_normalizeSnapshotName: | @24@0:8@16
+[00:48:10.193]   -_noteIconDataSourceDidChange | v16@0:8
+[00:48:10.194]   -_noteProcess:didChangeToState: | v32@0:8@16@24
+[00:48:10.194]   -_noteSnapshotDidUpdateForSceneIdentifier: | v24@0:8@16
+[00:48:10.194]   -_noteSnapshotDidUpdateForSceneIdentifiers: | v24@0:8@16
+[00:48:10.194]   -_preferredImagePathByScaleInBundle:resourceName:ofType:scale:outScale: | @56@0:8@16@24@32d40^d48
+[00:48:10.195]   -_preferredImagePathInBundle:baseResourceName:ofType:forMainScene:size:scale:outScale: | @76@0:8@16@24@32B40{CGSize=dd}44d60^d68
+[00:48:10.195]   -_prepareInitializationContextIfNecessaryForLaunchOnDisplayConfiguration: | @24@0:8@16
+[00:48:10.195]   -_processDidLaunch: | v24@0:8@16
+[00:48:10.195]   -_processWillLaunch: | v24@0:8@16
+[00:48:10.196]   -_purgeAndResetStaticDefaultImagesInSnapshotManifest | v16@0:8
+[00:48:10.196]   -_purgeStaticDefaultImagesInSnapshotManifest | v16@0:8
+[00:48:10.196]   -_recalculateApplicationSupportedTypes | v16@0:8
+[00:48:10.196]   -_reingestStaticDefaultImagesInSnapshotManifest | v16@0:8
+[00:48:10.197]   -_resetDataUsage | v16@0:8
+[00:48:10.197]   -_resetLaunchImageIngestionStatus | v16@0:8
+[00:48:10.197]   -_sceneIdentifierForStoredPersistenceIdentifier: | @24@0:8@16
+[00:48:10.197]   -_screenTypeForClassicMode: | Q24@0:8q16
+[00:48:10.198]   -_setApplicationRestorationCheckState: | v20@0:8i16
+[00:48:10.198]   -_setClassicAppZoomedIn: | v20@0:8B16
+[00:48:10.198]   -_setCurrentClassicMode: | v24@0:8q16
+[00:48:10.198]   -_setDataUsage: | v20@0:8i16
+[00:48:10.199]   -_setDefaultClassicModeOverride: | v24@0:8q16
+[00:48:10.199]   -_setInternalProcessState: | v24@0:8@16
+[00:48:10.199]   -_setLaunchPrevented: | v20@0:8B16
+[00:48:10.199]   -_setNewlyInstalled: | v20@0:8B16
+[00:48:10.200]   -_setRecentlyUpdated: | v20@0:8B16
+[00:48:10.200]   -_snapshotManifest | @16@0:8
+[00:48:10.200]   -_snapshotsWithImageName:sceneHandle:referenceSize:requireExactSize:launchingScale:contentTypeMask:statusBarStateMask:launchingOrientation:contentOverridesContext:userInterfaceStyle:displayEdgeInfo: | @108@0:8@16@24{CGSize=dd}32B48d52Q60Q68q76@84q92@100
+[00:48:10.200]   -_supportedTypeForClassicModeNone | Q16@0:8
+[00:48:10.201]   -_supportsApplicationType: | B24@0:8Q16
+[00:48:10.201]   -_updateProcess:withState: | v32@0:8@16@24
+[00:48:10.201]   -_updateRecentlyUpdatedTimer | v16@0:8
+[00:48:10.201]   -_useSupportedTypesForSplashBoard | B16@0:8
+[00:48:10.202]   -_windowSceneFromApplicationSceneHandle: | @24@0:8@16
+[00:48:10.202]   -_xbactivity_saveSnapshotForSceneHandle:context:completion: | v40@0:8@16@24@?32
+[00:48:10.202]   -alwaysMaximizedInChamois | B16@0:8
+[00:48:10.202]   -badgeNumberOrStringForIcon: | @24@0:8@16
+[00:48:10.203]   -badgeValue | @16@0:8
+[00:48:10.203]   -bestSnapshotWithImageName:sceneHandle:variantID:scale:referenceSize:requireExactSize:contentTypeMask:statusBarStateMask:launchingOrientation:contentOverridesContext:userInterfaceStyle:displayEdgeInfo: | @116@0:8@16@24@32d40{CGSize=dd}48B64Q68Q76q84@92q100@108
+[00:48:10.203]   -bundleIdentifier | @16@0:8
+[00:48:10.203]   -bundleURL | @16@0:8
+[00:48:10.204]   -cachedImageForSnapshot:interfaceOrientation: | @32@0:8@16q24
+[00:48:10.204]   -canGenerateIconsInBackgroundForIcon: | B24@0:8@16
+[00:48:10.204]   -canShowSystemVolumeHUDForCategory:forSceneIdentifier: | B32@0:8@16@24
+[00:48:10.204]   -classicAppFullScreen | B16@0:8
+[00:48:10.205]   -classicAppNonFullScreenWithHomeAffordance | B16@0:8
+[00:48:10.205]   -classicAppPhoneAppRunningOnPad | B16@0:8
+[00:48:10.205]   -classicAppRequiresHiDPI | B16@0:8
+[00:48:10.205]   -classicAppScaled | B16@0:8
+[00:48:10.206]   -classicAppScaledWithAspectRatioCloseEnoughToBeTreatedAsFullScreen | B16@0:8
+[00:48:10.206]   -classicAppWithOwnSafeArea | B16@0:8
+[00:48:10.206]   -classicAppWithRoundedCorners | B16@0:8
+[00:48:10.206]   -classicAppZoomedIn | B16@0:8
+[00:48:10.207]   -classicAppZoomedInOrRequiresHiDPI | B16@0:8
+[00:48:10.207]   -copyWithZone: | @24@0:8^{_NSZone=}16
+[00:48:10.207]   -createDownscaledVariantForSnapshot:sceneHandle:scaleFactor:didSaveImage: | v48@0:8@16@24d32@?40
+[00:48:10.208]   -dataUsage | i16@0:8
+[00:48:10.208]   -dealloc | v16@0:8
+[00:48:10.208]   -defaultLaunchingSizeForDisplayConfiguration: | {CGSize=dd}24@0:8@16
+[00:48:10.208]   -deleteAllSnapshots | v16@0:8
+[00:48:10.209]   -deleteSnapshotForContext: | v24@0:8@16
+[00:48:10.209]   -description | @16@0:8
+[00:48:10.209]   -descriptionBuilderWithMultilinePrefix: | @24@0:8@16
+[00:48:10.209]   -descriptionWithMultilinePrefix: | @24@0:8@16
+[00:48:10.210]   -displayName | @16@0:8
+[00:48:10.210]   -dynamicApplicationShortcutItems | @16@0:8
+[00:48:10.210]   -failedAutoLaunchCountForVOIP | Q16@0:8
+[00:48:10.210]   -failedLaunchCount | Q16@0:8
+[00:48:10.211]   -flushSnapshotsForAllScenes | v16@0:8
+[00:48:10.211]   -flushSnapshotsForAllScenesIncludingAllLegacyImages | v16@0:8
+[00:48:10.211]   -flushSnapshotsForSceneID: | v24@0:8@16
+[00:48:10.211]   -folderFallbackTitleForIcon: | @24@0:8@16
+[00:48:10.212]   -folderTitleOptionsForIcon: | @24@0:8@16
+[00:48:10.212]   -hasDisplayedLaunchAlertForType: | B24@0:8Q16
+[00:48:10.212]   -hasHiddenTag | B16@0:8
+[00:48:10.212]   -hasProminentlyIndicatedLocationUseWhileForeground | B16@0:8
+[00:48:10.212]   -hasShownDataPlanAlertSinceLock | B16@0:8
+[00:48:10.213]   -iTunesCategoriesOrderedByRelevancyForIcon: | @24@0:8@16
+[00:48:10.213]   -icon:displayNameForLocation: | @32@0:8@16@24
+[00:48:10.213]   -icon:displayNameForObscuredDisabledLaunchForLocation: | @32@0:8@16@24
+[00:48:10.213]   -icon:imageWithInfo: | @56@0:8@16{SBIconImageInfo={CGSize=dd}dd}24
+[00:48:10.214]   -icon:launchFromLocation:context: | B40@0:8@16@24@32
+[00:48:10.214]   -icon:unmaskedImageWithInfo: | @56@0:8@16{SBIconImageInfo={CGSize=dd}dd}24
+[00:48:10.214]   -iconAllowsLaunch: | B24@0:8@16
+[00:48:10.214]   -iconCanTightenLabel: | B24@0:8@16
+[00:48:10.215]   -iconCanTruncateLabel: | B24@0:8@16
+[00:48:10.215]   -iconCompleteUninstall: | B24@0:8@16
+[00:48:10.215]   -iconDisallowsLaunchForObscuredReason: | B24@0:8@16
+[00:48:10.215]   -iconIdentifier | @16@0:8
+[00:48:10.216]   -iconSupportsUninstall: | B24@0:8@16
+[00:48:10.216]   -ignoreScalingOfJailedStatusBar | B16@0:8
+[00:48:10.216]   -imageForSnapshot:interfaceOrientation: | @32@0:8@16q24
+[00:48:10.220]   -includesStatusBarInClassicJailForInterfaceOrientation: | B24@0:8q16
+[00:48:10.220]   -info | @16@0:8
+[00:48:10.220]   -initWithApplicationInfo: | @24@0:8@16
+[00:48:10.221]   -isAnyTerminationAssertionHeld | B16@0:8
+[00:48:10.221]   -isAnyTerminationAssertionInEffect | B16@0:8
+[00:48:10.221]   -isAppClip | B16@0:8
+[00:48:10.221]   -isAppleApplication | B16@0:8
+[00:48:10.222]   -isCacheCleaningTerminationAssertionHeld | B16@0:8
+[00:48:10.222]   -isClassic | B16@0:8
+[00:48:10.222]   -isConnectedToExternalAccessory | B16@0:8
+[00:48:10.222]   -isFaceTime | B16@0:8
+[00:48:10.223]   -isInsetForHomeAffordance | B16@0:8
+[00:48:10.223]   -isInternalApplication | B16@0:8
+[00:48:10.223]   -isLaunchDisallowedForObscuredReason | B16@0:8
+[00:48:10.223]   -isMedusaCapable | B16@0:8
+[00:48:10.224]   -isMobilePhone | B16@0:8
+[00:48:10.224]   -isNowRecordingApplication | B16@0:8
+[00:48:10.224]   -isPaperBoard | B16@0:8
+[00:48:10.224]   -isPlayingAudio | B16@0:8
+[00:48:10.225]   -isRestoringIcon | B16@0:8
+[00:48:10.225]   -isSameExecutableAsApplication: | B24@0:8@16
+[00:48:10.225]   -isSetup | B16@0:8
+[00:48:10.225]   -isSpotlight | B16@0:8
+[00:48:10.226]   -isSpringBoard | B16@0:8
+[00:48:10.226]   -isSystemApplication | B16@0:8
+[00:48:10.226]   -isTimedOutForIcon: | B24@0:8@16
+[00:48:10.226]   -isUninstallSupported | B16@0:8
+[00:48:10.227]   -isUninstalled | B16@0:8
+[00:48:10.227]   -isWebApplication | B16@0:8
+[00:48:10.227]   -labelAccessoryTypeForIcon: | q24@0:8@16
+[00:48:10.227]   -lastExitContext | @16@0:8
+[00:48:10.228]   -lastWindowLayoutAttributes | @16@0:8
+[00:48:10.228]   -launchFromIcon:location:context: | v40@0:8@16@24@32
+[00:48:10.228]   -legacyVOIPPeriodicWakeScheduler | @16@0:8
+[00:48:10.228]   -manifest:didPurgeProtectedContentSnapshotsWithGroupIdentifiers: | v32@0:8@16@24
+[00:48:10.229]   -markNewlyInstalled | v16@0:8
+[00:48:10.229]   -markRecentlyUpdated | v16@0:8
+[00:48:10.229]   -mostRecentSceneSnapshotsForSceneHandle:scale:launchingOrientation: | @40@0:8@16d24q32
+[00:48:10.229]   -nextWakeDate | @16@0:8
+[00:48:10.230]   -possibleUserTapBeganWithAbsoluteTime:andContinuousTime: | v32@0:8Q16Q24
+[00:48:10.230]   -possibleUserTapDidCancel | v16@0:8
+[00:48:10.230]   -preHeatForUserLaunchIfNecessaryWithAbsoluteTime:andContinuousTime: | v32@0:8Q16Q24
+[00:48:10.230]   -preferredSizingPolicyForSwitcherWindowManagementStyle:displayIdentity:contentOrientation:containerOrientation: | q48@0:8Q16@24q32q40
+[00:48:10.231]   -priorityForIcon: | Q24@0:8@16
+[00:48:10.231]   -processState | @16@0:8
+[00:48:10.231]   -purgeCaches | v16@0:8
+[00:48:10.231]   -refreshLaunchImagesInSnapshotManifestIfNeeded | v16@0:8
+[00:48:10.232]   -releaseStatusBarStyleOverridesAssertion: | v24@0:8@16
+[00:48:10.232]   -restrictedClassicModeDisplayConfigurationForDisplayConfiguration: | @24@0:8@16
+[00:48:10.232]   -restrictedToTheEmbeddedDisplayInChamois | B16@0:8
+[00:48:10.232]   -saveSnapshotForSceneHandle:context:completion: | v40@0:8@16@24@?32
+[00:48:10.233]   -saveSuspendSnapshot:forSceneHandle: | v32@0:8@16@24
+[00:48:10.233]   -setAudioCategoriesThatDisableSystemVolumeHUD:forSceneIdentifier: | v32@0:8@16@24
+[00:48:10.233]   -setBadgeValue: | v24@0:8@16
+[00:48:10.233]   -setConnectedToExternalAccessory: | v20@0:8B16
+[00:48:10.234]   -setDynamicApplicationShortcutItems: | v24@0:8@16
+[00:48:10.234]   -setFailedAutoLaunchCountForVOIP: | v24@0:8Q16
+[00:48:10.234]   -setHasDisplayedLaunchAlert:forType: | v28@0:8B16Q20
+[00:48:10.234]   -setHasProminentlyIndicatedLocationUseWhileForeground: | v20@0:8B16
+[00:48:10.235]   -setHasShownDataPlanAlertSinceLock: | v20@0:8B16
+[00:48:10.235]   -setInfo: | v24@0:8@16
+[00:48:10.235]   -setLastWindowLayoutAttributes: | v24@0:8@16
+[00:48:10.235]   -setNextWakeDate: | v24@0:8@16
+[00:48:10.236]   -setNowRecordingApplication: | v20@0:8B16
+[00:48:10.236]   -setPlayingAudio: | v20@0:8B16
+[00:48:10.236]   -setRestoringIcon: | v20@0:8B16
+[00:48:10.236]   -setShowsProgress: | v20@0:8B16
+[00:48:10.237]   -setUninstalled: | v20@0:8B16
+[00:48:10.237]   -setUsesBackgroundNetwork: | v20@0:8B16
+[00:48:10.237]   -setUsesEdgeNetwork: | v20@0:8B16
+[00:48:10.237]   -setUsesWiFiNetwork: | v20@0:8B16
+[00:48:10.238]   -setWantsAutoLaunchForVOIP: | v20@0:8B16
+[00:48:10.238]   -shouldReceiveSourceApplicationContextFromOriginatingApplication: | B24@0:8@16
+[00:48:10.238]   -showsProgress | B16@0:8
+[00:48:10.238]   -snapshotFrameForClassicInsideBounds:forOrientation:scaleFactor:inReferenceSpace: | {CGRect={CGPoint=dd}{CGSize=dd}}68@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16q48^d56B64
+[00:48:10.239]   -snapshotSizeAdjustedForLegacyStatusBarBasedOnSize:interfaceOrientation:contentFrame: | {CGSize=dd}48@0:8{CGSize=dd}16q32^{CGRect={CGPoint=dd}{CGSize=dd}}40
+[00:48:10.239]   -statusBarStyleOverridesAssertionsByStyleOverride | @16@0:8
+[00:48:10.239]   -succinctDescription | @16@0:8
+[00:48:10.239]   -succinctDescriptionBuilder | @16@0:8
+[00:48:10.240]   -supportedGridSizeClassesForIcon: | Q24@0:8@16
+[00:48:10.240]   -supportedSizingPoliciesForSwitcherWindowManagementStyle:displayIdentity:contentOrientation:containerOrientation: | Q48@0:8Q16@24q32q40
+[00:48:10.240]   -supportsChamoisOnExternalDisplay | B16@0:8
+[00:48:10.240]   -supportsChamoisSceneResizing | B16@0:8
+[00:48:10.241]   -supportsChamoisViewResizing | B16@0:8
+[00:48:10.241]   -supportsMixedOrientationForSwitcherWindowManagementStyle:displayIdentity: | B32@0:8Q16@24
+[00:48:10.241]   -supportsMultiWindowLayoutsForSwitcherWindowManagementStyle:displayIdentity: | B32@0:8Q16@24
+[00:48:10.241]   -supportsMultitaskingShelf | B16@0:8
+[00:48:10.242]   -suppressesControlCenter | B16@0:8
+[00:48:10.242]   -suppressesCoverSheetGesture | B16@0:8
+[00:48:10.242]   -tags | @16@0:8
+[00:48:10.242]   -tagsForIcon: | @24@0:8@16
+[00:48:10.243]   -takeStatusBarStyleOverridesAssertion: | v24@0:8@16
+[00:48:10.243]   -uninstall | v16@0:8
+[00:48:10.243]   -uniqueIdentifier | @16@0:8
+[00:48:10.244]   -usesBackgroundNetwork | B16@0:8
+[00:48:10.244]   -usesEdgeNetwork | B16@0:8
+[00:48:10.244]   -usesWiFiNetwork | B16@0:8
+[00:48:10.244]   -vendorName | @16@0:8
+[00:48:10.245]   -wantsAutoLaunchForVOIP | B16@0:8
+[00:48:10.245]   @property isMedusaCapable
+[00:48:10.245]   @property insetForHomeAffordance
+[00:48:10.245]   @property isClassic
+[00:48:10.246]   @property classicAppZoomedIn
+[00:48:10.246]   @property classicAppRequiresHiDPI
+[00:48:10.246]   @property classicAppZoomedInOrRequiresHiDPI
+[00:48:10.246]   @property classicAppScaled
+[00:48:10.247]   @property classicAppFullScreen
+[00:48:10.250]   @property classicAppWithOwnSafeArea
+[00:48:10.251]   @property classicAppPhoneAppRunningOnPad
+[00:48:10.251]   @property classicAppNonFullScreenWithHomeAffordance
+[00:48:10.251]   @property ignoreScalingOfJailedStatusBar
+[00:48:10.251]   @property classicAppScaledWithAspectRatioCloseEnoughToBeTreatedAsFullScreen
+[00:48:10.252]   @property classicAppWithRoundedCorners
+[00:48:10.252]   @property classicMode
+[00:48:10.252]   @property defaultClassicMode
+[00:48:10.252]   @property classicAppZoomedIn
+[00:48:10.253]   @property isSpringBoard
+[00:48:10.253]   @property isSetup
+[00:48:10.253]   @property isMobilePhone
+[00:48:10.253]   @property isFaceTime
+[00:48:10.254]   @property isPaperBoard
+[00:48:10.254]   @property isSpotlight
+[00:48:10.254]   @property internalProcessState
+[00:48:10.254]   @property info
+[00:48:10.255]   @property processState
+[00:48:10.255]   @property lastExitContext
+[00:48:10.255]   @property failedLaunchCount
+[00:48:10.255]   @property bundleIdentifier
+[00:48:10.256]   @property iconIdentifier
+[00:48:10.256]   @property displayName
+[00:48:10.256]   @property internalApplication
+[00:48:10.256]   @property systemApplication
+[00:48:10.257]   @property legacyVOIPPeriodicWakeScheduler
+[00:48:10.257]   @property terminationAssertionHeld
+[00:48:10.257]   @property terminationAssertionInEffect
+[00:48:10.257]   @property uninstallSupported
+[00:48:10.258]   @property uninstalled
+[00:48:10.258]   @property dynamicApplicationShortcutItems
+[00:48:10.258]   @property restoringIcon
+[00:48:10.258]   @property showsProgress
+[00:48:10.259]   @property hasShownDataPlanAlertSinceLock
+[00:48:10.259]   @property wantsAutoLaunchForVOIP
+[00:48:10.259]   @property failedAutoLaunchCountForVOIP
+[00:48:10.260]   @property playingAudio
+[00:48:10.260]   @property nowRecordingApplication
+[00:48:10.260]   @property connectedToExternalAccessory
+[00:48:10.261]   @property usesEdgeNetwork
+[00:48:10.261]   @property usesWiFiNetwork
+[00:48:10.261]   @property dataUsage
+[00:48:10.262]   @property suppressesControlCenter
+[00:48:10.262]   @property suppressesCoverSheetGesture
+[00:48:10.262]   @property supportsMultitaskingShelf
+[00:48:10.262]   @property hasProminentlyIndicatedLocationUseWhileForeground
+[00:48:10.263]   @property lastWindowLayoutAttributes
+[00:48:10.263]   @property bundleURL
+[00:48:10.263]   @property vendorName
+[00:48:10.264]   @property tags
+[00:48:10.264]   @property hasHiddenTag
+[00:48:10.264]   @property appleApplication
+[00:48:10.264]   @property appClip
+[00:48:10.265]   @property badgeValue
+[00:48:10.265]   @property uniqueIdentifier
+[00:48:10.265]   @property configurationStorageIdentifier
+[00:48:10.265]   @property hash
+[00:48:10.266]   @property superclass
+[00:48:10.266]   @property description
+[00:48:10.266]   @property debugDescription
+[00:48:10.266]   @property usesBackgroundNetwork
+[00:48:10.267]   @property nextWakeDate
+[00:48:10.267] -- SBHomeScreenViewController (super: UIViewController) --
+[00:48:10.268]   -.cxx_destruct | v16@0:8
+[00:48:10.268]   -UIController | @16@0:8
+[00:48:10.269]   -_acquireFloatingDockBehaviorAssertionIfNecessaryForFloatingDockController: | v24@0:8@16
+[00:48:10.269]   -_acquireForceTouchOrientationUpdateDeferralAssertionForIconView: | v24@0:8@16
+[00:48:10.269]   -_acquireForceTouchWindowLevelAssertionForIconView: | v24@0:8@16
+[00:48:10.269]   -_animateTransitionToSize:andInterfaceOrientation:withTransitionContext: | v48@0:8{CGSize=dd}16q32@40
+[00:48:10.270]   -_appIconForceTouchControllerDidDismissNotification: | v24@0:8@16
+[00:48:10.270]   -_appIconForceTouchControllerWillPresentNotification: | v24@0:8@16
+[00:48:10.270]   -_autorotationPreventionReasons | @16@0:8
+[00:48:10.270]   -_cleanupAfterTransitionToSize:fromInterfaceOrientation:withTransitionContext: | v48@0:8{CGSize=dd}16q32@40
+[00:48:10.271]   -_dismissAllIconForceTouchControllersDidFire: | v24@0:8@16
+[00:48:10.271]   -_homeScreenView | @16@0:8
+[00:48:10.271]   -_iconEditingDidChange: | v24@0:8@16
+[00:48:10.271]   -_prepareForTransitionToSize:andInterfaceOrientation:withTransitionCoordinator: | v48@0:8{CGSize=dd}16q32@40
+[00:48:10.272]   -_relinquishForceTouchOrientationUpdateDeferralAssertionForIconView: | v24@0:8@16
+[00:48:10.272]   -_relinquishForceTouchWindowLevelAssertionForIconView: | v24@0:8@16
+[00:48:10.272]   -_widgetEditViewDidDisappear: | v24@0:8@16
+[00:48:10.272]   -_widgetEditViewDidDisappearImplementation | v16@0:8
+[00:48:10.273]   -_widgetEditViewWillAppear: | v24@0:8@16
+[00:48:10.273]   -adjustFrame | v16@0:8
+[00:48:10.273]   -dealloc | v16@0:8
+[00:48:10.273]   -disableAnimationForNextIconRotation | v16@0:8
+[00:48:10.274]   -floatingDockControllerDidRegister: | v24@0:8@16
+[00:48:10.274]   -homeScreenAutorotatesEvenWhenIconIsDragging | B16@0:8
+[00:48:10.274]   -homeScreenFloatingDockAssertion | @16@0:8
+[00:48:10.274]   -iconController | @16@0:8
+[00:48:10.275]   -iconManager | @16@0:8
+[00:48:10.275]   -initWithCoder: | @24@0:8@16
+[00:48:10.275]   -initWithIconController:UIController: | @32@0:8@16@24
+[00:48:10.276]   -initWithNibName:bundle: | @32@0:8@16@24
+[00:48:10.276]   -isIconControllerHidden | B16@0:8
+[00:48:10.276]   -legibilitySettings | @16@0:8
+[00:48:10.276]   -loadView | v16@0:8
+[00:48:10.277]   -nudgeIconInterfaceOrientation:duration: | v32@0:8q16d24
+[00:48:10.277]   -setAllowIconRotation:forReason: | v28@0:8B16@20
+[00:48:10.277]   -setHomeScreenAutorotatesEvenWhenIconIsDragging: | v20@0:8B16
+[00:48:10.277]   -setHomeScreenFloatingDockAssertion: | v24@0:8@16
+[00:48:10.278]   -setIconControllerHidden: | v20@0:8B16
+[00:48:10.278]   -setLegibilitySettings: | v24@0:8@16
+[00:48:10.280]   -setNeedsStatusBarAppearanceUpdate | v16@0:8
+[00:48:10.281]   -setWidgetEditFloatingDockAssertion: | v24@0:8@16
+[00:48:10.281]   -setWidgetEditViewControllerOrientationUpdateDeferralAssertion: | v24@0:8@16
+[00:48:10.281]   -setZStackParticipant: | v24@0:8@16
+[00:48:10.281]   -shouldAutomaticallyForwardAppearanceMethods | B16@0:8
+[00:48:10.282]   -shouldAutorotate | B16@0:8
+[00:48:10.282]   -supportedInterfaceOrientations | Q16@0:8
+[00:48:10.282]   -viewDidAppear: | v20@0:8B16
+[00:48:10.282]   -viewDidDisappear: | v20@0:8B16
+[00:48:10.283]   -viewDidLayoutSubviews | v16@0:8
+[00:48:10.283]   -viewDidLoad | v16@0:8
+[00:48:10.283]   -viewWillAppear: | v20@0:8B16
+[00:48:10.284]   -viewWillTransitionToSize:withTransitionCoordinator: | v40@0:8{CGSize=dd}16@32
+[00:48:10.284]   -widgetEditFloatingDockAssertion | @16@0:8
+[00:48:10.284]   -widgetEditViewControllerOrientationUpdateDeferralAssertion | @16@0:8
+[00:48:10.284]   -zStackParticipant | @16@0:8
+[00:48:10.285]   -zStackParticipant:updatePreferences: | v32@0:8@16@24
+[00:48:10.285]   -zStackParticipantDidChange: | v24@0:8@16
+[00:48:10.285]   @property UIController
+[00:48:10.285]   @property iconController
+[00:48:10.286]   @property iconManager
+[00:48:10.286]   @property homeScreenFloatingDockAssertion
+[00:48:10.286]   @property widgetEditFloatingDockAssertion
+[00:48:10.286]   @property widgetEditViewControllerOrientationUpdateDeferralAssertion
+[00:48:10.287]   @property zStackParticipant
+[00:48:10.287]   @property iconControllerHidden
+[00:48:10.287]   @property legibilitySettings
+[00:48:10.287]   @property homeScreenAutorotatesEvenWhenIconIsDragging
+[00:48:10.288]   @property hash
+[00:48:10.288]   @property superclass
+[00:48:10.288]   @property description
+[00:48:10.288]   @property debugDescription
+[00:48:10.289] ===== METHOD DUMP END (from file) =====

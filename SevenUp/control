@@ -1,0 +1,11 @@
+Package: com.futur3sn0w.sevenup
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.sevenup.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.sevenup.json
+Name: SevenUp
+Version: 0.10.0
+Architecture: iphoneos-arm64
+Description: The classic iOS 7/8 app switcher, rootlessly reborn on iOS 16. Flat cards, reversed scroll, home screen card, big parallax icons.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: firmware (>= 16.0), preferenceloader
