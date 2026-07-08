@@ -24,6 +24,8 @@ let tweaks: [Tweak] = [
     .init(id:"com.futur3sn0w.solert",              name:"Solert",               c1:"#5E5CE6",c2:"#007AFF"),
     .init(id:"com.futur3sn0w.swipeformore7",       name:"SwipeForMore",         c1:"#BF5AF2",c2:"#FF375F"),
     .init(id:"com.futur3sn0w.taptimenneo",         name:"TapTimeNeo",           c1:"#007AFF",c2:"#5E5CE6"),
+    .init(id:"com.futur3sn0w.dockfull",            name:"DockFull",             c1:"#32ADE6",c2:"#00C7BE"),
+    .init(id:"com.futur3sn0w.docklibrary",         name:"DockLibrary",          c1:"#64D2FF",c2:"#0A84FF"),
 ]
 
 func nsColor(hex: String) -> NSColor {

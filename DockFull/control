@@ -1,0 +1,11 @@
+Package: com.futur3sn0w.dockfull
+Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.dockfull.png
+SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.dockfull.json
+Name: DockFull
+Version: 0.0.2
+Architecture: iphoneos-arm64
+Description: Expands the dock background to the screen edges and removes the rounded dock corners.
+Maintainer: futur3sn0w
+Author: futur3sn0w
+Section: Tweaks
+Depends: firmware (>= 16.0), mobilesubstrate

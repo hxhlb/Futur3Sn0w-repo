@@ -1,0 +1,105 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.dockfull.png",
+  "tintColor": "#32ADE6",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Expands the dock background to the screen edges and removes the rounded dock corners.",
+          "useBoldText": false,
+          "useBottomMargin": true
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "Stretches the dock (and floating dock / App Switcher dock platter) so its background runs flush to both screen edges, flattens its corners and material mask, and re-lays out the dock's icon list to match \u2014 no more inset floating dock.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "Package Info"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "Futur3Sn0w"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "0.0.2"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 16.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Section",
+          "text": "Tweaks"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "More by Futur3Sn0w",
+          "action": "https://futur3sn0w.github.io/repo",
+          "openExternal": true
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.2",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Fixed the dock's icon list keeping its old, narrower frame after the dock itself expanded to full width",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 This mismatch was making the icon row (most visible entering the App Library) drift and scroll horizontally on its own",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 The icon list now snaps to the dock's full bounds and locks out scrolling if it's backed by a scroll view",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.0.1",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Initial release",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        }
+      ]
+    }
+  ]
+}

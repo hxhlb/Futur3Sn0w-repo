@@ -24,6 +24,8 @@ let tweaks: [Tweak] = [
     .init(id:"com.futur3sn0w.solert",              symbol:"exclamationmark.bubble.fill",c1:"#5E5CE6",c2:"#007AFF"),
     .init(id:"com.futur3sn0w.swipeformore7",       symbol:"arrow.right.circle.fill",    c1:"#BF5AF2",c2:"#FF375F"),
     .init(id:"com.futur3sn0w.taptimenneo",         symbol:"clock.fill",                 c1:"#007AFF",c2:"#5E5CE6"),
+    .init(id:"com.futur3sn0w.docklibrary",         symbol:"square.grid.2x2.fill",       c1:"#64D2FF",c2:"#0A84FF"),
+    .init(id:"com.futur3sn0w.dockfull",            symbol:"rectangle.bottomthird.inset.filled",c1:"#32ADE6",c2:"#00C7BE"),
 ]
 
 func nsColor(hex: String) -> NSColor {

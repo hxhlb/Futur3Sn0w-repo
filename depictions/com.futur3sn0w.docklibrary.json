@@ -1,0 +1,96 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "headerImage": "https://futur3sn0w.github.io/repo/banners/com.futur3sn0w.docklibrary.png",
+  "tintColor": "#64D2FF",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Swipe up from the dock to open the App Library.",
+          "useBoldText": false,
+          "useBottomMargin": true
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "Turns a swipe up on the dock into a drawer that grows the App Library right out of it \u2014 as a floating panel anchored to the dock, or full immersive edge-to-edge. Pairs with DockFull: if it's installed, the immersive drawer squares off its corners to match the squared-off dock.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "Package Info"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "Futur3Sn0w"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "0.2.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 14.0+"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Section",
+          "text": "Tweaks"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableButtonView",
+          "title": "More by Futur3Sn0w",
+          "action": "https://futur3sn0w.github.io/repo",
+          "openExternal": true
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.2.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Fixed the floating-style drawer squeezing App Library content to the dock's narrower width, which let it scroll sideways instead of only up/down",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Locked out horizontal bounce/scroll on the library's own scroll view as a backup",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Immersive style now detects DockFull and squares off the drawer's corners to match it",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Immersive style content now clears the notch/Dynamic Island with a bit of top padding, while the backdrop still reaches the very top of the screen",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        }
+      ]
+    }
+  ]
+}
