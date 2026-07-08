@@ -12,3 +12,7 @@ repo/Packages
 repo/Packages.*
 repo/Release
 repo/*.deb
+
+# Not ready for the public repo yet; kept locally only
+ReRoadRunner/
+CustHome/
