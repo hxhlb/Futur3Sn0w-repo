@@ -7,7 +7,10 @@ INSTALL_TARGET_PROCESSES = SpringBoard Preferences
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = CustHome
-SUBPROJECTS += CustHomePrefs
+# CustHomePrefs is pulled from the build for now -- it's not wired into
+# anything the customize sheet itself needs yet, and was showing as a blank
+# pane in Settings. Source is left in CustHomePrefs/ to pick back up later.
+# SUBPROJECTS += CustHomePrefs
 
 CustHome_FILES = Hooks/S15HomeEditMenu.x
 CustHome_CFLAGS = -fobjc-arc

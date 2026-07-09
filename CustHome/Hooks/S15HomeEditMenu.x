@@ -17,7 +17,6 @@ static BOOL S15HEMIsSpringBoard(void) {
     return result;
 }
 
-static void *kS15HEMMenuInstalledKey = &kS15HEMMenuInstalledKey;
 static void *kS15HEMActiveSheetKey = &kS15HEMActiveSheetKey;
 static void *kS15HEMWallpaperDimOverlayKey = &kS15HEMWallpaperDimOverlayKey;
 static void *kS15HEMLastAppliedIconModeKey = &kS15HEMLastAppliedIconModeKey;
@@ -2559,7 +2558,6 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 
     UIButton *button = (UIButton *)self;
     if (!button.window) return;
-    if ([objc_getAssociatedObject(button, kS15HEMMenuInstalledKey) boolValue]) return;
     if (![button respondsToSelector:@selector(setMenu:)] ||
         ![button respondsToSelector:@selector(setShowsMenuAsPrimaryAction:)]) {
         return;
@@ -2570,8 +2568,32 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
     if ([button respondsToSelector:@selector(setChangesSelectionAsPrimaryAction:)]) {
         button.changesSelectionAsPrimaryAction = NO;
     }
+}
 
-    objc_setAssociatedObject(button, kS15HEMMenuInstalledKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+// SpringBoard occasionally reasserts its own default (widgets-only) menu on
+// this same button well after didMoveToWindow already fired -- that method
+// only runs once per add-to-window, but the reset happens on some other,
+// later internal pass. The install above used to be one-shot (guarded by an
+// "already installed" flag), so whichever of us touched .menu last simply
+// won -- which made the "+" button intermittently pop the system's own
+// widgets-only menu instead of ours, with no consistent trigger. Intercepting
+// setMenu:/setShowsMenuAsPrimaryAction: directly instead means our
+// configuration wins unconditionally, no matter when or how many times
+// SpringBoard tries to reassert its own -- there's no longer a race to lose.
+- (void)setMenu:(UIMenu *)menu {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(menu);
+        return;
+    }
+    %orig(S15HEMMenuForButton((UIButton *)self));
+}
+
+- (void)setShowsMenuAsPrimaryAction:(BOOL)showsMenuAsPrimaryAction {
+    if (!S15HEMIsSpringBoard()) {
+        %orig(showsMenuAsPrimaryAction);
+        return;
+    }
+    %orig(YES);
 }
 
 %end
