@@ -10,7 +10,11 @@ Source for Futur3Sn0w jailbreak tweaks and related package-repo files.
 | BatteryMirror | `com.futur3sn0w.batterymirror` | Rootless public source | Mirrors the status bar battery indicator on the Low Power Mode toggle in Control Center. |
 | CCSupport Battery Fix | `com.futur3sn0w.ccsupportbatteryfix` | Rootless public source | Companion patch for CCSupport that fixes status bar battery percentage display on iOS 15+. |
 | CenterLastRow | `com.futur3sn0w.centerlastrow` | Early public source | Centers the final SpringBoard icon row when it is not full. |
+| CustHome | `com.futur3sn0w.custhome` | Rootless public source | Backports the modern Home Screen customize experience to iOS 16 and 17. |
+| DockFull | `com.futur3sn0w.dockfull` | Rootless public source | Extends the modern dock background to the screen edges and removes the rounded corners. |
+| DockLibrary | `com.futur3sn0w.docklibrary` | Rootless public source | Swipe up from the dock to open the App Library. |
 | DuoWall | `com.futur3sn0w.duowall` | Rootless public beta | Creates named light/dark wallpaper pairs that appear in Collections and follow system appearance on iOS 15 and 16. |
+| Finn | `com.futur3sn0w.finn` | Rootless public source | Tints the homescreen context-menu backdrop to the app icon color. Rootless rewrite of Koi for iOS 15 & 16. |
 | MuteFlash | `com.futur3sn0w.muteflash` | Rootless public source | Toggles the flashlight when flipping the ringer switch on devices without the Action button. |
 | MuteModule | `com.futur3sn0w.mutemodule` | Rootless public source | Exposes Apple's hidden Silent Mode Control Center module on iPhone. |
 | NoSeparators | `com.futur3sn0w.noseparators` | Early public source | Hides common UIKit separator lines systemwide on iOS 11. |
