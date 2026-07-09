@@ -3,6 +3,7 @@
 		bundle = MuteFlashPrefs;
 		cell = PSLinkCell;
 		detail = MFPRootListController;
+		icon = "icon.png";
 		isController = 1;
 		label = MuteFlash;
 	};

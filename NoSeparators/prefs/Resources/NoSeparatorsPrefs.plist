@@ -3,6 +3,7 @@
 		bundle = NoSeparatorsPrefs;
 		cell = PSLinkCell;
 		detail = NSPRootListController;
+		icon = "icon.png";
 		isController = 1;
 		label = NoSeparators;
 	};

@@ -3,6 +3,7 @@
 		bundle = BattFXPrefs;
 		cell = PSLinkCell;
 		detail = BFXRootListController;
+		icon = "icon.png";
 		isController = 1;
 		label = BattFX;
 	};

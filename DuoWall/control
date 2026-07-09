@@ -2,7 +2,7 @@ Package: com.futur3sn0w.duowall
 Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.duowall.png
 SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.duowall.json
 Name: DuoWall
-Version: 0.0.76
+Version: 0.0.77
 Architecture: iphoneos-arm64
 Description: Create native light and dark WallpaperKit pairs that appear in Collections and switch automatically with system appearance.
 Maintainer: futur3sn0w
