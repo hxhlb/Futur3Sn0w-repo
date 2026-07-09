@@ -15,3 +15,5 @@ repo/*.deb
 
 # Not ready for the public repo yet; kept locally only
 ReRoadRunner/
+SevenUp/
+SettingsCollapse/

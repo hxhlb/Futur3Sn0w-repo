@@ -1,9 +1,0 @@
-{
-	entry = {
-		bundle = ReSettingsPrefs;
-		cell = PSLinkCell;
-		detail = SCRootListController;
-		isController = 1;
-		label = ReSettings;
-	};
-}
