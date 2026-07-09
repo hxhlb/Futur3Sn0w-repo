@@ -60,9 +60,39 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>Animation</string>
+			<key>footerText</key>
+			<string>Fade fades the homescreen out as the drawer opens, and back in as it closes. Fade &amp; Scale also scales it out and in.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>key</key>
+			<string>animationStyle</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Fade</string>
+				<string>Fade &amp; Scale</string>
+			</array>
+			<key>defaults</key>
+			<string>com.futur3sn0w.docklibrary</string>
+			<key>PostNotification</key>
+			<string>com.futur3sn0w.docklibrary.prefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>Behavior</string>
 			<key>footerText</key>
-			<string>Replace removes the App Library page at the end of your home screen, making the dock gesture the only way in. Off keeps both routes. Respring after changing this.</string>
+			<string>Replace removes the App Library page at the end of your home screen, making the dock gesture the only way in. Off keeps both routes. Respring after changing this. Swipe Up Anywhere lets you pull the drawer open from anywhere on your home screen, not just the dock.</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -71,6 +101,20 @@
 			<string>Replace App Library Page</string>
 			<key>key</key>
 			<string>replaceLibrary</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.futur3sn0w.docklibrary</string>
+			<key>PostNotification</key>
+			<string>com.futur3sn0w.docklibrary.prefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Swipe Up Anywhere</string>
+			<key>key</key>
+			<string>swipeAnywhere</string>
 			<key>default</key>
 			<false/>
 			<key>defaults</key>

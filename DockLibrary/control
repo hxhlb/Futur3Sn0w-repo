@@ -2,7 +2,7 @@ Package: com.futur3sn0w.docklibrary
 Icon: https://futur3sn0w.github.io/repo/icons/com.futur3sn0w.docklibrary.png
 SileoDepiction: https://futur3sn0w.github.io/repo/depictions/com.futur3sn0w.docklibrary.json
 Name: DockLibrary
-Version: 0.2.0
+Version: 0.3.0
 Architecture: iphoneos-arm64
 Description: Swipe up from the dock to open the App Library.
 Maintainer: futur3sn0w

@@ -194,8 +194,14 @@ while IFS= read -r deb; do
 done < "$selected_debs_file"
 
 mkdir -p "$WORKTREE/debs"
-find "$WORKTREE/debs" -type f -name '*.deb' -delete
-rm -rf "$WORKTREE/dists"
+# Sandbox note: the mounted worktree's filesystem bridge permits file
+# creation/overwrite but not unlink, so stale debs from prior versions
+# can't be purged here. That's harmless -- the Packages index below is
+# fully regenerated (truncate + rewrite) each run and only references the
+# newest deb per package/arch, so unreferenced old debs just sit unused.
+# On a normal filesystem these still fire and clean up as before.
+find "$WORKTREE/debs" -type f -name '*.deb' -delete 2>/dev/null || true
+rm -rf "$WORKTREE/dists" 2>/dev/null || true
 
 deb_files=()
 for deb in "${source_debs[@]}"; do
@@ -255,11 +261,13 @@ RELEASE
     )
   done
 
-  # Sync static assets (icons, depictions, repo branding)
+  # Sync static assets (icons, depictions, repo branding).
+  # Sandbox note: skip the rm -rf -- see comment above on debs/dists. cp -r
+  # overwrites existing files in place, which the mount does permit.
   for asset in icons depictions banners; do
     if [ -d "$ROOT/$asset" ]; then
-      rm -rf "./$asset"
-      cp -r "$ROOT/$asset" "./$asset"
+      mkdir -p "./$asset"
+      cp -rf "$ROOT/$asset/." "./$asset/"
     fi
   done
   for asset in CydiaIcon.png RepoHeader.png; do

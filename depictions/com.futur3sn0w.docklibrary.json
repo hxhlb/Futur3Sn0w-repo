@@ -34,7 +34,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "0.2.0"
+          "text": "0.3.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -61,6 +61,30 @@
       "tabname": "Changelog",
       "class": "DepictionStackView",
       "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.3.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Added Swipe Up Anywhere: with it on, a swipe up from anywhere on your home screen opens the drawer, not just from the dock",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 The drawer follows your finger the same way either way \u2014 it never jumps to meet you, and only opens if you cross the threshold",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "\u2022 Added a Fade & Scale animation option: the home screen now scales down slightly as the drawer opens, and back up as it closes, alongside the existing fade",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
         {
           "class": "DepictionSubheaderView",
           "title": "Version 0.2.0",

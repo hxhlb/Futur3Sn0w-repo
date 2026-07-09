@@ -49,6 +49,12 @@ static BOOL dlEnabled = YES;
 static BOOL dlReplace = NO;
 static NSInteger dlStyle = 0; // 0 = floating, 1 = immersive
 static BOOL dlCloseOnLaunch = YES;
+static BOOL dlSwipeAnywhere = NO;
+static NSInteger dlAnimStyle = 0; // 0 = fade, 1 = fade & scale
+
+// How far the homescreen (icons + widgets) shrinks by the time the drawer is
+// fully open, when the "Fade & Scale" animation style is selected.
+static const CGFloat kDLHomeScreenScaleMin = 0.92;
 
 static void DLLoadPrefs(void) {
 	CFPreferencesAppSynchronize((__bridge CFStringRef)kDLPrefsDomain);
@@ -59,6 +65,8 @@ static void DLLoadPrefs(void) {
 	dlReplace = exists ? (BOOL)v : NO;
 	v = CFPreferencesGetAppBooleanValue(CFSTR("closeOnLaunch"), (__bridge CFStringRef)kDLPrefsDomain, &exists);
 	dlCloseOnLaunch = exists ? (BOOL)v : YES;
+	v = CFPreferencesGetAppBooleanValue(CFSTR("swipeAnywhere"), (__bridge CFStringRef)kDLPrefsDomain, &exists);
+	dlSwipeAnywhere = exists ? (BOOL)v : NO;
 	CFPropertyListRef styleVal = CFPreferencesCopyAppValue(CFSTR("presentationStyle"), (__bridge CFStringRef)kDLPrefsDomain);
 	if (styleVal) {
 		if (CFGetTypeID(styleVal) == CFNumberGetTypeID()) {
@@ -67,6 +75,15 @@ static void DLLoadPrefs(void) {
 		CFRelease(styleVal);
 	} else {
 		dlStyle = 0;
+	}
+	CFPropertyListRef animVal = CFPreferencesCopyAppValue(CFSTR("animationStyle"), (__bridge CFStringRef)kDLPrefsDomain);
+	if (animVal) {
+		if (CFGetTypeID(animVal) == CFNumberGetTypeID()) {
+			CFNumberGetValue((CFNumberRef)animVal, kCFNumberNSIntegerType, &dlAnimStyle);
+		}
+		CFRelease(animVal);
+	} else {
+		dlAnimStyle = 0;
 	}
 }
 
@@ -145,9 +162,11 @@ static BOOL DLDockFullInstalled(void) {
 @property (nonatomic, weak) UIView *dockBackgroundView;
 @property (nonatomic, weak) UIView *dockIconListView;
 @property (nonatomic, weak) UIView *pagesScrollView;
+@property (nonatomic, weak) UIView *homeScreenView;
 @property (nonatomic, weak) UIWindow *window;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *dockPan;
+@property (nonatomic, strong) UIPanGestureRecognizer *homePan;
 @property (nonatomic, strong) UIPanGestureRecognizer *dismissPan;
 
 @property (nonatomic, strong) UIView *libContainer;
@@ -175,6 +194,7 @@ static BOOL DLDockFullInstalled(void) {
 
 + (instancetype)sharedController;
 - (void)attachToDockView:(UIView *)dockView;
+- (void)attachToHomeView:(UIView *)homeView;
 - (void)emergencyClose;
 @end
 
@@ -195,12 +215,32 @@ static BOOL DLDockFullInstalled(void) {
 	objc_setAssociatedObject(dockView, kDLAttachedKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
 	self.dockView = dockView;
-	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDockPan:)];
+	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
 	pan.delegate = self;
 	pan.maximumNumberOfTouches = 1;
 	[dockView addGestureRecognizer:pan];
 	self.dockPan = pan;
 	NSLog(@"[DockLibrary] attached pan to dock view %@", dockView);
+}
+
+// "Swipe Up Anywhere": a second pan recognizer covering the whole home screen
+// (icon pages + widgets), so the drawer can be pulled open the same way as
+// the dock's own gesture, from anywhere the user's finger happens to land.
+// Shares handlePan: with the dock's recognizer -- the drag-to-follow /
+// threshold-to-complete behavior is identical regardless of which one is
+// tracking the touch; beginSession always anchors visually on self.dockView.
+- (void)attachToHomeView:(UIView *)homeView {
+	static void *kDLHomeAttachedKey = &kDLHomeAttachedKey;
+	if (objc_getAssociatedObject(homeView, kDLHomeAttachedKey)) return;
+	objc_setAssociatedObject(homeView, kDLHomeAttachedKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+	self.homeScreenView = homeView;
+	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+	pan.delegate = self;
+	pan.maximumNumberOfTouches = 1;
+	[homeView addGestureRecognizer:pan];
+	self.homePan = pan;
+	NSLog(@"[DockLibrary] attached anywhere-pan to home view %@", homeView);
 }
 
 #pragma mark Session lifecycle
@@ -489,6 +529,17 @@ static BOOL DLDockFullInstalled(void) {
 	}
 	if (self.pagesScrollView) {
 		self.pagesScrollView.alpha = 1.0 - 0.85 * DLClamp(clamped / 0.8, 0.0, 1.0);
+		// "Fade & Scale": subtly shrink the homescreen (icons + widgets) as the
+		// drawer opens, and back up as it closes, riding the same progress curve
+		// as the fade above so both read as one continuous motion.
+		if (dlAnimStyle == 1) {
+			CGFloat scale = DLLerp(1.0, kDLHomeScreenScaleMin, clamped);
+			self.pagesScrollView.transform = CGAffineTransformMakeScale(scale, scale);
+		} else if (!CGAffineTransformIsIdentity(self.pagesScrollView.transform)) {
+			// Style may have been switched mid-flight (or a previous session left
+			// a residual transform) -- always fall back to identity for "Fade".
+			self.pagesScrollView.transform = CGAffineTransformIdentity;
+		}
 	}
 }
 
@@ -540,7 +591,10 @@ static BOOL DLDockFullInstalled(void) {
 	UIView *bg = self.dockBackgroundView;
 	if (bg) bg.alpha = 1.0;
 	if (self.dockIconListView) self.dockIconListView.alpha = 1.0;
-	if (self.pagesScrollView) self.pagesScrollView.alpha = 1.0;
+	if (self.pagesScrollView) {
+		self.pagesScrollView.alpha = 1.0;
+		self.pagesScrollView.transform = CGAffineTransformIdentity;
+	}
 
 	[self restoreLibraryView];
 	if (self.presentedOverlay) {
@@ -625,7 +679,7 @@ static BOOL DLDockFullInstalled(void) {
 
 #pragma mark Gestures
 
-- (void)handleDockPan:(UIPanGestureRecognizer *)gr {
+- (void)handlePan:(UIPanGestureRecognizer *)gr {
 	UIWindow *win = self.window ?: self.dockView.window;
 	switch (gr.state) {
 		case UIGestureRecognizerStateBegan: {
@@ -716,6 +770,58 @@ static BOOL DLDockFullInstalled(void) {
 		if (iconGestureActive) return NO;
 		CGPoint v = [pan velocityInView:pan.view];
 		return (v.y < 0 && fabs(v.y) > fabs(v.x));
+	}
+
+	if (pan == self.homePan) {
+		if (!dlSwipeAnywhere || self.active) return NO;
+
+		// The dock has its own recognizer for its own rect; let it own that
+		// region so the two don't race each other for the same touch.
+		UIView *dock = self.dockView;
+		if (dock && dock.window) {
+			CGPoint locInDock = [pan locationInView:dock];
+			if (CGRectContainsPoint(dock.bounds, locInDock)) return NO;
+		}
+
+		// Don't fight icon editing (jiggle) mode.
+		SBIconController *ic = [self iconController];
+		@try {
+			id rfc = [ic respondsToSelector:@selector(_rootFolderController)] ? [ic _rootFolderController] : nil;
+			if (rfc && [rfc respondsToSelector:@selector(isEditing)]) {
+				BOOL editing = ((BOOL (*)(id, SEL))objc_msgSend)(rfc, @selector(isEditing));
+				if (editing) return NO;
+			}
+		} @catch (__unused NSException *e) {}
+
+		// Refuse while any icon's own gesture (long-press menu, drag-to-reorder,
+		// context menu preview) is engaged anywhere on the home screen -- this
+		// recognizer covers the whole grid, including icons and widgets, so it
+		// has to defer the same way the dock's recognizer defers to dock icons.
+		__block BOOL iconGestureActive = NO;
+		UIView *root = pan.view;
+		if (root) {
+			DLFindSubview(root, 6, ^BOOL(UIView *sub) {
+				NSString *cls = NSStringFromClass([sub class]);
+				if ([cls rangeOfString:@"IconView"].location != NSNotFound
+				    || [cls rangeOfString:@"WidgetView"].location != NSNotFound) {
+					for (UIGestureRecognizer *g in sub.gestureRecognizers) {
+						if (g.state == UIGestureRecognizerStateBegan || g.state == UIGestureRecognizerStateChanged) {
+							iconGestureActive = YES;
+							return YES;
+						}
+					}
+				}
+				return NO;
+			});
+		}
+		if (iconGestureActive) return NO;
+
+		// Require a clearer vertical bias than the dock gesture (1.2x instead of
+		// 1.0x) since this recognizer sits over a much busier hit area -- icons,
+		// widgets, the page dots, the search field -- where accidental diagonal
+		// drags are more likely.
+		CGPoint v = [pan velocityInView:pan.view];
+		return (v.y < 0 && fabs(v.y) > fabs(v.x) * 1.2);
 	}
 
 	if (pan == self.dismissPan) {
@@ -905,6 +1011,16 @@ static void DLWriteDump(void) {
 %end
 
 %hook SBRootFolderView
+
+// Anchor point for the "Swipe Up Anywhere" gesture -- this view hosts the
+// icon pages (and widgets), i.e. the whole home screen surface, so it's the
+// right place to hang a second pan recognizer alongside the dock's own.
+- (void)didMoveToWindow {
+	%orig;
+	if (self.window) {
+		[[DLController sharedController] attachToHomeView:(UIView *)self];
+	}
+}
 
 - (BOOL)_shouldIgnoreOverscrollOnLastPageForCurrentOrientation {
 	BOOL orig = %orig;
