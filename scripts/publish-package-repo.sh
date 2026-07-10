@@ -217,7 +217,11 @@ AppSwitcherController/
 */packages/
 GITIGNORE
 
-python3 /tmp/moartweaks-gen-index.py "$WORKTREE" "https://futur3sn0w.github.io/repo"
+GEN_INDEX_SCRIPT="${MOARTWEAKS_GEN_INDEX_SCRIPT:-$ROOT/scripts/gen-index.py}"
+if [ ! -f "$GEN_INDEX_SCRIPT" ] && [ -f /tmp/moartweaks-gen-index.py ]; then
+  GEN_INDEX_SCRIPT=/tmp/moartweaks-gen-index.py
+fi
+python3 "$GEN_INDEX_SCRIPT" "$WORKTREE" "https://futur3sn0w.github.io/repo"
 
 cat > "$WORKTREE/Release" <<'RELEASE'
 Origin: Futur3Sn0w
