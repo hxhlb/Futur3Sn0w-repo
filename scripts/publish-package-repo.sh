@@ -217,12 +217,6 @@ AppSwitcherController/
 */packages/
 GITIGNORE
 
-GEN_INDEX_SCRIPT="${MOARTWEAKS_GEN_INDEX_SCRIPT:-$ROOT/scripts/gen-index.py}"
-if [ ! -f "$GEN_INDEX_SCRIPT" ] && [ -f /tmp/moartweaks-gen-index.py ]; then
-  GEN_INDEX_SCRIPT=/tmp/moartweaks-gen-index.py
-fi
-python3 "$GEN_INDEX_SCRIPT" "$WORKTREE" "https://futur3sn0w.github.io/repo"
-
 cat > "$WORKTREE/Release" <<'RELEASE'
 Origin: Futur3Sn0w
 Label: Futur3Sn0w's Public Repo
@@ -238,6 +232,11 @@ printf 'Architectures: %s\n' "${ARCHITECTURES[*]}" >> "$WORKTREE/Release"
   cd "$WORKTREE"
   generate_packages Packages "${deb_files[@]}"
   python3 "$ROOT/scripts/inject-fields.py" "$ROOT" Packages
+  GEN_INDEX_SCRIPT="${MOARTWEAKS_GEN_INDEX_SCRIPT:-$ROOT/scripts/gen-index.py}"
+  if [ ! -f "$GEN_INDEX_SCRIPT" ] && [ -f /tmp/moartweaks-gen-index.py ]; then
+    GEN_INDEX_SCRIPT=/tmp/moartweaks-gen-index.py
+  fi
+  python3 "$GEN_INDEX_SCRIPT" "$WORKTREE" "https://futur3sn0w.github.io/repo"
   gzip -cn9 Packages > Packages.gz
   append_release_checksums Release Packages Packages.gz
 
