@@ -39,6 +39,9 @@ static NSString *const kS15HEMWeatherBrightnessKey = @"CustomizeWeatherBrightnes
 static NSString *const kS15HEMSystemAppearanceDomain = @"com.apple.uikitservices.userInterfaceStyleMode";
 static NSString *const kS15HEMSystemAppearanceModeValueKey = @"UserInterfaceStyleMode";
 static NSString *const kS15HEMSystemMostRecentAutomaticModeKey = @"MostRecentAutomaticMode";
+static const CGFloat kS15HEMEditingLabelFontDelta = -1.0;
+static const CGFloat kS15HEMEditingLabelXOffset = 0.0;
+static const CGFloat kS15HEMEditingLabelYOffset = 0.0;
 
 static UIWindow *S15HEMHomeScreenWindow(void);
 
@@ -46,6 +49,7 @@ static NSArray<UIWindow *> *S15HEMAllWindows(void);
 static void S15HEMApplyWallpaperDimmingToHomeScreen(void);
 static void S15HEMApplyIconAppearanceToAllVisibleViews(BOOL animated);
 static void S15HEMApplyAppearanceModeToSpringBoard(void);
+static void S15HEMApplyAllCurrentSettings(void);
 static void S15HEMRefreshHomeScreenIconLists(BOOL animated);
 static void S15HEMApplyIconAppearanceInContainer(UIView *container, BOOL animated);
 static void S15HEMHandleHomeScreenTraitChange(UITraitCollection *previousTraitCollection, UITraitCollection *currentTraitCollection);
@@ -53,8 +57,15 @@ static UIUserInterfaceStyle S15HEMResolvedSystemInterfaceStyle(void);
 static UIView *S15HEMDirectIconImageView(UIView *iconView);
 static UIView *S15HEMNearestIconViewForView(UIView *view);
 static void S15HEMAppendTransitionProbe(NSString *phase, UIView *view, NSString *details);
+static void S15HEMAppendTransitionProbeMessage(NSString *phase, NSString *details);
 static void S15HEMLogVisibleIconHierarchySample(void);
 static BOOL S15HEMClassNameLooksLikeIconView(NSString *className);
+static void S15HEMInstallWallpaperModalHooks(void);
+static void S15HEMRetainWallpaperModalController(id modalController);
+static void S15HEMHandleWallpaperModalWillDismiss(id modalController, id response);
+static void S15HEMHandleWallpaperModalDidDismiss(id modalController, id response);
+static void S15HEMConfigureEditingWidgetButton(UIButton *button);
+static void S15HEMUpdateEditingWidgetButtonVisuals(UIButton *button);
 
 typedef NS_ENUM(NSInteger, S15HEMIconSizeMode) {
     S15HEMIconSizeModeSmall = 0,
@@ -857,8 +868,74 @@ static BOOL S15HEMLoadWallpaperSettingsFramework(void) {
         const char *path = "/System/Library/PrivateFrameworks/Settings/WallpaperSettings.framework/WallpaperSettings";
         void *handle = dlopen(path, RTLD_NOW);
         loaded = (handle != NULL);
+        if (loaded) {
+            S15HEMInstallWallpaperModalHooks();
+        }
     });
     return loaded;
+}
+
+static void *kS15HEMManagedWallpaperModalKey = &kS15HEMManagedWallpaperModalKey;
+
+static NSMutableSet *S15HEMActiveWallpaperModalControllers(void) {
+    static NSMutableSet *controllers = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        controllers = [NSMutableSet set];
+    });
+    return controllers;
+}
+
+static UIWindow *S15HEMWindowForWallpaperModalController(id modalController) {
+    if (!modalController) return nil;
+    @try {
+        Ivar windowIvar = class_getInstanceVariable(object_getClass(modalController), "_window");
+        if (!windowIvar) return nil;
+        id window = object_getIvar(modalController, windowIvar);
+        return [window isKindOfClass:UIWindow.class] ? (UIWindow *)window : nil;
+    } @catch (__unused NSException *exception) {
+        return nil;
+    }
+}
+
+static void S15HEMRecoverHomeScreenInteractionAfterWallpaperDismiss(void) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIWindow *homeWindow = S15HEMHomeScreenWindow();
+        homeWindow.userInteractionEnabled = YES;
+        S15HEMApplyAllCurrentSettings();
+    });
+}
+
+static void S15HEMRetainWallpaperModalController(id modalController) {
+    if (!modalController) return;
+    objc_setAssociatedObject(modalController, kS15HEMManagedWallpaperModalKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [S15HEMActiveWallpaperModalControllers() addObject:modalController];
+}
+
+static BOOL S15HEMIsManagedWallpaperModalController(id modalController) {
+    return [objc_getAssociatedObject(modalController, kS15HEMManagedWallpaperModalKey) boolValue];
+}
+
+static void S15HEMDisableWallpaperModalWindow(id modalController, NSString *phase) {
+    (void)phase;
+    UIWindow *modalWindow = S15HEMWindowForWallpaperModalController(modalController);
+    if (!modalWindow) return;
+    modalWindow.userInteractionEnabled = NO;
+    modalWindow.hidden = YES;
+}
+
+static void S15HEMHandleWallpaperModalWillDismiss(id modalController, id response) {
+    (void)response;
+    if (!S15HEMIsManagedWallpaperModalController(modalController)) return;
+}
+
+static void S15HEMHandleWallpaperModalDidDismiss(id modalController, id response) {
+    (void)response;
+    if (!S15HEMIsManagedWallpaperModalController(modalController)) return;
+    S15HEMDisableWallpaperModalWindow(modalController, @"wallpaper.modal.window.disable");
+    [S15HEMActiveWallpaperModalControllers() removeObject:modalController];
+    objc_setAssociatedObject(modalController, kS15HEMManagedWallpaperModalKey, nil, OBJC_ASSOCIATION_ASSIGN);
+    S15HEMRecoverHomeScreenInteractionAfterWallpaperDismiss();
 }
 
 static UIWindowScene *S15HEMWindowSceneForButton(UIView *button) {
@@ -1523,6 +1600,7 @@ static BOOL S15HEMPresentHomeScreenWallpaperModalWithServiceConfiguration(UIView
         SEL presentSel = @selector(presentFromWindowScene:);
         if ([modalController respondsToSelector:presentSel] && scene) {
             ((void (*)(id, SEL, id))objc_msgSend)(modalController, presentSel, scene);
+            S15HEMRetainWallpaperModalController(modalController);
             return YES;
         }
         return NO;
@@ -2550,24 +2628,242 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
     return [UIMenu menuWithTitle:@"" children:@[addWidget, customize, editWallpaper, editPages]];
 }
 
-%hook SBHEditingWidgetButton
+%group S15HEMPRUIHooks
 
-- (void)didMoveToWindow {
-    %orig;
-    if (!S15HEMIsSpringBoard()) return;
+%hook PRUIModalController
 
-    UIButton *button = (UIButton *)self;
+- (void)modalRemoteViewController:(id)remoteViewController willDismissWithResponse:(id)response {
+    S15HEMHandleWallpaperModalWillDismiss((id)self, response);
+    %orig(remoteViewController, response);
+}
+
+- (void)modalRemoteViewController:(id)remoteViewController didDismissWithResponse:(id)response {
+    %orig(remoteViewController, response);
+    S15HEMHandleWallpaperModalDidDismiss((id)self, response);
+}
+
+%end
+
+%end
+
+static void S15HEMInstallWallpaperModalHooks(void) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class modalControllerClass = NSClassFromString(@"PRUIModalController");
+        if (!modalControllerClass) {
+            return;
+        }
+        %init(S15HEMPRUIHooks, PRUIModalController = modalControllerClass);
+    });
+}
+
+static void *kS15HEMEditingLabelOverlayKey = &kS15HEMEditingLabelOverlayKey;
+
+static BOOL S15HEMViewLooksLikeEditingGlyph(UIView *view) {
+    if (!view) return NO;
+    if ([view isKindOfClass:UIImageView.class]) return YES;
+    NSString *className = NSStringFromClass(view.class);
+    return [className containsString:@"Symbol"] ||
+           [className containsString:@"Glyph"] ||
+           [className containsString:@"Image"];
+}
+
+static void S15HEMHideEditingGlyphSubviews(UIView *root) {
+    for (UIView *subview in root.subviews) {
+        if (S15HEMViewLooksLikeEditingGlyph(subview)) {
+            subview.alpha = 0.0;
+        }
+        S15HEMHideEditingGlyphSubviews(subview);
+    }
+}
+
+static UILabel *S15HEMFindVisibleLabelWithText(UIView *root, NSString *text) {
+    if (!root || text.length == 0) return nil;
+    NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:root];
+    while (queue.count) {
+        UIView *candidate = queue.firstObject;
+        [queue removeObjectAtIndex:0];
+        if (candidate.hidden || candidate.alpha <= 0.01) continue;
+        if ([candidate isKindOfClass:UILabel.class]) {
+            UILabel *label = (UILabel *)candidate;
+            if ([label.text isEqualToString:text]) return label;
+        }
+        [queue addObjectsFromArray:candidate.subviews];
+    }
+    return nil;
+}
+
+static UIButton *S15HEMFindVisibleButtonWithTitle(UIView *root, NSString *title) {
+    if (!root || title.length == 0) return nil;
+    NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:root];
+    while (queue.count) {
+        UIView *candidate = queue.firstObject;
+        [queue removeObjectAtIndex:0];
+        if (candidate.hidden || candidate.alpha <= 0.01) continue;
+        if ([candidate isKindOfClass:UIButton.class]) {
+            UIButton *button = (UIButton *)candidate;
+            NSString *buttonTitle = [button titleForState:UIControlStateNormal] ?: button.titleLabel.text;
+            if ([buttonTitle isEqualToString:title]) return button;
+        }
+        [queue addObjectsFromArray:candidate.subviews];
+    }
+    return nil;
+}
+
+static UILabel *S15HEMFindDoneLabelForEditingButton(UIButton *editButton) {
+    for (UIWindow *window in S15HEMAllWindows()) {
+        if (!window || window.hidden || window.alpha <= 0.01) continue;
+        UILabel *label = S15HEMFindVisibleLabelWithText(window, @"Done");
+        if (label) return label;
+        UIButton *doneButton = S15HEMFindVisibleButtonWithTitle(window, @"Done");
+        if (doneButton.titleLabel) return doneButton.titleLabel;
+    }
+    return nil;
+}
+
+static void S15HEMApplyDoneStyleToEditingLabel(UILabel *label, UIButton *editButton) {
+    UILabel *doneLabel = S15HEMFindDoneLabelForEditingButton(editButton);
+    if (doneLabel) {
+        CGFloat pointSize = MAX(1.0, doneLabel.font.pointSize + kS15HEMEditingLabelFontDelta);
+        UIFontDescriptor *descriptor = doneLabel.font.fontDescriptor;
+        NSDictionary *traits = [descriptor objectForKey:UIFontDescriptorTraitsAttribute];
+        CGFloat weight = [traits[UIFontWeightTrait] doubleValue];
+        UIFontDescriptor *weightedDescriptor = [descriptor fontDescriptorByAddingAttributes:@{
+            UIFontDescriptorTraitsAttribute: @{ UIFontWeightTrait: @(MIN(weight + 0.08, 1.0)) }
+        }];
+        label.font = [UIFont fontWithDescriptor:weightedDescriptor size:pointSize];
+        label.textColor = doneLabel.textColor;
+        label.textAlignment = doneLabel.textAlignment;
+    } else {
+        label.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
+        label.textColor = UIColor.labelColor;
+        label.textAlignment = NSTextAlignmentCenter;
+    }
+}
+
+static UILabel *S15HEMEditingLabelOverlayForButton(UIButton *button) {
+    UILabel *label = objc_getAssociatedObject(button, kS15HEMEditingLabelOverlayKey);
+    if (!label) {
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.text = @"Edit";
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold];
+        label.textColor = UIColor.labelColor;
+        label.backgroundColor = UIColor.clearColor;
+        label.userInteractionEnabled = NO;
+        label.hidden = YES;
+        objc_setAssociatedObject(button, kS15HEMEditingLabelOverlayKey, label, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    S15HEMApplyDoneStyleToEditingLabel(label, button);
+    return label;
+}
+
+static void S15HEMUpdateEditingWidgetButtonVisuals(UIButton *button) {
+    if (!button || !button.superview) return;
+
+    UILabel *label = S15HEMEditingLabelOverlayForButton(button);
+    if (label.superview != button.superview) {
+        [label removeFromSuperview];
+        [button.superview addSubview:label];
+    }
+
+    [label sizeToFit];
+    CGFloat width = MAX(48.0, ceil(label.bounds.size.width) + 18.0);
+    CGFloat height = MAX(CGRectGetHeight(button.bounds), ceil(label.bounds.size.height) + 8.0);
+    CGPoint center = CGPointMake(CGRectGetMidX(button.frame) + kS15HEMEditingLabelXOffset,
+                                 CGRectGetMidY(button.frame) + kS15HEMEditingLabelYOffset);
+    label.frame = CGRectMake(round(center.x - width * 0.5),
+                             round(center.y - height * 0.5),
+                             width,
+                             height);
+    label.hidden = button.hidden || button.alpha <= 0.01;
+    [button.superview bringSubviewToFront:label];
+}
+
+static void S15HEMStyleEditingWidgetButtonAsEdit(UIButton *button) {
+    if (!button) return;
+    button.userInteractionEnabled = YES;
+    [button setTitle:nil forState:UIControlStateNormal];
+    [button setTitleColor:UIColor.clearColor forState:UIControlStateNormal];
+    button.tintColor = UIColor.clearColor;
+    button.imageView.alpha = 0.0;
+    S15HEMHideEditingGlyphSubviews(button);
+    S15HEMUpdateEditingWidgetButtonVisuals(button);
+}
+
+static void S15HEMConfigureEditingWidgetButton(UIButton *button) {
     if (!button.window) return;
     if (![button respondsToSelector:@selector(setMenu:)] ||
         ![button respondsToSelector:@selector(setShowsMenuAsPrimaryAction:)]) {
         return;
     }
 
+    S15HEMStyleEditingWidgetButtonAsEdit(button);
+    button.backgroundColor = UIColor.clearColor;
     button.menu = S15HEMMenuForButton(button);
     button.showsMenuAsPrimaryAction = YES;
     if ([button respondsToSelector:@selector(setChangesSelectionAsPrimaryAction:)]) {
         button.changesSelectionAsPrimaryAction = NO;
     }
+}
+
+static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
+    UIWindow *window = button.window;
+    if (!window || !button.superview) return CGRectInset(button.bounds, -24.0, -18.0);
+
+    CGRect windowBounds = window.bounds;
+    CGRect buttonFrame = [button.superview convertRect:button.frame toView:window];
+    CGFloat safeTop = window.safeAreaInsets.top;
+    CGFloat height = MAX(CGRectGetMaxY(buttonFrame) + 18.0, safeTop + 58.0);
+    height = MIN(height, CGRectGetHeight(windowBounds));
+    CGFloat width = MIN(MAX(150.0, CGRectGetWidth(windowBounds) * 0.44), CGRectGetWidth(windowBounds));
+    BOOL buttonOnRight = CGRectGetMidX(buttonFrame) > CGRectGetMidX(windowBounds);
+    CGFloat x = buttonOnRight ? CGRectGetWidth(windowBounds) - width : 0.0;
+    CGRect earFrame = CGRectMake(x, 0.0, width, height);
+    return [window convertRect:earFrame toView:button];
+}
+
+%hook SBHEditingWidgetButton
+
+- (void)didMoveToWindow {
+    %orig;
+    if (!S15HEMIsSpringBoard()) return;
+    S15HEMConfigureEditingWidgetButton((UIButton *)self);
+    __weak UIButton *weakButton = (UIButton *)self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIButton *button = weakButton;
+        if (button.window) S15HEMUpdateEditingWidgetButtonVisuals(button);
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIButton *button = weakButton;
+        if (button.window) S15HEMUpdateEditingWidgetButtonVisuals(button);
+    });
+}
+
+- (void)layoutSubviews {
+    %orig;
+    if (!S15HEMIsSpringBoard()) return;
+    S15HEMHideEditingGlyphSubviews((UIView *)self);
+    S15HEMUpdateEditingWidgetButtonVisuals((UIButton *)self);
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    if (!S15HEMIsSpringBoard()) return %orig(point, event);
+    UIButton *button = (UIButton *)self;
+    if (!button.window || button.hidden || button.alpha <= 0.01) return %orig(point, event);
+    return CGRectContainsPoint(S15HEMExpandedEditingWidgetHitFrame(button), point);
+}
+
+- (void)setHidden:(BOOL)hidden {
+    %orig(hidden);
+    if (!S15HEMIsSpringBoard()) return;
+    S15HEMUpdateEditingWidgetButtonVisuals((UIButton *)self);
+}
+
+- (void)setAlpha:(CGFloat)alpha {
+    %orig(alpha);
+    if (!S15HEMIsSpringBoard()) return;
+    S15HEMUpdateEditingWidgetButtonVisuals((UIButton *)self);
 }
 
 // SpringBoard occasionally reasserts its own default (widgets-only) menu on
@@ -2869,4 +3165,5 @@ static UIMenu *S15HEMMenuForButton(UIView *button) {
 %end
 
 %ctor {
+    %init;
 }
