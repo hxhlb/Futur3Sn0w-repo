@@ -243,7 +243,6 @@ static BOOL DLDockFullInstalled(void) {
 	pan.maximumNumberOfTouches = 1;
 	[dockView addGestureRecognizer:pan];
 	self.dockPan = pan;
-	NSLog(@"[DockLibrary] attached pan to dock view %@", dockView);
 }
 
 // "Swipe Up Anywhere": a second pan recognizer covering the whole home screen
@@ -263,7 +262,6 @@ static BOOL DLDockFullInstalled(void) {
 	pan.maximumNumberOfTouches = 1;
 	[homeView addGestureRecognizer:pan];
 	self.homePan = pan;
-	NSLog(@"[DockLibrary] attached anywhere-pan to home view %@", homeView);
 }
 
 #pragma mark Session lifecycle
@@ -312,7 +310,6 @@ static BOOL DLDockFullInstalled(void) {
 	self.openTop = self.sessionImmersive ? 0.0 : win.safeAreaInsets.top;
 
 	if (![self acquireLibraryView]) {
-		NSLog(@"[DockLibrary] failed to acquire App Library view controller");
 		return NO;
 	}
 
@@ -362,8 +359,7 @@ static BOOL DLDockFullInstalled(void) {
 	self.libView.autoresizingMask = UIViewAutoresizingNone;
 	@try {
 		[container addSubview:self.libView];
-	} @catch (NSException *e) {
-		NSLog(@"[DockLibrary] add libView failed: %@", e);
+	} @catch (__unused NSException *e) {
 		[container removeFromSuperview];
 		self.libContainer = nil;
 		self.panelBackgroundView = nil;
@@ -480,13 +476,11 @@ static BOOL DLDockFullInstalled(void) {
 		}
 		[v.layer removeAllAnimations];
 		[v removeFromSuperview];
-	} @catch (NSException *e) {
-		NSLog(@"[DockLibrary] containment detach failed: %@", e);
+	} @catch (__unused NSException *e) {
 		self.libVC = nil;
 		return NO;
 	}
 	self.libView = v;
-	NSLog(@"[DockLibrary] acquired %@ (overlay=%d reparented=%d)", NSStringFromClass([vc class]), self.presentedOverlay, self.reparentedPageVC);
 	return YES;
 }
 
@@ -603,7 +597,6 @@ static BOOL DLDockFullInstalled(void) {
 			[sv.panGestureRecognizer requireGestureRecognizerToFail:pan];
 		} @catch (__unused NSException *e) {}
 	}
-	NSLog(@"[DockLibrary] dismiss pan installed; %lu scroll views deferred", (unsigned long)scrollViews.count);
 }
 
 - (void)teardown {
@@ -642,31 +635,6 @@ static BOOL DLDockFullInstalled(void) {
 	self.open = NO;
 }
 
-- (NSString *)runSelfTest {
-	NSMutableString *r = [NSMutableString string];
-	if (self.active) {
-		[r appendString:@"already active\n"];
-		return r;
-	}
-	if (!self.dockView) {
-		[r appendString:@"FAIL: no dock view captured\n"];
-		return r;
-	}
-	BOOL ok = [self beginSession];
-	[r appendFormat:@"beginSession=%d\n", ok];
-	if (!ok) return r;
-	[r appendFormat:@"libVC=%@\n", NSStringFromClass([self.libVC class])];
-	[r appendFormat:@"libView=%@ frame=%@\n", NSStringFromClass([self.libView class]), NSStringFromCGRect(self.libView.frame)];
-	[r appendFormat:@"bg=%@ orig=%@\n", NSStringFromClass([self.dockBackgroundView class]), NSStringFromCGRect(self.originalBgFrame)];
-	[r appendFormat:@"overlay=%d reparent=%d openTop=%.1f dockTop=%.1f\n", self.presentedOverlay, self.reparentedPageVC, self.openTop, self.dockBgTopInWindow];
-	[self settleToOpen:YES velocity:0];
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		self.open = NO;
-		[self settleToOpen:NO velocity:0];
-	});
-	return r;
-}
-
 - (void)restoreLibraryView {
 	UIView *v = self.libView;
 	UIViewController *vc = self.libVC;
@@ -685,9 +653,7 @@ static BOOL DLDockFullInstalled(void) {
 			[parent addChildViewController:vc];
 			[vc didMoveToParentViewController:parent];
 		}
-	} @catch (NSException *e) {
-		NSLog(@"[DockLibrary] restoreLibraryView failed: %@", e);
-	}
+	} @catch (__unused NSException *e) {}
 	self.libVCOriginalParent = nil;
 }
 
@@ -863,123 +829,6 @@ static BOOL DLDockFullInstalled(void) {
 
 @end
 
-#pragma mark - Introspection dump (development aid)
-
-static void DLDescribeViewTree(UIView *v, NSInteger depth, NSInteger maxDepth, NSMutableString *out) {
-	if (!v || depth > maxDepth) return;
-	[out appendFormat:@"%*s%@ frame=%@ alpha=%.2f hidden=%d\n", (int)(depth * 2), "", NSStringFromClass([v class]), NSStringFromCGRect(v.frame), v.alpha, v.isHidden];
-	for (UIView *sub in v.subviews) {
-		DLDescribeViewTree(sub, depth + 1, maxDepth, out);
-	}
-}
-
-static void DLDescribeVCTree(UIViewController *vc, NSInteger depth, NSInteger maxDepth, NSMutableString *out) {
-	if (!vc || depth > maxDepth) return;
-	[out appendFormat:@"%*s%@\n", (int)(depth * 2), "", NSStringFromClass([vc class])];
-	for (UIViewController *c in vc.childViewControllers) {
-		DLDescribeVCTree(c, depth + 1, maxDepth, out);
-	}
-}
-
-static void DLAppendMethods(NSMutableString *out, const char *clsName, NSArray<NSString *> *filters) {
-	Class cls = objc_getClass(clsName);
-	if (!cls) {
-		[out appendFormat:@"(class %s not found)\n", clsName];
-		return;
-	}
-	[out appendFormat:@"== %s ==\n", clsName];
-	unsigned int count = 0;
-	Method *methods = class_copyMethodList(cls, &count);
-	for (unsigned int i = 0; i < count; i++) {
-		NSString *sel = NSStringFromSelector(method_getName(methods[i]));
-		BOOL matched = (filters.count == 0);
-		for (NSString *f in filters) {
-			if ([sel rangeOfString:f options:NSCaseInsensitiveSearch].location != NSNotFound) {
-				matched = YES;
-				break;
-			}
-		}
-		if (matched) [out appendFormat:@"  -%@\n", sel];
-	}
-	free(methods);
-}
-
-static void DLWriteDump(void) {
-	NSMutableString *out = [NSMutableString string];
-	[out appendString:@"DockLibrary introspection dump\n\n"];
-
-	DLAppendMethods(out, "SBIconController", @[@"librar", @"overlay", @"dock", @"present", @"dismiss"]);
-	DLAppendMethods(out, "SBHLibraryViewController", @[@"init", @"icon", @"search", @"appear"]);
-	DLAppendMethods(out, "SBDockView", @[]);
-	DLAppendMethods(out, "SBRootFolderView", @[@"overscroll", @"librar", @"page"]);
-
-	// Overlay machinery (iOS 16 presents the App Library as a home screen overlay).
-	SBIconController *icTop = [objc_getClass("SBIconController") sharedInstance];
-	@try {
-		id overlay = nil;
-		if ([icTop respondsToSelector:@selector(homeScreenOverlayController)]) {
-			overlay = ((id (*)(id, SEL))objc_msgSend)(icTop, @selector(homeScreenOverlayController));
-		}
-		[out appendFormat:@"\n== homeScreenOverlayController: %@ ==\n", overlay ? NSStringFromClass([overlay class]) : @"(nil)"];
-		if (overlay) {
-			DLAppendMethods(out, class_getName([overlay class]), @[]);
-		}
-	} @catch (NSException *e) {
-		[out appendFormat:@"overlay dump error: %@\n", e];
-	}
-	@try {
-		if ([icTop respondsToSelector:@selector(_homeScreenOverlayControllerIfNeeded)]) {
-			id ov2 = ((id (*)(id, SEL))objc_msgSend)(icTop, @selector(_homeScreenOverlayControllerIfNeeded));
-			[out appendFormat:@"\n== _homeScreenOverlayControllerIfNeeded: %@ ==\n", ov2 ? NSStringFromClass([ov2 class]) : @"(nil)"];
-			if (ov2) DLAppendMethods(out, class_getName([ov2 class]), @[]);
-		}
-	} @catch (NSException *e) {
-		[out appendFormat:@"overlay2 dump error: %@\n", e];
-	}
-
-	[out appendString:@"\n== SB classes matching 'Overlay'/'Overscroll' ==\n"];
-	unsigned int ovCount = 0;
-	Class *ovClasses = objc_copyClassList(&ovCount);
-	for (unsigned int i = 0; i < ovCount; i++) {
-		const char *name = class_getName(ovClasses[i]);
-		if ((strstr(name, "Overlay") || strstr(name, "Overscroll")) && (name[0] == 'S' && name[1] == 'B')) {
-			[out appendFormat:@"  %s\n", name];
-		}
-	}
-	free(ovClasses);
-
-	DLAppendMethods(out, "SBRootFolderController", @[@"overlay", @"overscroll", @"custom", @"librar", @"today"]);
-	DLAppendMethods(out, "SBRootFolderView", @[@"custom", @"overlay"]);
-
-	[out appendString:@"\n== classes matching 'Library' ==\n"];
-	unsigned int classCount = 0;
-	Class *classes = objc_copyClassList(&classCount);
-	for (unsigned int i = 0; i < classCount; i++) {
-		const char *name = class_getName(classes[i]);
-		if (strstr(name, "Library")) [out appendFormat:@"  %s\n", name];
-	}
-	free(classes);
-
-	DLController *ctl = [DLController sharedController];
-	if (ctl.dockView) {
-		[out appendString:@"\n== dock view tree ==\n"];
-		DLDescribeViewTree(ctl.dockView, 0, 5, out);
-	}
-	SBIconController *ic = [objc_getClass("SBIconController") sharedInstance];
-	@try {
-		id rfc = [ic respondsToSelector:@selector(_rootFolderController)] ? [ic _rootFolderController] : nil;
-		if ([rfc isKindOfClass:[UIViewController class]]) {
-			[out appendString:@"\n== root folder VC tree ==\n"];
-			DLDescribeVCTree(rfc, 0, 6, out);
-		}
-	} @catch (__unused NSException *e) {}
-
-	NSString *path = @"/var/mobile/Documents/DockLibrary-dump.txt";
-	NSError *err = nil;
-	[out writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&err];
-	NSLog(@"[DockLibrary] dump written to %@ (error: %@)", path, err);
-}
-
 #pragma mark - Hooks
 
 %hook SBDockView
@@ -1093,16 +942,5 @@ static void DLWriteDump(void) {
 		notify_register_dispatch("com.futur3sn0w.docklibrary.close", &token3, dispatch_get_main_queue(), ^(__unused int t) {
 			[[DLController sharedController] emergencyClose];
 		});
-		int token5 = 0;
-		notify_register_dispatch("com.futur3sn0w.docklibrary.test", &token5, dispatch_get_main_queue(), ^(__unused int t) {
-			NSString *r = [[DLController sharedController] runSelfTest];
-			[r writeToFile:@"/var/mobile/Documents/DockLibrary-test.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
-			NSLog(@"[DockLibrary] selftest: %@", r);
-		});
-		int token4 = 0;
-		notify_register_dispatch("com.futur3sn0w.docklibrary.dump", &token4, dispatch_get_main_queue(), ^(__unused int t) {
-			DLWriteDump();
-		});
-		NSLog(@"[DockLibrary] loaded (enabled=%d replace=%d)", dlEnabled, dlReplace);
 	}
 }

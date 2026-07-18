@@ -34,7 +34,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "0.1.0-15probe2"
+          "text": "0.2.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -63,13 +63,18 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Version 0.1.0-15probe2",
+          "title": "Version 0.2.0",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "• Adds iOS 15 compatibility probes and lowers the package requirement to iOS 15.0+",
+          "markdown": "• Adds iOS 15 compatibility and lowers the package requirement to iOS 15.0+",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "• Removes development diagnostics and file-backed runtime logging from the public build",
           "useSpacing": false
         },
         {

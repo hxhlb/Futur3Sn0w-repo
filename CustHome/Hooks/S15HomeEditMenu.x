@@ -23,12 +23,6 @@ static void *kS15HEMWallpaperDimOverlayKey = &kS15HEMWallpaperDimOverlayKey;
 static void *kS15HEMLastAppliedIconModeKey = &kS15HEMLastAppliedIconModeKey;
 static void *kS15HEMApplyingManagedTransformKey = &kS15HEMApplyingManagedTransformKey;
 static void *kS15HEMApplyingManagedAlphaKey = &kS15HEMApplyingManagedAlphaKey;
-static NSString *const kS15HEMTransitionProbePath = @"/var/mobile/Documents/CustHome-transition-probe.log";
-static NSUInteger sS15HEMTransitionProbeCount = 0;
-static CFTimeInterval sS15HEMTransitionProbeStart = 0;
-static BOOL sS15HEMLoggedIconLayoutSample = NO;
-static BOOL sS15HEMLoggedImageLayoutSample = NO;
-
 static NSString *const kS15HEMPrefsDomain = @"com.futur3sn0w.custhome";
 static NSString *const kS15HEMEnabledKey = @"CustHomeEnabled";
 static NSString *const kS15HEMAppearanceControlModeKey = @"CustHomeAppearanceControlMode";
@@ -57,10 +51,6 @@ static void S15HEMHandleHomeScreenTraitChange(UITraitCollection *previousTraitCo
 static UIUserInterfaceStyle S15HEMResolvedSystemInterfaceStyle(void);
 static UIView *S15HEMDirectIconImageView(UIView *iconView);
 static UIView *S15HEMNearestIconViewForView(UIView *view);
-static void S15HEMAppendTransitionProbe(NSString *phase, UIView *view, NSString *details);
-static void S15HEMAppendTransitionProbeMessage(NSString *phase, NSString *details);
-static void S15HEMLogVisibleIconHierarchySample(void);
-static void S15HEMLogIOS15CompatibilityProbe(UIView *editingButton);
 static BOOL S15HEMClassNameLooksLikeIconView(NSString *className);
 static void S15HEMInstallWallpaperModalHooks(void);
 static BOOL S15HEMLoadWallpaperSettingsFramework(void);
@@ -429,206 +419,6 @@ static CGFloat S15HEMCurrentIconScale(void) {
     return S15HEMIconSizePreference() == S15HEMIconSizeModeLarge ? 1.12 : 1.0;
 }
 
-static NSString *S15HEMShortViewSummary(UIView *view) {
-    if (!view) return @"(nil)";
-    return [NSString stringWithFormat:@"%@ frame=%@ alpha=%.2f hidden=%d",
-            NSStringFromClass(view.class),
-            NSStringFromCGRect(view.frame),
-            view.alpha,
-            view.hidden ? 1 : 0];
-}
-
-static NSString *S15HEMViewChainSummary(UIView *view, NSUInteger limit) {
-    if (!view) return @"(nil)";
-    NSMutableArray<NSString *> *parts = [NSMutableArray array];
-    UIView *current = view;
-    NSUInteger depth = 0;
-    while (current && depth < limit) {
-        [parts addObject:S15HEMShortViewSummary(current)];
-        current = current.superview;
-        depth++;
-    }
-    return [parts componentsJoinedByString:@" <- "];
-}
-
-static void S15HEMAppendTransitionProbe(NSString *phase, UIView *view, NSString *details) {
-    if (!view || sS15HEMTransitionProbeCount >= 250) return;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [[NSFileManager defaultManager] removeItemAtPath:kS15HEMTransitionProbePath error:nil];
-        sS15HEMTransitionProbeStart = CACurrentMediaTime();
-    });
-
-    sS15HEMTransitionProbeCount++;
-    CFTimeInterval now = CACurrentMediaTime();
-    CFTimeInterval elapsed = sS15HEMTransitionProbeStart > 0 ? (now - sS15HEMTransitionProbeStart) : 0;
-    UIView *iconView = S15HEMNearestIconViewForView(view);
-    NSString *line = [NSString stringWithFormat:@"t=%.3f %lu %@ view={%@} icon={%@} chain=%@ %@\n",
-                      elapsed,
-                      (unsigned long)sS15HEMTransitionProbeCount,
-                      phase ?: @"(null)",
-                      S15HEMShortViewSummary(view),
-                      S15HEMShortViewSummary(iconView),
-                      S15HEMViewChainSummary(view, 5),
-                      details ?: @""];
-
-    NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
-    if (!data.length) return;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    if (![manager fileExistsAtPath:kS15HEMTransitionProbePath]) {
-        [manager createFileAtPath:kS15HEMTransitionProbePath contents:nil attributes:nil];
-    }
-    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:kS15HEMTransitionProbePath];
-    if (!handle) return;
-    [handle seekToEndOfFile];
-    [handle writeData:data];
-    [handle closeFile];
-}
-
-static void S15HEMAppendTransitionProbeMessage(NSString *phase, NSString *details) {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [[NSFileManager defaultManager] removeItemAtPath:kS15HEMTransitionProbePath error:nil];
-        sS15HEMTransitionProbeStart = CACurrentMediaTime();
-    });
-
-    CFTimeInterval now = CACurrentMediaTime();
-    CFTimeInterval elapsed = sS15HEMTransitionProbeStart > 0 ? (now - sS15HEMTransitionProbeStart) : 0;
-    NSString *line = [NSString stringWithFormat:@"t=%.3f %@ %@\n",
-                      elapsed,
-                      phase ?: @"(null)",
-                      details ?: @""];
-    NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
-    if (!data.length) return;
-    NSFileManager *manager = [NSFileManager defaultManager];
-    if (![manager fileExistsAtPath:kS15HEMTransitionProbePath]) {
-        [manager createFileAtPath:kS15HEMTransitionProbePath contents:nil attributes:nil];
-    }
-    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:kS15HEMTransitionProbePath];
-    if (!handle) return;
-    [handle seekToEndOfFile];
-    [handle writeData:data];
-    [handle closeFile];
-}
-
-static void S15HEMLogVisibleIconHierarchySample(void) {
-    static BOOL logged = NO;
-    if (logged || !S15HEMIsSpringBoard()) return;
-    logged = YES;
-
-    NSUInteger emitted = 0;
-    for (UIWindow *window in S15HEMAllWindows()) {
-        if (!window || window.hidden || window.alpha <= 0.01) continue;
-        NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:window];
-        while (queue.count && emitted < 80) {
-            UIView *candidate = queue.firstObject;
-            [queue removeObjectAtIndex:0];
-            [queue addObjectsFromArray:candidate.subviews];
-
-            if (candidate.hidden || candidate.alpha <= 0.01) continue;
-            NSString *className = NSStringFromClass(candidate.class);
-            BOOL iconish = [className containsString:@"Icon"] ||
-                           [className containsString:@"Folder"] ||
-                           [className containsString:@"Label"];
-            if (!iconish) continue;
-
-            NSString *details = [NSString stringWithFormat:@"window=%@ respondsIcon=%d subviews=%lu",
-                                 NSStringFromClass(window.class),
-                                 [candidate respondsToSelector:@selector(icon)] ? 1 : 0,
-                                 (unsigned long)candidate.subviews.count];
-            S15HEMAppendTransitionProbe(@"hierarchy.sample", candidate, details);
-            emitted++;
-        }
-    }
-}
-
-static NSString *S15HEMSelectorAvailabilitySummary(Class cls, NSArray<NSString *> *selectors) {
-    if (!cls) return @"class=0";
-    NSMutableArray<NSString *> *parts = [NSMutableArray arrayWithObject:@"class=1"];
-    for (NSString *selectorName in selectors) {
-        SEL selector = NSSelectorFromString(selectorName);
-        BOOL classResponds = [cls respondsToSelector:selector];
-        BOOL instanceResponds = [cls instancesRespondToSelector:selector];
-        [parts addObject:[NSString stringWithFormat:@"%@=%d/%d", selectorName, classResponds ? 1 : 0, instanceResponds ? 1 : 0]];
-    }
-    return [parts componentsJoinedByString:@","];
-}
-
-static void S15HEMLogIOS15CompatibilityProbe(UIView *editingButton) {
-    static BOOL loggedLaunch = NO;
-    static BOOL loggedButton = NO;
-
-    if (!loggedLaunch) {
-        loggedLaunch = YES;
-        NSArray<NSString *> *classNames = @[
-            @"SBHEditingWidgetButton",
-            @"SBIconListPageControl",
-            @"SBRootFolderView",
-            @"SBWallpaperController",
-            @"PRSService",
-            @"PRUIModalController",
-            @"PRUIModalEntryPointEditHomeScreen",
-            @"UISUserInterfaceStyleMode"
-        ];
-        NSMutableArray<NSString *> *classParts = [NSMutableArray array];
-        for (NSString *className in classNames) {
-            [classParts addObject:[NSString stringWithFormat:@"%@=%d", className, NSClassFromString(className) ? 1 : 0]];
-        }
-
-        Class wallpaperControllerClass = NSClassFromString(@"SBWallpaperController");
-        Class modalControllerClass = NSClassFromString(@"PRUIModalController");
-        Class editButtonClass = NSClassFromString(@"SBHEditingWidgetButton");
-        NSString *wallpaperSelectors = S15HEMSelectorAvailabilitySummary(wallpaperControllerClass, @[
-            @"sharedInstance",
-            @"homeScreenPosterConfiguration",
-            @"wallpaperConfigurationManager"
-        ]);
-        NSString *modalSelectors = S15HEMSelectorAvailabilitySummary(modalControllerClass, @[
-            @"initWithEntryPoint:",
-            @"presentFromWindowScene:"
-        ]);
-        NSString *buttonSelectors = S15HEMSelectorAvailabilitySummary(editButtonClass, @[
-            @"setMenu:",
-            @"setShowsMenuAsPrimaryAction:",
-            @"setChangesSelectionAsPrimaryAction:"
-        ]);
-
-        S15HEMAppendTransitionProbeMessage(@"ios15.compat",
-                                           [NSString stringWithFormat:@"system=%@ classes={%@} wallpaper={%@} modal={%@} editButton={%@} wallpaperFramework=%d",
-                                            UIDevice.currentDevice.systemVersion ?: @"(nil)",
-                                            [classParts componentsJoinedByString:@","],
-                                            wallpaperSelectors,
-                                            modalSelectors,
-                                            buttonSelectors,
-                                            S15HEMLoadWallpaperSettingsFramework() ? 1 : 0]);
-    }
-
-    if (editingButton && !loggedButton) {
-        loggedButton = YES;
-        UIWindow *window = editingButton.window;
-        CGRect windowFrame = window ? [editingButton.superview convertRect:editingButton.frame toView:window] : CGRectZero;
-        UIEdgeInsets insets = window ? window.safeAreaInsets : UIEdgeInsetsZero;
-        CGRect hitFrame = [editingButton convertRect:S15HEMExpandedEditingWidgetHitFrame((UIButton *)editingButton) toView:window];
-        S15HEMAppendTransitionProbe(@"ios15.editButton",
-                                    editingButton,
-                                    [NSString stringWithFormat:@"windowFrame={%.1f,%.1f,%.1f,%.1f} safe={%.1f,%.1f,%.1f,%.1f} hit={%.1f,%.1f,%.1f,%.1f} hasDone=%d",
-                                     windowFrame.origin.x,
-                                     windowFrame.origin.y,
-                                     windowFrame.size.width,
-                                     windowFrame.size.height,
-                                     insets.top,
-                                     insets.left,
-                                     insets.bottom,
-                                     insets.right,
-                                     hitFrame.origin.x,
-                                     hitFrame.origin.y,
-                                     hitFrame.size.width,
-                                     hitFrame.size.height,
-                                     S15HEMFindDoneLabelForEditingButton((UIButton *)editingButton) ? 1 : 0]);
-    }
-}
-
 static CGFloat S15HEMTransformScaleX(CGAffineTransform transform) {
     return sqrt((transform.a * transform.a) + (transform.c * transform.c));
 }
@@ -800,7 +590,7 @@ static CGFloat S15HEMExpandedSheetHeight(void) {
     return S15HEMSheetHeightForSliderSectionHeight(kS15HEMSheetSliderSectionExpandedHeight);
 }
 
-// A screenshot pulled from the device (via the ios-mcp debug channel) showed
+// A screenshot pulled from the device during compatibility testing showed
 // the actual bug behind every "oval blob" / "keeps filling" report on the
 // dimming gauge: SF Symbol "sun.max" bakes a permanently SOLID hub into the
 // glyph itself — only the ray weight changes between the .fill/non-.fill
@@ -3056,7 +2846,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
         S15HEMRemoveEditingLabelOverlay((UIButton *)self);
         return;
     }
-    S15HEMLogIOS15CompatibilityProbe((UIView *)self);
     S15HEMConfigureEditingWidgetButton((UIButton *)self);
     __weak UIButton *weakButton = (UIButton *)self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -3155,17 +2944,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
     UIView *iconView = (UIView *)self;
-    if (!sS15HEMLoggedIconLayoutSample) {
-        sS15HEMLoggedIconLayoutSample = YES;
-        S15HEMAppendTransitionProbe(@"SBIconView.layoutSubviews.sample",
-                                    iconView,
-                                    [NSString stringWithFormat:@"mode=%ld transform={%.3f,%.3f,%.3f,%.3f}",
-                                     (long)S15HEMIconSizePreference(),
-                                     iconView.transform.a,
-                                     iconView.transform.b,
-                                     iconView.transform.c,
-                                     iconView.transform.d]);
-    }
     if (S15HEMShouldProcessIconView(iconView)) {
         S15HEMApplyIconAppearanceToView(iconView);
         return;
@@ -3216,16 +2994,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
             UIView *ownerIconView = S15HEMNearestIconViewForView(selfView);
             if (ownerIconView && S15HEMShouldProcessIconView(ownerIconView) &&
                 S15HEMIconSizePreference() == S15HEMIconSizeModeLarge) {
-                CGFloat incomingScaleX = S15HEMTransformScaleX(transform);
-                CGFloat incomingScaleY = S15HEMTransformScaleY(transform);
-                if (fabs(incomingScaleX - 1.0) < 0.03 || fabs(incomingScaleY - 1.0) < 0.03) {
-                    S15HEMAppendTransitionProbe(@"UIView.setTransform.container",
-                                                selfView,
-                                                [NSString stringWithFormat:@"incoming={%.3f,%.3f} outgoing={%.3f,%.3f}",
-                                                 incomingScaleX, incomingScaleY,
-                                                 S15HEMTransformScaleX(S15HEMManagedTransformForIncomingTransform(transform)),
-                                                 S15HEMTransformScaleY(S15HEMManagedTransformForIncomingTransform(transform))]);
-                }
                 transform = S15HEMManagedTransformForIncomingTransform(transform);
             }
         }
@@ -3263,16 +3031,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
     if (!applyingManagedTransform &&
         S15HEMShouldProcessContentView(selfView) &&
         S15HEMIconSizePreference() == S15HEMIconSizeModeLarge) {
-        CGFloat incomingScaleX = S15HEMTransformScaleX(transform);
-        CGFloat incomingScaleY = S15HEMTransformScaleY(transform);
-        if (fabs(incomingScaleX - 1.0) < 0.03 || fabs(incomingScaleY - 1.0) < 0.03) {
-            S15HEMAppendTransitionProbe(@"SBIconImageView.setTransform",
-                                        selfView,
-                                        [NSString stringWithFormat:@"incoming={%.3f,%.3f} outgoing={%.3f,%.3f}",
-                                         incomingScaleX, incomingScaleY,
-                                         S15HEMTransformScaleX(S15HEMManagedTransformForIncomingTransform(transform)),
-                                         S15HEMTransformScaleY(S15HEMManagedTransformForIncomingTransform(transform))]);
-        }
         transform = S15HEMManagedTransformForIncomingTransform(transform);
     }
 
@@ -3283,16 +3041,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
     %orig;
     if (!S15HEMIsSpringBoard()) return;
     UIView *selfView = (UIView *)self;
-    if (!sS15HEMLoggedImageLayoutSample) {
-        sS15HEMLoggedImageLayoutSample = YES;
-        S15HEMAppendTransitionProbe(@"SBIconImageView.layoutSubviews.sample",
-                                    selfView,
-                                    [NSString stringWithFormat:@"transform={%.3f,%.3f,%.3f,%.3f}",
-                                     selfView.transform.a,
-                                     selfView.transform.b,
-                                     selfView.transform.c,
-                                     selfView.transform.d]);
-    }
     if (S15HEMShouldProcessContentView(selfView)) {
         CGFloat scale = S15HEMCurrentIconScale();
         objc_setAssociatedObject(selfView, kS15HEMApplyingManagedTransformKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -3330,13 +3078,6 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
     UIView *selfView = (UIView *)self;
     BOOL applyingManagedAlpha = [objc_getAssociatedObject(selfView, kS15HEMApplyingManagedAlphaKey) boolValue];
     if (!applyingManagedAlpha && S15HEMShouldForceHiddenForLabelView(selfView)) {
-        if (alpha > 0.01) {
-            S15HEMAppendTransitionProbe(@"labelView.setAlpha",
-                                        selfView,
-                                        [NSString stringWithFormat:@"incoming=%.3f forced=0.000 class=%@",
-                                         alpha,
-                                         NSStringFromClass(selfView.class)]);
-        }
         alpha = 0.0;
     }
 
@@ -3390,18 +3131,8 @@ static CGRect S15HEMExpandedEditingWidgetHitFrame(UIButton *button) {
 - (void)applicationDidFinishLaunching:(id)application {
     %orig;
     S15HEMInstallSystemAppearanceObserver();
-    S15HEMLogIOS15CompatibilityProbe(nil);
-    S15HEMAppendTransitionProbeMessage(@"SpringBoard.launch",
-                                       [NSString stringWithFormat:@"bundle=%@ mode=%ld scale=%.2f",
-                                        NSBundle.mainBundle.bundleIdentifier ?: @"(nil)",
-                                        (long)S15HEMIconSizePreference(),
-                                        S15HEMCurrentIconScale()]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        S15HEMLogVisibleIconHierarchySample();
         S15HEMApplyAllCurrentSettings();
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        S15HEMLogVisibleIconHierarchySample();
     });
 }
 
