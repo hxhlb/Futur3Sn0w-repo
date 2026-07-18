@@ -10,13 +10,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Backports the iOS 18 Home Screen customize experience — icon size control, appearance modes, and wallpaper dimming — to iOS 16.",
+          "title": "Backports the iOS 18 Home Screen customize experience — icon size control, appearance modes, wallpaper dimming, and the edit menu — to iOS 15, 16, and 17.",
           "useBoldText": false,
           "useBottomMargin": true
         },
         {
           "class": "DepictionMarkdownTextView",
-          "markdown": "Backports the iOS 18 Home Screen customize experience — icon size control, appearance modes, and wallpaper dimming — to iOS 16.",
+          "markdown": "Backports the iOS 18 Home Screen customize experience — icon size control, appearance modes, wallpaper dimming, and the edit menu — to iOS 15, 16, and 17.",
           "useSpacing": true
         },
         {
@@ -34,12 +34,12 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "0.0.1"
+          "text": "0.1.0-15probe2"
         },
         {
           "class": "DepictionTableTextView",
           "title": "Requires",
-          "text": "iOS 16.0+"
+          "text": "iOS 15.0+"
         },
         {
           "class": "DepictionTableTextView",
@@ -61,6 +61,30 @@
       "tabname": "Changelog",
       "class": "DepictionStackView",
       "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Version 0.1.0-15probe2",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "• Adds iOS 15 compatibility probes and lowers the package requirement to iOS 15.0+",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "• Improves the Home Screen edit menu presentation, including iPad sheet handling",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionMarkdownTextView",
+          "markdown": "• Keeps the custom Edit label synchronized with SpringBoard visibility changes",
+          "useSpacing": false
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
         {
           "class": "DepictionSubheaderView",
           "title": "Version 0.0.1",

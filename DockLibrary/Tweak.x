@@ -116,7 +116,8 @@ static UIScrollView *DLFindScrollView(UIView *root, NSInteger maxDepth) {
 static UIViewController *DLFindLibraryChildVC(UIViewController *root, NSInteger maxDepth) {
 	if (!root || maxDepth < 0) return nil;
 	for (UIViewController *child in root.childViewControllers) {
-		if ([NSStringFromClass([child class]) isEqualToString:@"SBHLibraryViewController"]) return child;
+		NSString *cls = NSStringFromClass([child class]);
+		if ([cls isEqualToString:@"SBLibraryViewController"] || [cls isEqualToString:@"SBHLibraryViewController"]) return child;
 		UIViewController *found = DLFindLibraryChildVC(child, maxDepth - 1);
 		if (found) return found;
 	}
@@ -129,6 +130,28 @@ static CGFloat DLClamp(CGFloat x, CGFloat lo, CGFloat hi) {
 
 static CGFloat DLLerp(CGFloat a, CGFloat b, CGFloat t) {
 	return a + (b - a) * t;
+}
+
+static UIViewController *DLCreateLibraryViewController(id iconManager) {
+	for (NSString *className in @[@"SBLibraryViewController", @"SBHLibraryViewController"]) {
+		Class cls = objc_getClass(className.UTF8String);
+		if (!cls) continue;
+		SEL initSel = @selector(initWithIconManager:);
+		if (![cls instancesRespondToSelector:initSel]) continue;
+		@try {
+			UIViewController *vc = ((id (*)(id, SEL, id))objc_msgSend)([cls alloc], initSel, iconManager);
+			if (vc) return vc;
+		} @catch (__unused NSException *e) {}
+	}
+	return nil;
+}
+
+static BOOL DLShouldCloseForLibraryLaunchIcon(id icon) {
+	NSString *cls = icon ? NSStringFromClass([icon class]) : @"";
+	if ([cls rangeOfString:@"AdditionalItemsIndicator"].location != NSNotFound) {
+		return NO;
+	}
+	return YES;
 }
 
 // Companion tweak detection: if DockFull (which squares off the dock's own
@@ -371,13 +394,21 @@ static BOOL DLDockFullInstalled(void) {
 	self.presentedOverlay = NO;
 	self.reparentedPageVC = NO;
 
-	// 1. iOS 16: the per-window-scene library view controller (backs the trailing page).
+	// 1. Prefer an independent library VC. Borrowing SpringBoard's real
+	// trailing-page controller works for top-level display, but category pods
+	// can immediately collapse after their open animation because the borrowed
+	// controller is still coupled to the home screen overlay/page machinery.
+	vc = DLCreateLibraryViewController([ic iconManager]);
+
+	// 2. iOS 16 fallback: the per-window-scene library view controller (backs
+	// the trailing page). This is functional enough as a last resort, but should
+	// not be the default when a standalone VC can be created.
 	UIWindowScene *scene = self.window.windowScene;
 	if (scene && [ic respondsToSelector:@selector(_libraryViewControllerForWindowScene:)]) {
 		@try {
-			vc = [ic _libraryViewControllerForWindowScene:scene];
+			if (!vc) vc = [ic _libraryViewControllerForWindowScene:scene];
 		} @catch (__unused NSException *e) {
-			vc = nil;
+			if (!vc) vc = nil;
 		}
 	}
 	if (!vc && [ic respondsToSelector:@selector(_libraryViewControllers)]) {
@@ -396,25 +427,13 @@ static BOOL DLDockFullInstalled(void) {
 	}
 	if (vc) self.reparentedPageVC = YES;
 
-	// 2. An overlay VC that already exists (e.g. left over from a previous session).
+	// 3. An overlay VC that already exists (e.g. left over from a previous session).
 	if (!vc) {
 		@try {
 			if ([ic respondsToSelector:@selector(overlayLibraryViewController)]) {
 				vc = [(id)ic valueForKey:@"overlayLibraryViewController"];
 			}
 		} @catch (__unused NSException *e) {}
-	}
-
-	// 3. Create our own instance if a friendly initializer exists.
-	if (!vc) {
-		Class libCls = objc_getClass("SBHLibraryViewController");
-		if (libCls && [libCls instancesRespondToSelector:@selector(initWithIconManager:)]) {
-			@try {
-				vc = ((id (*)(id, SEL, id))objc_msgSend)([libCls alloc], @selector(initWithIconManager:), [ic iconManager]);
-			} @catch (__unused NSException *e) {
-				vc = nil;
-			}
-		}
 	}
 
 	// 4. Ask SpringBoard to build the overlay VC, then take its view over.
@@ -450,6 +469,7 @@ static BOOL DLDockFullInstalled(void) {
 	self.libViewOriginalSuperview = v.superview;
 	self.libViewOriginalFrame = v.frame;
 	self.libVCOriginalParent = vc.parentViewController;
+	self.reparentedPageVC = (v.superview != nil || vc.parentViewController != nil);
 	@try {
 		// Proper containment: detach the VC from its parent while we borrow the
 		// view, otherwise UIKit throws UIViewControllerHierarchyInconsistency
@@ -979,7 +999,7 @@ static void DLWriteDump(void) {
 - (void)_notifyObserversOfAppLaunchOfIcon:(id)icon fromLocation:(id)location {
 	%orig;
 	DLController *ctl = [DLController sharedController];
-	if (dlEnabled && dlCloseOnLaunch && ctl.active) {
+	if (dlEnabled && dlCloseOnLaunch && ctl.active && DLShouldCloseForLibraryLaunchIcon(icon)) {
 		// Give the launch transition time to cover the screen, then drop the
 		// panel silently behind the app.
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
