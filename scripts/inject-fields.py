@@ -11,29 +11,52 @@ import sys, os
 ROOT         = sys.argv[1]
 PACKAGES     = sys.argv[2] if len(sys.argv) > 2 else "Packages"
 
-# ── Build map: bundle_id → {Icon, SileoDepiction} from source control files ──
+PACKAGE_SOURCES = os.environ.get(
+    "MOARTWEAKS_PACKAGE_SOURCES",
+    os.path.join(ROOT, "repo", "package-sources.tsv"),
+)
+
+# ── Build map: bundle_id → {Icon, SileoDepiction} from the package manifest ──
 extras = {}
-for dirpath, dirs, files in os.walk(ROOT):
-    # Skip worktrees, .git, .theos, packages dirs
-    dirs[:] = [d for d in dirs if d not in {'.git', '.theos', 'packages'}
-               and not d.endswith('-worktree') and '.gh-pages' not in d]
-    if 'control' not in files:
-        continue
-    ctrl = os.path.join(dirpath, 'control')
-    pkg_id = icon = depiction = None
-    with open(ctrl, errors='replace') as f:
+
+if os.path.exists(PACKAGE_SOURCES):
+    with open(PACKAGE_SOURCES, errors="replace") as f:
+        header = f.readline().rstrip("\n").split("\t")
+        columns = {name: idx for idx, name in enumerate(header)}
         for line in f:
-            line = line.rstrip()
-            if line.startswith('Package:'):
-                pkg_id = line.split(':', 1)[1].strip()
-            elif line.startswith('Icon:'):
-                icon = line
-            elif line.startswith('SileoDepiction:'):
-                depiction = line
-    if pkg_id and (icon or depiction):
-        extras[pkg_id] = {}
-        if icon:       extras[pkg_id]['Icon']            = icon
-        if depiction:  extras[pkg_id]['SileoDepiction']  = depiction
+            if not line.strip() or line.startswith("#"):
+                continue
+            row = line.rstrip("\n").split("\t")
+            pkg_id = row[columns["Package"]].strip() if "Package" in columns and len(row) > columns["Package"] else None
+            icon = row[columns["Icon"]].strip() if "Icon" in columns and len(row) > columns["Icon"] else None
+            depiction = row[columns["SileoDepiction"]].strip() if "SileoDepiction" in columns and len(row) > columns["SileoDepiction"] else None
+            if pkg_id and (icon or depiction):
+                extras[pkg_id] = {}
+                if icon:      extras[pkg_id]["Icon"]           = f"Icon: {icon}"
+                if depiction: extras[pkg_id]["SileoDepiction"] = f"SileoDepiction: {depiction}"
+else:
+    # Fallback for old monorepo checkouts.
+    for dirpath, dirs, files in os.walk(ROOT):
+        # Skip worktrees, .git, .theos, packages dirs
+        dirs[:] = [d for d in dirs if d not in {'.git', '.theos', 'packages'}
+                   and not d.endswith('-worktree') and '.gh-pages' not in d]
+        if 'control' not in files:
+            continue
+        ctrl = os.path.join(dirpath, 'control')
+        pkg_id = icon = depiction = None
+        with open(ctrl, errors='replace') as f:
+            for line in f:
+                line = line.rstrip()
+                if line.startswith('Package:'):
+                    pkg_id = line.split(':', 1)[1].strip()
+                elif line.startswith('Icon:'):
+                    icon = line
+                elif line.startswith('SileoDepiction:'):
+                    depiction = line
+        if pkg_id and (icon or depiction):
+            extras[pkg_id] = {}
+            if icon:       extras[pkg_id]['Icon']            = icon
+            if depiction:  extras[pkg_id]['SileoDepiction']  = depiction
 
 print(f"Found extra fields for {len(extras)} packages", file=sys.stderr)
 

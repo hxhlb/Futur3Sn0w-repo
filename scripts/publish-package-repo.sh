@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 BRANCH="${PAGES_BRANCH:-gh-pages}"
 WORKTREE="${PAGES_WORKTREE:-$ROOT/.gh-pages-worktree}"
+PACKAGE_SOURCES="${MOARTWEAKS_PACKAGE_SOURCES:-$ROOT/repo/package-sources.tsv}"
+DEB_SEARCH_ROOTS="${MOARTWEAKS_DEB_SEARCH_ROOTS:-$ROOT}"
 ARCHITECTURES=(iphoneos-arm iphoneos-arm64 iphoneos-arm64e)
 
 file_size() {
@@ -153,33 +155,45 @@ candidate_debs_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-candidate-debs.XXXXXX"
 selected_debs_file="$(mktemp "${TMPDIR:-/tmp}/moartweaks-selected-debs.XXXXXX")"
 trap 'rm -f "$current_packages_file" "$candidate_debs_file" "$selected_debs_file"' EXIT
 
-while IFS= read -r control_file; do
-  awk -F': ' '$1 == "Package" { print $2; exit }' "$ROOT/$control_file"
-done < <(git -C "$ROOT" ls-files '*control' | awk -F/ '$NF == "control"') | sort -u > "$current_packages_file"
+if [ -f "$PACKAGE_SOURCES" ]; then
+  awk -F '\t' '
+    NR == 1 && $1 == "Package" { next }
+    $1 != "" && $1 !~ /^#/ { print $1 }
+  ' "$PACKAGE_SOURCES" | sort -u > "$current_packages_file"
+else
+  while IFS= read -r control_file; do
+    awk -F': ' '$1 == "Package" { print $2; exit }' "$ROOT/$control_file"
+  done < <(git -C "$ROOT" ls-files '*control' | awk -F/ '$NF == "control"') | sort -u > "$current_packages_file"
+fi
 
 if [ ! -s "$current_packages_file" ]; then
-  echo "error: no source control files found." >&2
+  echo "error: no package allowlist found." >&2
+  echo "Create $PACKAGE_SOURCES or keep tracked source control files in this repo." >&2
   exit 1
 fi
 
 : > "$candidate_debs_file"
-while IFS= read -r deb; do
-  control="$(deb_control "$deb")"
-  package="$(control_field "$control" Package)"
-  architecture="$(control_field "$control" Architecture)"
-  package="${package#Package: }"
-  architecture="${architecture#Architecture: }"
+IFS=':' read -r -a deb_search_roots <<< "$DEB_SEARCH_ROOTS"
+for search_root in "${deb_search_roots[@]}"; do
+  [ -d "$search_root" ] || continue
+  while IFS= read -r deb; do
+    control="$(deb_control "$deb")"
+    package="$(control_field "$control" Package)"
+    architecture="$(control_field "$control" Architecture)"
+    package="${package#Package: }"
+    architecture="${architecture#Architecture: }"
 
-  if grep -Fxq "$package" "$current_packages_file"; then
-    printf '%s\t%s\t%s\t%s\n' "$(file_mtime "$deb")" "$package" "$architecture" "$deb" >> "$candidate_debs_file"
-  fi
-done < <(find "$ROOT" \
-  -path "$WORKTREE" -prune -o \
-  -path '*/packages/*.deb' -type f -print)
+    if grep -Fxq "$package" "$current_packages_file"; then
+      printf '%s\t%s\t%s\t%s\n' "$(file_mtime "$deb")" "$package" "$architecture" "$deb" >> "$candidate_debs_file"
+    fi
+  done < <(find "$search_root" \
+    -path "$WORKTREE" -prune -o \
+    -path '*/packages/*.deb' -type f -print)
+done
 
 if [ ! -s "$candidate_debs_file" ]; then
-  echo "error: no .deb files found under tweak packages/ folders." >&2
-  echo "Build packages first, for example: (cd Solert && make package)." >&2
+  echo "error: no allowed .deb files found under packages/ folders." >&2
+  echo "Build packages first, then include their parent checkout in MOARTWEAKS_DEB_SEARCH_ROOTS if needed." >&2
   exit 1
 fi
 

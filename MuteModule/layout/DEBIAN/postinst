@@ -1,4 +1,0 @@
-#!/bin/sh
-rm -f /var/mobile/Documents/MuteControlToggle.txt
-rm -f /var/mobile/Documents/MuteModule.txt
-exit 0

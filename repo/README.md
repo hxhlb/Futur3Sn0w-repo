@@ -2,7 +2,7 @@
 
 This folder is reserved for GitHub Pages package-repo files.
 
-Later, this can contain generated files such as:
+It contains feed-maintenance metadata such as `package-sources.tsv`. Generated files on `gh-pages` include:
 
 - `Packages`
 - `Packages.gz`
@@ -10,5 +10,4 @@ Later, this can contain generated files such as:
 - built `.deb` packages
 - depictions or screenshots
 
-For now, source lives in the tweak folders at the repository root.
-
+Public source now lives in the MoarTweaks organization.
